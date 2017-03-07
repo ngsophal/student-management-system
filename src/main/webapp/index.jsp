@@ -9,16 +9,13 @@
 </section>
 
 <section class="content">
-
     <%
-        String req = "pages/welcome.html";
+        String req = "pages/welcome.jsp";
         if (request.getParameterMap().containsKey("p")) {
             req = "pages/" + request.getParameter("p");
         }
     %>
-
-    <jsp:include page="<%= req %>" flush="true" />
-
+    <jsp:include page="<%= req %>" />
 
 </section>
 <%@ include file="template/footer.jsp" %>
