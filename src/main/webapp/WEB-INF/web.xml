@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"     >
-     
-     
-     <!-- Configure ContextLoaderListener to use AnnotationConfigWebApplicationContext
-    instead of the default XmlWebApplicationContext -->
+
+
+    <!-- Configure ContextLoaderListener to use AnnotationConfigWebApplicationContext
+   instead of the default XmlWebApplicationContext -->
     <context-param>
         <param-name>contextClass</param-name>
         <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
@@ -26,15 +26,15 @@
         <servlet-name>spring-dispatcher</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
-     
+
     <session-config>
-    <!-- 15mintue  default value is 30min -->
-    <session-timeout>30</session-timeout>
-  </session-config>
-  
+        <!-- 15mintue  default value is 30min -->
+        <session-timeout>30</session-timeout>
+    </session-config>
+
     <!-- welcome file -->
-   <welcome-file-list>  
-   <welcome-file>index.jsp</welcome-file>  
-   <welcome-file>index.html</welcome-file>  
-  </welcome-file-list>  
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 </web-app>

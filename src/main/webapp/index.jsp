@@ -10,9 +10,9 @@
 
 <section class="content">
     <%
-        String req = "pages/welcome.jsp";
+        String req = "pages/welcome"+".jsp";
         if (request.getParameterMap().containsKey("p")) {
-            req = "pages/" + request.getParameter("p");
+            req = "pages/" + request.getParameter("p") + ".jsp";
         }
     %>
     <jsp:include page="<%= req %>" />
