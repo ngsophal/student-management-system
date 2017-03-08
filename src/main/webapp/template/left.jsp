@@ -29,6 +29,63 @@
 					<span>Home</span>
 				</a>
 			</li>
+			<li>
+				<a href="index.jsp?p=student">
+					<i class="material-icons">face</i>
+					<span>Students</span>
+				</a>
+			</li>
+			<li>
+				<a href="index.jsp?p=enrollment">
+					<i class="material-icons">directions_walk</i>
+					<span>Enrollment</span>
+				</a>
+			</li>
+			<li>
+				<a href="index.jsp?p=payment">
+					<i class="material-icons">payment</i>
+					<span>Payment</span>
+				</a>
+			</li>
+		
+			<li>
+				<a href="javascript:void(0);" class="menu-toggle">
+					<i class="material-icons">assignment</i>
+					<span>Admin Tools</span>
+				</a>
+                <ul class="ml-menu">
+                    <li>
+                        <a href="index.php?p=grade">Grades</a>
+                    </li>
+                    <li>
+                        <a href="index.php?p=session">Sessions</a>
+                    </li>
+                    <li>
+                        <a href="index.php?p=fee_type">Fee Types</a>
+                    </li>
+                    <li>
+                        <a href="index.php?p=room">Rooms</a>
+                    </li>
+                    <li>
+                        <a href="index.php?p=fee">Fees</a>
+                    </li>
+                    <li>
+                        <a href="index.php?p=course">Courses</a>
+                    </li>
+                    <li>
+                        <a href="index.php?p=course_room">Course Rooms</a>
+                    </li>
+                    <li>
+                        <a href="index.php?p=user">Users</a>
+                    </li>
+                </ul>
+			</li>
+			<li>
+				<a href="index.jsp?p=report">
+					<i class="material-icons">insert_chart</i>
+					<span>Reports</span>
+				</a>
+			</li>
 		</ul>
 	</div>
 	<!-- #Menu -->
