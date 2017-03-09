@@ -55,28 +55,28 @@
 				</a>
                 <ul class="ml-menu">
                     <li>
-                        <a href="index.php?p=grade">Grades</a>
+                        <a href="index.jsp?p=grade">Grades</a>
                     </li>
                     <li>
-                        <a href="index.php?p=session">Sessions</a>
+                        <a href="index.jsp?p=session">Sessions</a>
                     </li>
                     <li>
-                        <a href="index.php?p=fee_type">Fee Types</a>
+                        <a href="index.jsp?p=fee_type">Fee Types</a>
                     </li>
                     <li>
-                        <a href="index.php?p=room">Rooms</a>
+                        <a href="index.jsp?p=room">Rooms</a>
                     </li>
                     <li>
-                        <a href="index.php?p=fee">Fees</a>
+                        <a href="index.jsp?p=fee">Fees</a>
                     </li>
                     <li>
-                        <a href="index.php?p=course">Courses</a>
+                        <a href="index.jsp?p=course">Courses</a>
                     </li>
                     <li>
-                        <a href="index.php?p=course_room">Course Rooms</a>
+                        <a href="index.jsp?p=course_room">Course Rooms</a>
                     </li>
                     <li>
-                        <a href="index.php?p=user">Users</a>
+                        <a href="index.jsp?p=user">Users</a>
                     </li>
                 </ul>
 			</li>
