@@ -1,16 +1,16 @@
 <div class="container-fluid">
 	<div class="block-header">
 		<h2>
-			FORM VALIDATION <small>Taken from <a
-				href="https://jqueryvalidation.org/" target="_blank">jqueryvalidation.org</a></small>
+			Enrollment
 		</h2>
 	</div>
 	<!-- Basic Validation -->
+	
 	<div class="row clearfix">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 			<div class="card">
 				<div class="header">
-					<h2>BASIC VALIDATION</h2>
+					<h2>Enrollment</h2>
 					<ul class="header-dropdown m-r--5">
 						<li class="dropdown"><a href="javascript:void(0);"
 							class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -21,56 +21,108 @@
 								<li><a href="javascript:void(0);">Action</a></li>
 								<li><a href="javascript:void(0);">Another action</a></li>
 								<li><a href="javascript:void(0);">Something else here</a></li>
-							</ul></li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 				<div class="body">
 					<form id="form_validation" method="POST">
-						<div class="form-group form-float">
+						<label for="student-id">Student</label>
+						<div class="form-group ">
 							<div class="form-line">
-								<input type="text" class="form-control" name="name" required>
-								<label class="form-label">Name</label>
+								<select class="form-control show-tick" data-live-search="true" id="student-id">
+                                        <option>0001 - Sopheak Hang - Male - 07-Jul-2012</option>
+								</select>								
 							</div>
 						</div>
-						<div class="form-group form-float">
-							<div class="form-line">
-								<input type="text" class="form-control" name="surname" required>
-								<label class="form-label">Surname</label>
-							</div>
-						</div>
-						<div class="form-group form-float">
-							<div class="form-line">
-								<input type="email" class="form-control" name="email" required>
-								<label class="form-label">Email</label>
-							</div>
-						</div>
+						<label for="course">Course</label>
 						<div class="form-group">
-							<input type="radio" name="gender" id="male" class="with-gap">
-							<label for="male">Male</label> <input type="radio" name="gender"
-								id="female" class="with-gap"> <label for="female"
-								class="m-l-20">Female</label>
-						</div>
-						<div class="form-group form-float">
 							<div class="form-line">
-								<textarea name="description" cols="30" rows="5"
-									class="form-control no-resize" required></textarea>
-								<label class="form-label">Description</label>
+								<select class="form-control show-tick" data-live-search="true">
+                                    <option value="1">Grade A - Evening</option>
+								</select>
 							</div>
 						</div>
+						<label for="room">Room</label>
 						<div class="form-group form-float">
 							<div class="form-line">
-								<input type="password" class="form-control" name="password"
-									required> <label class="form-label">Password</label>
+								<select class="form-control show-tick" data-live-search="true" id="room">
+                                        <option>A</option>
+								</select>
 							</div>
 						</div>
+						<label for="enrollment-date">Enrollment Date</label>
 						<div class="form-group">
-							<input type="checkbox" id="checkbox" name="checkbox"> <label
-								for="checkbox">I have read and accept the terms</label>
+							<div class="form-line">
+								 <input type="text" class="datepicker form-control" name="enrollment_date" id="enrollment-date" >								
+							</div>
 						</div>
+						
 						<button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+						
+						<button class="btn btn-primary waves-effect" type="submit">SUBMIT & PAY</button>
+						
 					</form>
 				</div>
 			</div>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+			<div class="card">
+                   <div class="header bg-red">
+                       <h2>
+                          Student Information
+                       </h2>
+                       <ul class="header-dropdown m-r--5">
+                           <li class="dropdown">
+                               <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                   <i class="material-icons">more_vert</i>
+                               </a>
+                               <ul class="dropdown-menu pull-right">
+                                   <li><a href="javascript:void(0);">Action</a></li>
+                                   <li><a href="javascript:void(0);">Another action</a></li>
+                                   <li><a href="javascript:void(0);">Something else here</a></li>
+                               </ul>
+                           </li>
+                       </ul>
+                   </div>
+                   <div class="body">
+                   		<div class="row">
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>First name:</label></div>
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Sopheak</div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Last name:</label></div>
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Hang</div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Sex:</label></div>
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                   				Male
+                   			</div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Date of Birth:</label></div>
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">07-July-2012</div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Address:</label></div>
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">#434C, St 22BT, Boeng Tumpon, Mean Chey, Phnom Penh</div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Contact Person Name:</label></div>
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Heng Nary</div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Contact Person Relationship:</label></div>
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Mother</div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Contact Person Phone Number:</label></div>
+                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">012121212</div>
+                   		</div>
+                   </div>
+			</div>
+			
 		</div>
 	</div>
 	<!-- #END# Basic Validation -->
@@ -80,7 +132,7 @@
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div class="card">
 				<div class="header">
-					<h2>BASIC EXAMPLE</h2>
+					<h2>Enrollment List</h2>
 					<ul class="header-dropdown m-r--5">
 						<li class="dropdown"><a href="javascript:void(0);"
 							class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -99,208 +151,31 @@
 						class="table table-bordered table-striped table-hover js-basic-example dataTable">
 						<thead>
 							<tr>
-								<th>Name</th>
-								<th>Position</th>
-								<th>Office</th>
-								<th>Age</th>
-								<th>Start date</th>
-								<th>Salary</th>
+								<th>N</th>
+								<th>Student Name</th>
+								<th>Sex</th>
+								<th>DOB</th>
+								<th>Course</th>
+								<th>Room</th>
+								<th>Enrollment Date</th>
+								<th>Action</th>
 							</tr>
 						</thead>
-						<tfoot>
-							<tr>
-								<th>Name</th>
-								<th>Position</th>
-								<th>Office</th>
-								<th>Age</th>
-								<th>Start date</th>
-								<th>Salary</th>
-							</tr>
-						</tfoot>
+						
 						<tbody>
 							<tr>
-								<td>Tiger Nixon</td>
-								<td>System Architect</td>
-								<td>Edinburgh</td>
-								<td>61</td>
-								<td>2011/04/25</td>
-								<td>$320,800</td>
-							</tr>
-							<tr>
-								<td>Garrett Winters</td>
-								<td>Accountant</td>
-								<td>Tokyo</td>
-								<td>63</td>
-								<td>2011/07/25</td>
-								<td>$170,750</td>
-							</tr>
-							<tr>
-								<td>Ashton Cox</td>
-								<td>Junior Technical Author</td>
-								<td>San Francisco</td>
-								<td>66</td>
-								<td>2009/01/12</td>
-								<td>$86,000</td>
-							</tr>
-							<tr>
-								<td>Cedric Kelly</td>
-								<td>Senior Javascript Developer</td>
-								<td>Edinburgh</td>
-								<td>22</td>
-								<td>2012/03/29</td>
-								<td>$433,060</td>
-							</tr>
-							<tr>
-								<td>Airi Satou</td>
-								<td>Accountant</td>
-								<td>Tokyo</td>
-								<td>33</td>
-								<td>2008/11/28</td>
-								<td>$162,700</td>
-							</tr>
-							<tr>
-								<td>Brielle Williamson</td>
-								<td>Integration Specialist</td>
-								<td>New York</td>
-								<td>61</td>
-								<td>2012/12/02</td>
-								<td>$372,000</td>
-							</tr>
-							<tr>
-								<td>Herrod Chandler</td>
-								<td>Sales Assistant</td>
-								<td>San Francisco</td>
-								<td>59</td>
-								<td>2012/08/06</td>
-								<td>$137,500</td>
-							</tr>
-							<tr>
-								<td>Rhona Davidson</td>
-								<td>Integration Specialist</td>
-								<td>Tokyo</td>
-								<td>55</td>
-								<td>2010/10/14</td>
-								<td>$327,900</td>
-							</tr>
-							<tr>
-								<td>Brielle Williamson</td>
-								<td>Integration Specialist</td>
-								<td>New York</td>
-								<td>61</td>
-								<td>2012/12/02</td>
-								<td>$372,000</td>
-							</tr>
-							<tr>
-								<td>Herrod Chandler</td>
-								<td>Sales Assistant</td>
-								<td>San Francisco</td>
-								<td>59</td>
-								<td>2012/08/06</td>
-								<td>$137,500</td>
-							</tr>
-							<tr>
-								<td>Rhona Davidson</td>
-								<td>Integration Specialist</td>
-								<td>Tokyo</td>
-								<td>55</td>
-								<td>2010/10/14</td>
-								<td>$327,900</td>
-							</tr>
-							<tr>
-								<td>Brielle Williamson</td>
-								<td>Integration Specialist</td>
-								<td>New York</td>
-								<td>61</td>
-								<td>2012/12/02</td>
-								<td>$372,000</td>
-							</tr>
-							<tr>
-								<td>Herrod Chandler</td>
-								<td>Sales Assistant</td>
-								<td>San Francisco</td>
-								<td>59</td>
-								<td>2012/08/06</td>
-								<td>$137,500</td>
-							</tr>
-							<tr>
-								<td>Rhona Davidson</td>
-								<td>Integration Specialist</td>
-								<td>Tokyo</td>
-								<td>55</td>
-								<td>2010/10/14</td>
-								<td>$327,900</td>
-							</tr>
-							<tr>
-								<td>Brielle Williamson</td>
-								<td>Integration Specialist</td>
-								<td>New York</td>
-								<td>61</td>
-								<td>2012/12/02</td>
-								<td>$372,000</td>
-							</tr>
-							<tr>
-								<td>Herrod Chandler</td>
-								<td>Sales Assistant</td>
-								<td>San Francisco</td>
-								<td>59</td>
-								<td>2012/08/06</td>
-								<td>$137,500</td>
-							</tr>
-							<tr>
-								<td>Rhona Davidson</td>
-								<td>Integration Specialist</td>
-								<td>Tokyo</td>
-								<td>55</td>
-								<td>2010/10/14</td>
-								<td>$327,900</td>
-							</tr>
-							<tr>
-								<td>Brielle Williamson</td>
-								<td>Integration Specialist</td>
-								<td>New York</td>
-								<td>61</td>
-								<td>2012/12/02</td>
-								<td>$372,000</td>
-							</tr>
-							<tr>
-								<td>Herrod Chandler</td>
-								<td>Sales Assistant</td>
-								<td>San Francisco</td>
-								<td>59</td>
-								<td>2012/08/06</td>
-								<td>$137,500</td>
-							</tr>
-							<tr>
-								<td>Rhona Davidson</td>
-								<td>Integration Specialist</td>
-								<td>Tokyo</td>
-								<td>55</td>
-								<td>2010/10/14</td>
-								<td>$327,900</td>
-							</tr>
-							<tr>
-								<td>Brielle Williamson</td>
-								<td>Integration Specialist</td>
-								<td>New York</td>
-								<td>61</td>
-								<td>2012/12/02</td>
-								<td>$372,000</td>
-							</tr>
-							<tr>
-								<td>Herrod Chandler</td>
-								<td>Sales Assistant</td>
-								<td>San Francisco</td>
-								<td>59</td>
-								<td>2012/08/06</td>
-								<td>$137,500</td>
-							</tr>
-							<tr>
-								<td>Rhona Davidson</td>
-								<td>Integration Specialist</td>
-								<td>Tokyo</td>
-								<td>55</td>
-								<td>2010/10/14</td>
-								<td>$327,900</td>
+								<td>1</td>
+								<td>Dara Chea</td>
+								<td>Male</td>
+								<td>02-Jan-2011</td>
+								<td>Grade A - Evening</td>
+								<td>A</td>
+								<td>01-March-2017</td>
+								<td>
+									<button type="button" class="btn btn-warning waves-effect">Edit</button>
+									<button type="button" class="btn btn-danger waves-effect">Delete</button>
+									<button type="button" class="btn btn-success waves-effect">Pay</button>
+								</td>
 							</tr>
 							
 			
