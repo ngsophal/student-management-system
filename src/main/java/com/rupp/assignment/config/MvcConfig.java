@@ -2,51 +2,65 @@ package com.rupp.assignment.config;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Properties;
 
-import javax.sql.DataSource;
-
-import org.apache.commons.dbcp2.BasicDataSourceFactory;
-import org.springframework.context.annotation.Bean;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-@EnableWebMvc //mvc:annotation-driven
+@EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"com.rupp.hangsopheak.controller", "com.rupp.hangsopheak.service", "com.rupp.hangsopheak.dao"})
-@PropertySource(name = "application", value = { "classpath:/application.properties" }) //import properties file
+@ComponentScan(basePackages = "com.rupp.assignment")
+@EnableTransactionManagement
+@ImportResource(value = {"classpath:/persistence-db.xml"})
+@MapperScan("com.rupp.assignment.dao")
+@PropertySource(name="application",value={"classpath:/application.properties"})
+@Lazy
 public class MvcConfig extends WebMvcConfigurerAdapter {
+
     
+    // -------------- Services -----------------------
+
+    // -------------- Message Converters ----------------------
+
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        /**convert message json and date format*/
         SkipNullObjectMapper skipNullMapper = new SkipNullObjectMapper();
         skipNullMapper.init();
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setObjectMapper(skipNullMapper);
         
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
         skipNullMapper.setDateFormat(formatter);
         
         converters.add(converter);
     }
     
-    /**create database source bean*/
-    @Bean
-    public DataSource dataSource() {
-        final String propsFile = "db.properties";
-        final Properties props = new Properties();
-        try {
-            props.load(Thread.currentThread().getContextClassLoader().getResource(propsFile).openStream());
-            return BasicDataSourceFactory.createDataSource(props);
-        } catch (Exception e) {
-            System.out.println("Error :" + e.getMessage());
-        }
-        return null;
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**")
+            .allowedOrigins("http://domain2.com") // put * for all
+            .allowedMethods("PUT", "DELETE")
+            .allowedHeaders("header1", "header2", "header3") //Content-Language , put * for all
+            .exposedHeaders("header1", "header2")
+            .allowCredentials(false).maxAge(3600);
     }
+    
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+   
+    
 }

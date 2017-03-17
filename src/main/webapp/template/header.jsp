@@ -40,6 +40,31 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="css/themes/all-themes.css" rel="stylesheet" />
+    
+    <script src="plugins/jquery/jquery.min.js"></script>
+	<script src="plugins/bootstrap/js/bootstrap.js"></script>
+	<script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
+	<script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<script src="plugins/node-waves/waves.js"></script>
+	<script src="plugins/jquery-datatable/jquery.dataTables.js"></script>
+	<script src="plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+	<script src="plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+	<script src="js/pages/tables/jquery-datatable.js"></script>
+	<script src="js/admin.js"></script>
+	<script src="plugins/momentjs/moment.js"></script>
+	<script src="plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+	<script src="js/demo.js"></script>
+	
+	<script type="text/javascript">
+		$(function(){
+			$('.datepicker').bootstrapMaterialDatePicker({
+		        format: 'dddd DD MMMM YYYY',
+		        clearButton: true,
+		        weekStart: 1,
+		        time: false
+			});
+		});
+	</script>
 </head>
 
 <body class="theme-red">
