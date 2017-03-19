@@ -13,7 +13,6 @@ public interface Dao <T extends Object>{
         
     void update(T domain);
     
-   //Select("select * from category")
     List<T> getAll();
     
     void remove(@Param("id") int id);

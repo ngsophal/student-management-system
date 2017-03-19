@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rupp.assignment.dao.SessionDao">
+<mapper namespace="com.rupp.assignment.dao.RoomDao">
 	
-	<resultMap type='com.rupp.assignment.json.JSession' id='SessionResult'>
+	<resultMap type='com.rupp.assignment.json.JRoom' id='RoomResult'>
 
 		<id property='id' column='id' />
 		<result property='name' column='name' />
@@ -20,9 +20,9 @@
 	</resultMap>
 	
   <insert id="add"
-        parameterType="com.rupp.assignment.json.JSession"
+        parameterType="com.rupp.assignment.json.JRoom"
         useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO sessions (
+        INSERT INTO rooms (
         	name,
         	created_date,
 			created_by,
@@ -37,8 +37,8 @@
     </insert>
 
    <update id="update"
-        parameterType="com.rupp.assignment.json.JSession">
-        UPDATE sessions
+        parameterType="com.rupp.assignment.json.JRoom">
+        UPDATE rooms
         SET 
            name = #{name},
            modified_date = #{modifiedDate},
@@ -49,7 +49,7 @@
 
  	<update id="remove"
         parameterType="int">
-        UPDATE sessions
+        UPDATE rooms
         SET 
            modified_date = #{modifiedDate},
            modified_by = #{modifiedBy},
@@ -58,26 +58,26 @@
     </update>
     
 
-    <select id="findById" parameterType="int"
-        resultType="com.rupp.assignment.json.JSession">
+    <select id="findById" parameterType="int" resultMap="RoomResult"
+        resultType="com.rupp.assignment.json.JRoom">
         SELECT *
-        FROM sessions
+        FROM rooms
         WHERE id = #{id}
     </select>
     
-   <select id='getAll' parameterType="map" resultMap="SessionResult" >
+   <select id='getAll' parameterType="map" resultMap="RoomResult" >
         SELECT *
-        FROM sessions
+        FROM rooms
     </select>
     
-    <select id="getPage" parameterType="map" resultMap="SessionResult">
+    <select id="getPage" parameterType="map" resultMap="RoomResult">
         SELECT *
-        FROM sessions
+        FROM rooms
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
     <select id="count" resultType="int">
         SELECT COUNT(*) 
-        FROM sessions 
+        FROM rooms 
     </select>
 </mapper>

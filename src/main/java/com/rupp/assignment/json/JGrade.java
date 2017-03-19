@@ -1,6 +1,6 @@
 package com.rupp.assignment.json;
 
-public class JSession extends JCommon {
+public class JGrade extends JCommon {
 
     private String name;
  

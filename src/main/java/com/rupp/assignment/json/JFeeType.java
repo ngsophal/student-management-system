@@ -1,6 +1,6 @@
 package com.rupp.assignment.json;
 
-public class JSession extends JCommon {
+public class JFeeType extends JCommon {
 
     private String name;
  
