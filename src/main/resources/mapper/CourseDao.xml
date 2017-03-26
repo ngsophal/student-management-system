@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rupp.assignment.dao.CourseDao">
+	
+	<resultMap type='com.rupp.assignment.json.JCourse' id='JCourseResult'>
+
+		<id property='id' column='id' />
+		<result property='startDate' column='start_date' />
+		<result property='endDate' column='end_date' />
+		<result property='createdDate' column='created_date' />
+		<result property='modifiedDate' column='modified_date' />
+		<result property="status" column="status" />
+		<association property="createdBy"
+                 column="created_by"
+                 javaType="com.rupp.assignment.json.JUser"
+                 select="com.rupp.assignment.dao.UserDao.findById"/>
+		<association property="modifiedBy"
+                 column="modified_by"
+                 javaType="com.rupp.assignment.json.JUser"
+                 select="com.rupp.assignment.dao.UserDao.findById"/>
+        <association property="gradeId"
+                     column="grade_id"
+                     javaType="com.rupp.assignment.json.JGrade"
+                     select="com.rupp.assignment.dao.GradeDao.findById"/>
+        <association property="sessionId"
+                     column="session_id"
+                     javaType="com.rupp.assignment.json.JSession"
+                     select="com.rupp.assignment.dao.SessionDao.findById"/>
+	</resultMap>
+	
+  <insert id="add"
+        parameterType="com.rupp.assignment.json.JCourse"
+        useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO fee_types (
+        	grade_id,
+        	session_id,
+        	start_date,
+        	end_date,
+        	created_date,
+			created_by,
+			status
+        )
+        VALUES (
+         #{gradeId},
+         #{sessionId},
+         #{startDate},
+         #{endDate},
+         #{createdDate},
+         #{createdBy},
+         #{status}
+         )
+    </insert>
+
+   <update id="update"
+        parameterType="com.rupp.assignment.json.JCourse">
+        UPDATE courses
+        SET 
+           grade_id = #{gradeId},
+           session_id = #{sessionId},
+           start_date = #{startDate},
+           end_date = #{endDate},
+           modified_date = #{modifiedDate},
+           modified_by = #{modifiedBy},
+           status = #{status}
+        WHERE id = #{id}
+    </update>
+
+ 	<update id="remove"
+        parameterType="int">
+        UPDATE courses
+        SET 
+           modified_date = #{modifiedDate},
+           modified_by = #{modifiedBy},
+           status = 0
+        WHERE id = #{id}
+    </update>
+    
+
+    <select id="findById" parameterType="int"  resultMap="JCourseResult"
+        resultType="com.rupp.assignment.json.JCourse">
+        SELECT *
+        FROM courses
+        WHERE id = #{id} AND status = 1
+    </select>
+    
+   <select id='getAll' parameterType="map" resultMap="JCourseResult" >
+        SELECT *
+        FROM courses
+        WHERE status = 1
+    </select>
+    
+    <select id="getPage" parameterType="map" resultMap="JCourseResult">
+        SELECT *
+        FROM courses
+        WHERE status = 1
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(*) 
+        FROM courses
+        WHERE status = 1
+    </select>
+</mapper>
