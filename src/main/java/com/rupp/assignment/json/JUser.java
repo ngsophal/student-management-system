@@ -2,11 +2,16 @@ package com.rupp.assignment.json;
 
 import java.sql.Date;
 
+import org.springframework.beans.factory.annotation.Configurable;
+
+@Configurable
 public class JUser extends JCommon  {
     /** Unique id for this Entity in the database */
     private String username;
     private String password;
     private String fullname;
+    
+    
 	public String getUsername() {
 		return username;
 	}

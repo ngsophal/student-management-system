@@ -17,6 +17,7 @@
                  column="modified_by" 
                  javaType="com.rupp.assignment.json.JUser" 
                  select="com.rupp.assignment.dao.UserDao.findById"/>
+                 
 	</resultMap>
 	
   <insert id="add"
@@ -31,7 +32,7 @@
         VALUES (
          #{name},
          #{createdDate},
-         #{createdBy},
+         #{createdById},
          #{status}
          )
     </insert>
@@ -42,17 +43,16 @@
         SET 
            name = #{name},
            modified_date = #{modifiedDate},
-           modified_by = #{modifiedBy},
-           status = #status
+           modified_by = #{modifiedById}
         WHERE id = #{id}
     </update>
 
  	<update id="remove"
-        parameterType="int">
+        parameterType="com.rupp.assignment.json.JGrade">
         UPDATE grades
         SET 
            modified_date = #{modifiedDate},
-           modified_by = #{modifiedBy},
+           modified_by = #{modifiedById},
            status = 0
         WHERE id = #{id}
     </update>
@@ -68,6 +68,7 @@
    <select id='getAll' parameterType="map" resultMap="GradeResult" >
         SELECT *
         FROM grades
+        WHERE status = 1
     </select>
     
     <select id="getPage" parameterType="map" resultMap="GradeResult">
