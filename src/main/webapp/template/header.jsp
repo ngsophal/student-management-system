@@ -29,12 +29,14 @@
     <!-- Morris Chart Css-->
     <link href="plugins/morrisjs/morris.css" rel="stylesheet" />
 
-    <!-- JQuery DataTable Css -->
-    <link href="plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+   	<link href="plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+
 
     <!-- Bootstrap Select Css -->
     <link href="plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
-
+	
+	<link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+	
     <!-- Custom Css -->
     <link href="css/style.css" rel="stylesheet">
 
@@ -46,14 +48,13 @@
 	<script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
 	<script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 	<script src="plugins/node-waves/waves.js"></script>
-	<script src="plugins/jquery-datatable/jquery.dataTables.js"></script>
-	<script src="plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-	<script src="plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-	<script src="js/pages/tables/jquery-datatable.js"></script>
+	<script src="plugins/bootstrap-table/bootstrap-table.js"></script>
 	<script src="js/admin.js"></script>
 	<script src="plugins/momentjs/moment.js"></script>
 	<script src="plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+	<script src="plugins/sweetalert/sweetalert.min.js"></script>
 	<script src="js/demo.js"></script>
+	<script src="js/main.js"></script>
 	
 	<script type="text/javascript">
 		$(function(){

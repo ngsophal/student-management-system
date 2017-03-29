@@ -1,15 +1,30 @@
 package com.rupp.assignment.json;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class JCommon  {
     /** Unique id for this Entity in the database */
     protected int id;
     protected Date createdDate;
     protected JUser createdBy;
+    protected int createdById;
     protected Date modifiedDate;
     protected JUser modifiedBy;
-    protected int status;
+    protected int modifiedById;
+	protected int status = 1;
+    
+    public int getCreatedById() {
+		return createdById;
+	}
+	public void setCreatedById(int createdById) {
+		this.createdById = createdById;
+	}
+	public int getModifiedById() {
+		return modifiedById;
+	}
+	public void setModifiedById(int modifiedById) {
+		this.modifiedById = modifiedById;
+	}
     
 	public int getId() {
 		return id;
