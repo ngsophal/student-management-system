@@ -23,7 +23,7 @@ public interface CourseRoomDao {
 
     List<JCourseRoom> getPage(@Param("limit") int limit, @Param("offset") int offset);
 
-    Integer count();
+    int count();
 
 
 }
