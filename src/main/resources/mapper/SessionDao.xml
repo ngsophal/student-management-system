@@ -58,7 +58,7 @@
     </update>
     
 
-    <select id="findById" parameterType="int"
+    <select id="findById" parameterType="int" resultMap="SessionResult"
         resultType="com.rupp.assignment.json.JSession">
         SELECT *
         FROM sessions

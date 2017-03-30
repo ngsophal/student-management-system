@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rupp.assignment.dao.FeeDao">
+	
+	<resultMap type='com.rupp.assignment.json.JFee' id='JFeeResult'>
+
+		<id property='id' column='id' />
+		<result property='fee' column='fee' />
+		<association property="createdBy"
+                 column="created_by"
+                 javaType="com.rupp.assignment.json.JUser"
+                 select="com.rupp.assignment.dao.UserDao.findById"/>
+		<association property="modifiedBy"
+                 column="modified_by"
+                 javaType="com.rupp.assignment.json.JUser"
+                 select="com.rupp.assignment.dao.UserDao.findById"/>
+        <association property="feeTypeID"
+                     column="fee_type_id"
+                     javaType="com.rupp.assignment.json.JFeeType"
+                     select="com.rupp.assignment.dao.FeeTypeDao.findById"/>
+        <association property="courseID"
+                     column="course_id"
+                     javaType="com.rupp.assignment.json.JCourse"
+                     select="com.rupp.assignment.dao.CourseDao.findById"/>
+	</resultMap>
+	
+  <insert id="add"
+        parameterType="com.rupp.assignment.json.JFee"
+        useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO fees (
+        	fee_type_id,
+        	course_id,
+        	fee,
+        	created_date,
+			created_by,
+			status
+        )
+        VALUES (
+         #{feeTypeID},
+         #{courseID},
+         #{fee},
+         #{createdDate},
+         #{createdBy},
+         #{status}
+         )
+    </insert>
+
+   <update id="update"
+        parameterType="com.rupp.assignment.json.JFee">
+        UPDATE fees
+        SET 
+           fee_type_id = #{feeTypeID},
+           course_id = #{courseID},
+           fee = #{fee},
+           modified_date = #{modifiedDate},
+           modified_by = #{modifiedBy},
+           status = #{status}
+        WHERE id = #{id}
+    </update>
+
+ 	<update id="remove"
+        parameterType="int">
+        UPDATE fees
+        SET 
+           modified_date = #{modifiedDate},
+           modified_by = #{modifiedBy},
+           status = 0
+        WHERE id = #{id}
+    </update>
+    
+
+    <select id="findById" parameterType="int"  resultMap="JFeeResult"
+        resultType="com.rupp.assignment.json.JFee">
+        SELECT *
+        FROM fees
+        WHERE id = #{id} AND status = 1
+    </select>
+    
+   <select id='getAll' parameterType="map" resultMap="JFeeResult" >
+        SELECT *
+        FROM fees
+        WHERE status = 1
+    </select>
+    
+    <select id="getPage" parameterType="map" resultMap="JFeeResult">
+        SELECT *
+        FROM fees
+        WHERE status = 1
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(*) 
+        FROM fees
+        WHERE status = 1
+    </select>
+</mapper>
