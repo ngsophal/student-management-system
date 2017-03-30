@@ -10,5 +10,7 @@ public class JFeeType extends JCommon {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
    
 }

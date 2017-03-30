@@ -31,7 +31,7 @@
         VALUES (
          #{name},
          #{createdDate},
-         #{createdBy},
+         #{createdById},
          #{status}
          )
     </insert>
@@ -42,8 +42,8 @@
         SET 
            name = #{name},
            modified_date = #{modifiedDate},
-           modified_by = #{modifiedBy},
-           status = #status
+           modified_by = #{modifiedById},
+           status = #{status}
         WHERE id = #{id}
     </update>
 
@@ -52,7 +52,7 @@
         UPDATE sessions
         SET 
            modified_date = #{modifiedDate},
-           modified_by = #{modifiedBy},
+           modified_by = #{modifiedById},
            status = 0
         WHERE id = #{id}
     </update>
@@ -68,6 +68,7 @@
    <select id='getAll' parameterType="map" resultMap="SessionResult" >
         SELECT *
         FROM sessions
+        WHERE status = 1
     </select>
     
     <select id="getPage" parameterType="map" resultMap="SessionResult">

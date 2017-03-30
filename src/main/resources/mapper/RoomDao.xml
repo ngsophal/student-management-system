@@ -31,7 +31,7 @@
         VALUES (
          #{name},
          #{createdDate},
-         #{createdBy},
+         #{createdById},
          #{status}
          )
     </insert>
@@ -42,8 +42,8 @@
         SET 
            name = #{name},
            modified_date = #{modifiedDate},
-           modified_by = #{modifiedBy},
-           status = #status
+           modified_by = #{modifiedById},
+           status = #{status}
         WHERE id = #{id}
     </update>
 
@@ -52,7 +52,7 @@
         UPDATE rooms
         SET 
            modified_date = #{modifiedDate},
-           modified_by = #{modifiedBy},
+           modified_by = #{modifiedById},
            status = 0
         WHERE id = #{id}
     </update>
@@ -68,6 +68,8 @@
    <select id='getAll' parameterType="map" resultMap="RoomResult" >
         SELECT *
         FROM rooms
+        WHERE status = 1
+        
     </select>
     
     <select id="getPage" parameterType="map" resultMap="RoomResult">
@@ -79,5 +81,6 @@
     <select id="count" resultType="int">
         SELECT COUNT(*) 
         FROM rooms 
+        WHERE status = 1
     </select>
 </mapper>

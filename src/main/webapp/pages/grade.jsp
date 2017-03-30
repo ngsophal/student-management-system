@@ -19,7 +19,7 @@
 							<div class="col-sm-12">
 								<div class="form-group">
 									<div class="form-line">
-										<input type="text" class="form-control name" placeholder="Grade Name" name="name" id="name">
+										<input type="text" class="form-control name" placeholder="Grade Name" name="name" id="name" required >
 									</div>
 								</div>
 							</div>
@@ -66,29 +66,42 @@
 var apiHelper = new ApiHelper('#grade-form', 'grade', 'v1');
 $(document).ready(function() {
     var currentId = '';
+    $('#grade-form').validate({
+    	highlight: function (input) {
+            $(input).parents('.form-line').addClass('error');
+        },
+        unhighlight: function (input) {
+            $(input).parents('.form-line').removeClass('error');
+        },
+        errorPlacement: function (error, element) {
+            $(element).parents('.form-group').append(error);
+		}
+    });
 	$('#submit').on('click', function(e){
 		e.preventDefault();
-		if(isInsertMode()){
-    		apiHelper.insert().done(function(r){
-    			if(r.status == 'SUCCESS'){
-	        		swal(r.message, "", "success");
-	        		resetForm();
-    				$('#grade-list').bootstrapTable('refresh');	
-    			}else{
-	        		swal(r.message, "", "error");
-    			}
-                
-    		});
-    	}else{
-    		apiHelper.update(currentId).done(function(r){
-    			if(r.status == 'SUCCESS'){
-	        		swal(r.message, "", "success");
-    				$('#grade-list').bootstrapTable('refresh');	
-    			}else{
-	        		swal(r.message, "", "error");
-    			}
-    		});
-    	}
+		if($('#grade-form').valid()){
+			if(isInsertMode()){
+	    		apiHelper.insert().done(function(r){
+	    			if(r.status == 'SUCCESS'){
+		        		swal(r.message, "", "success");
+		        		resetForm();
+	    				$('#grade-list').bootstrapTable('refresh');	
+	    			}else{
+		        		swal(r.message, "", "error");
+	    			}
+	                
+	    		});
+	    	}else{
+	    		apiHelper.update(currentId).done(function(r){
+	    			if(r.status == 'SUCCESS'){
+		        		swal(r.message, "", "success");
+	    				$('#grade-list').bootstrapTable('refresh');	
+	    			}else{
+		        		swal(r.message, "", "error");
+	    			}
+	    		});
+	    	}
+		}
     });
 	
 	$('#grade-list').on('click', '.edit', function(e){
@@ -114,6 +127,9 @@ $(document).ready(function() {
 		showAjaxLoaderMessage();
 	});
 	
+	  
+
+	  
 	function isInsertMode(){
 		return currentId == '';
 	}
@@ -157,6 +173,7 @@ $(document).ready(function() {
 	function resetForm(){
 		$('#name').val('');
 	}
+	
 	
 	
 });

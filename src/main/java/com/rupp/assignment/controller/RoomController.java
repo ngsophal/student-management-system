@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
+import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JRoom;
 
 
@@ -29,12 +30,6 @@ public class RoomController {
     @Autowired
     private com.rupp.assignment.service.RoomService service;
 
-    /**
-     * return all Categories support Header If-Modified-Since is optional, timestamp of last update; use
-     * "Sat, 29 Oct 1994 19:43:31 GMT"
-     * 
-     * @return Iterable<JRoom>
-     */
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
     @ResponseBody
     public Collection<JRoom> getAll(HttpServletRequest request, WebRequest webRequest,
@@ -54,10 +49,21 @@ public class RoomController {
 
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
-    public JRoom create(HttpServletRequest request, @ModelAttribute JRoom domain) {
-
-        service.create(domain);
-        return domain;
+    public JMessage create(HttpServletRequest request, @ModelAttribute JRoom domain) {
+    	System.out.println(domain.toString());
+        return service.create(domain);
+    }
+    
+    @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JRoom domain) {
+        return service.update(id, domain);
+    }
+    
+    @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
+    @ResponseBody
+    public JMessage remove(HttpServletRequest request) {
+        return service.remove(Integer.parseInt(request.getParameter("id")));
     }
     
 }

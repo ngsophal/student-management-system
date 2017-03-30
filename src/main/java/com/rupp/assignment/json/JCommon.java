@@ -62,7 +62,10 @@ public class JCommon  {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-    
+	public String getAction(){
+		return "<button type='button' data-id='" + this.getId() + "' class='btn btn-primary waves-effect m-r-5 edit'>Edit</button>" +
+				"<button type='button'  data-id='" + this.getId() + "' class='btn btn-danger waves-effect delete'>Delete</button>";
+	}
 	
    
 }
