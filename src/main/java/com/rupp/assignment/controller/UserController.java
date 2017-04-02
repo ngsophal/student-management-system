@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import com.rupp.assignment.json.JUser;
+import com.rupp.assignment.json.JMessage;
 
 
 @Controller
@@ -25,12 +26,11 @@ import com.rupp.assignment.json.JUser;
 public class UserController {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
-
     @Autowired
     private com.rupp.assignment.service.UserService service;
 
     /**
-     * return all Categories support Header If-Modified-Since is optional, timestamp of last update; use
+     * return all Grades support Header If-Modified-Since is optional, timestamp of last update; use
      * "Sat, 29 Oct 1994 19:43:31 GMT"
      * 
      * @return Iterable<JUser>
@@ -54,9 +54,47 @@ public class UserController {
 
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
-    public JUser create(HttpServletRequest request, @ModelAttribute JUser domain) {
-        service.create(domain);
-        return domain;
+    public JMessage create(HttpServletRequest request, @ModelAttribute JUser domain) {
+    	System.out.println(domain.toString());
+        return service.create(domain);
+    }
+    
+    @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JUser domain) {
+        return service.update(id, domain);
+    }
+    
+    @RequestMapping(value = "v1/change-password/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public JMessage changePassword(HttpServletRequest request, @PathVariable int id, @ModelAttribute JUser domain) {
+        return service.changePassword(id, domain);
+    }
+
+    
+    @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
+    @ResponseBody
+    public JMessage remove(HttpServletRequest request) {
+        return service.remove(Integer.parseInt(request.getParameter("id")));
+    }
+    
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public String login(HttpServletRequest request) {
+         JUser user = service.login(request.getParameter("username"), request.getParameter("password"));
+         if(user == null){
+              return "redirect:/login.jsp";
+         }else{
+        	  request.getSession().setAttribute("userId",user.getId());
+              request.getSession().setAttribute("fullName",user.getFullName());
+              return "redirect:/index.jsp";
+         } 
+    }
+    
+    @RequestMapping(value = "logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "redirect:/login.jsp";
+
     }
     
 }

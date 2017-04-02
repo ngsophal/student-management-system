@@ -6,7 +6,7 @@
 		<id property='id' column='id' />
 		<result property='username' column='username' />
 		<result property='password' column='password' />
-		<result property='fullname' column='fullname' />
+		<result property='fullName' column='fullName' />
 		<result property='createdDate' column='created_date' />
 		<result property='modifiedDate' column='modified_date' />
 		<result property="status" column="status" />
@@ -22,7 +22,7 @@
 		INSERT INTO users (
 		username,
 		password,
-		fullname,
+		fullName,
 		created_date,
 		created_by,
 		status
@@ -30,9 +30,9 @@
 		VALUES (
 		#{username},
 		#{password},
-		#{fullname},
+		#{fullName},
 		#{createdDate},
-		#{createdBy},
+		#{createdById},
 		#{status}
 
 		)
@@ -41,10 +41,18 @@
 	<update id="update" parameterType="com.rupp.assignment.json.JUser">
 		UPDATE users
 		SET
-		fullname = #{fullname},
+		fullName = #{fullName},
+		modified_date = #{modifiedDate},
+		modified_by = #{modifiedById}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="changePassword" parameterType="com.rupp.assignment.json.JUser">
+		UPDATE users
+		SET
 		password = #{password},
 		modified_date = #{modifiedDate},
-		modified_by = #{modifiedBy}
+		modified_by = #{modifiedById}
 		WHERE id = #{id}
 	</update>
 
@@ -53,7 +61,7 @@
 		SET
 		status = 0,
 		modified_date = #{modifiedDate},
-		modified_by = #{modifiedBy}
+		modified_by = #{modifiedById}
 		WHERE id = #{id}
 	</update>
 
@@ -74,16 +82,26 @@
 	<select id='getAll' parameterType="map" resultMap='UserResult'>
 		SELECT *
 		FROM users
+		WHERE status = 1
 	</select>
 
 	<select id="getPage" parameterType="map" resultMap="UserResult">
 		SELECT *
 		FROM users
+		WHERE status = 1
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
 
 	<select id="count" resultType="int">
 		SELECT COUNT(*)
 		FROM users
+		WHERE status = 1
+	</select>
+	
+	<select id="findByUsername" parameterType="String" resultMap='UserResult'>
+		SELECT *
+		FROM users
+		WHERE status = 1 AND 
+		username = #{username}
 	</select>
 </mapper>
