@@ -1,6 +1,7 @@
 package com.rupp.assignment.controller;
 
 import com.rupp.assignment.json.JFee;
+import com.rupp.assignment.json.JMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +48,20 @@ public class FeeController {
 
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
-    public JFee create(HttpServletRequest request, @ModelAttribute JFee domain) {
+    public JMessage create(HttpServletRequest request, @ModelAttribute JFee domain) {
+        return service.create(domain);
+    }
 
-        service.create(domain);
-        return domain;
+    @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JFee domain) {
+        return service.update(id, domain);
+    }
+
+    @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
+    @ResponseBody
+    public JMessage remove(HttpServletRequest request) {
+        return service.remove(Integer.parseInt(request.getParameter("id")));
     }
     
 }

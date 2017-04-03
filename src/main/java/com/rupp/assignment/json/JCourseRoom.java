@@ -1,71 +1,45 @@
 package com.rupp.assignment.json;
 
-import java.sql.Date;
+public class JCourseRoom extends JCommon{
 
-public class JCourseRoom {
-	protected int id;
-    private JCourse courseID;
-	private JRoom roomID;
-	protected Date createdDate;
-	protected JUser createdBy;
-	protected Date modifiedDate;
-	protected JUser modifiedBy;
+    private JCourse course;
+	private JRoom room;
 
-	public int getId() {
-		return id;
+	private int courseId;
+	private int roomId;
+
+	public int getCourseId() {
+		return courseId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
 	}
 
-	public JCourse getCourseID() {
-		return courseID;
+	public int getRoomId() {
+		return roomId;
 	}
 
-	public void setCourseID(JCourse courseID) {
-		this.courseID = courseID;
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
 	}
 
-	public JRoom getRoomID() {
-		return roomID;
+	public JCourse getCourse() {
+		return course;
 	}
 
-	public void setRoomID(JRoom roomID) {
-		this.roomID = roomID;
+	public void setCourse(JCourse course) {
+		this.course = course;
 	}
 
-	public Date getCreatedDate() {
-		return createdDate;
+	public JRoom getRoom() {
+		return room;
 	}
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
+	public void setRoom(JRoom room) {
+		this.room = room;
 	}
 
-	public JUser getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(JUser createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-
-	public JUser getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(JUser modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
 
 
 }

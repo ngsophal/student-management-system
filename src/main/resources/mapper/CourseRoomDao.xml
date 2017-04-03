@@ -15,11 +15,11 @@
                  column="modified_by"
                  javaType="com.rupp.assignment.json.JUser"
                  select="com.rupp.assignment.dao.UserDao.findById"/>
-        <association property="courseID"
+        <association property="course"
                      column="course_id"
                      javaType="com.rupp.assignment.json.JCourse"
                      select="com.rupp.assignment.dao.CourseDao.findById"/>
-        <association property="roomID"
+        <association property="room"
                      column="room_id"
                      javaType="com.rupp.assignment.json.JRoom"
                      select="com.rupp.assignment.dao.RoomDao.findById"/>
@@ -35,56 +35,57 @@
 			created_by
         )
         VALUES (
-         #{courseID},
-         #{roomID},
+         #{courseId},
+         #{roomId},
          #{createdDate},
-         #{createdBy}
+         #{createdById}
          )
     </insert>
 
- 	<delete id="removeAllCourseID"
-        parameterType="int">
-        DELETE FROM courses_rooms
-        WHERE courseID = #{courseID}
-    </delete>
+    <update id="update"
+            parameterType="com.rupp.assignment.json.JCourseRoom">
+        UPDATE courses_rooms
+        SET
+        course_id = #{courseId},
+        room_id = #{roomId},
+        modified_date = #{modifiedDate},
+        modified_by = #{modifiedById},
+        status = #{status}
+        WHERE id = #{id}
+    </update>
 
-    <delete id="removeAllRoomID"
+    <update id="remove"
             parameterType="int">
-        DELETE FROM courses_rooms
-        WHERE roomID = #{roomID}
-    </delete>
+        UPDATE courses_rooms
+        SET
+        modified_date = #{modifiedDate},
+        modified_by = #{modifiedById},
+        status = 0
+        WHERE id = #{id}
+    </update>
 
-    <delete id="removeCourseIDRoomID"
-            parameterType="map">
-        DELETE FROM courses_rooms
-        WHERE roomID = #{roomID} AND courseID = #{courseID}
-    </delete>
-
-    <select id="getByCourseID" parameterType="int"  resultMap="JCourseRoomResult" >
+    <select id="findById" parameterType="int"  resultMap="JCourseRoomResult" >
         SELECT *
         FROM courses_rooms
-        WHERE course_id = #{courseID}
-    </select>
-
-    <select id="getByRoomID" parameterType="int"  resultMap="JCourseRoomResult" >
-        SELECT *
-        FROM courses_rooms
-        WHERE room_id = #{roomID}
+        WHERE id = #{id}
     </select>
 
     <select id='getAll' parameterType="map" resultMap="JCourseRoomResult" >
         SELECT *
         FROM courses_rooms
+        WHERE status = 1
     </select>
-    
+
     <select id="getPage" parameterType="map" resultMap="JCourseRoomResult">
         SELECT *
         FROM courses_rooms
+        WHERE status = 1
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
     <select id="count" resultType="int">
         SELECT COUNT(*) 
         FROM courses_rooms
+        WHERE status = 1
     </select>
 </mapper>

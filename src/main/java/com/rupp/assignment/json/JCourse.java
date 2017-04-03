@@ -4,26 +4,45 @@ import java.sql.Date;
 
 public class JCourse extends JCommon {
 
-    private JGrade gradeId;
-	private JSession sessionId;
+    private JGrade grade;
+	private JSession session;
 
 	private Date startDate;
 	private Date endDate;
 
-	public JGrade getGradeId() {
+	private int gradeId;
+	private int sessionId;
+
+	public int getGradeId() {
 		return gradeId;
 	}
 
-	public void setGradeId(JGrade gradeId) {
+	public void setGradeId(int gradeId) {
 		this.gradeId = gradeId;
 	}
 
-	public JSession getSessionId() {
+	public int getSessionId() {
 		return sessionId;
 	}
 
-	public void setSessionId(JSession sessionId) {
+	public void setSessionId(int sessionId) {
 		this.sessionId = sessionId;
+	}
+
+	public JGrade getGrade() {
+		return grade;
+	}
+
+	public void setGrade(JGrade grade) {
+		this.grade = grade;
+	}
+
+	public JSession getSession() {
+		return session;
+	}
+
+	public void setSession(JSession session) {
+		this.session = session;
 	}
 
 	public Date getStartDate() {
