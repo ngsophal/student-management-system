@@ -31,15 +31,23 @@ public class UserService {
     public JUser getDetails(int id) {
         return dao.findById(id);
     }
+    
     public JMessage create(JUser jUser) {
     	jUser.setCreatedDate(new Date());
     	jUser.setCreatedById(this.user.getId());
     	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(jUser.getPassword());
 		jUser.setPassword(hashedPassword);
-        dao.add(jUser);
-        this.message.setMessage("User has been inserted successfully!");
-        this.message.setStatus(MessageType.SUCCESS);
+		
+		try{
+			dao.add(jUser);
+	        this.message.setMessage("User has been inserted successfully!");
+	        this.message.setStatus(MessageType.SUCCESS);
+		}catch(Exception e){
+	        this.message.setMessage(e.getMessage());
+	        this.message.setStatus(MessageType.ERROR);
+		}
+       
         return message;
     }
     
@@ -47,9 +55,16 @@ public class UserService {
     	jUser.setModifiedDate(new Date());
     	jUser.setModifiedById(this.user.getId());
     	jUser.setId(id);
-        dao.update(jUser);
-        this.message.setMessage("User has been updated successfully!");
-        this.message.setStatus(MessageType.SUCCESS);
+    	try{
+    		dao.update(jUser);
+	        this.message.setMessage("User has been updated successfully!");
+	        this.message.setStatus(MessageType.SUCCESS);
+    	}catch(Exception e){
+    		dao.update(jUser);
+	        this.message.setMessage(e.getMessage());
+	        this.message.setStatus(MessageType.SUCCESS);
+    	}
+       
         return message;
     }
     
@@ -60,9 +75,14 @@ public class UserService {
     	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(jUser.getPassword());
 		jUser.setPassword(hashedPassword);
-        dao.changePassword(jUser);
-        this.message.setMessage("Password has been changed successfully!");
-        this.message.setStatus(MessageType.SUCCESS);
+		try{
+			dao.changePassword(jUser);
+	        this.message.setMessage("Password has been changed successfully!");
+	        this.message.setStatus(MessageType.SUCCESS);
+		}catch(Exception e){
+    		this.message.setMessage(e.getMessage());
+            this.message.setStatus(MessageType.ERROR);	
+		}
         return message;
     }
 
@@ -72,9 +92,14 @@ public class UserService {
     	jUser.setModifiedDate(new Date());
     	jUser.setModifiedById(this.user.getId());
     	jUser.setId(id);
-    	dao.remove(jUser);
-    	this.message.setMessage("User has been removed successfully!");
-        this.message.setStatus(MessageType.SUCCESS);
+    	try{
+    		dao.remove(jUser);
+        	this.message.setMessage("User has been removed successfully!");
+            this.message.setStatus(MessageType.SUCCESS);
+    	}catch(Exception e){
+    		this.message.setMessage(e.getMessage());
+            this.message.setStatus(MessageType.ERROR);
+    	}
         return message;
     }
     

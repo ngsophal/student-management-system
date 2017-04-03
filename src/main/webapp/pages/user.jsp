@@ -105,7 +105,13 @@ $(document).ready(function() {
         },
         errorPlacement: function (error, element) {
             $(element).parents('.form-group').append(error);
-		}
+		},
+		 rules: {
+		        password: 'required',
+		        confirmPassword: {
+		            equalTo: '#password'
+		        }
+		    }
     });
     
 	$('#submit').on('click', function(e){

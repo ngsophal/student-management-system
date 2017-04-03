@@ -32,9 +32,16 @@ public class GradeService {
     public JMessage create(JGrade jGrade) {
     	jGrade.setCreatedDate(new Date());
     	jGrade.setCreatedById(this.user.getId());
-        dao.add(jGrade);
-        this.message.setMessage("Grade has been inserted successfully!");
-        this.message.setStatus(MessageType.SUCCESS);
+    	try {
+    		dao.add(jGrade);
+            this.message.setMessage("Grade has been inserted successfully!");
+            this.message.setStatus(MessageType.SUCCESS);
+		} catch (Exception e) {
+			dao.add(jGrade);
+	        this.message.setMessage(e.getMessage());
+	        this.message.setStatus(MessageType.ERROR);
+		}
+        
         return message;
     }
     
@@ -42,9 +49,16 @@ public class GradeService {
     	jGrade.setModifiedDate(new Date());
     	jGrade.setModifiedById(this.user.getId());
     	jGrade.setId(id);
-        dao.update(jGrade);
-        this.message.setMessage("Grade has been updated successfully!");
-        this.message.setStatus(MessageType.SUCCESS);
+    	
+    	try {
+    		dao.update(jGrade);
+            this.message.setMessage("Grade has been updated successfully!");
+            this.message.setStatus(MessageType.SUCCESS);
+		} catch (Exception e) {
+	        this.message.setMessage(e.getMessage());
+	        this.message.setStatus(MessageType.ERROR);
+		}
+        
         return message;
     }
     
@@ -53,9 +67,15 @@ public class GradeService {
     	jGrade.setModifiedDate(new Date());
     	jGrade.setModifiedById(this.user.getId());
     	jGrade.setId(id);
-    	dao.remove(jGrade);
-    	this.message.setMessage("Grade has been removed successfully!");
-        this.message.setStatus(MessageType.SUCCESS);
+    	try {
+    		dao.remove(jGrade);
+        	this.message.setMessage("Grade has been removed successfully!");
+            this.message.setStatus(MessageType.SUCCESS);
+		} catch (Exception e) {
+	    	this.message.setMessage(e.getMessage());
+	        this.message.setStatus(MessageType.ERROR);
+		}
+    	
         return message;
     }
 }

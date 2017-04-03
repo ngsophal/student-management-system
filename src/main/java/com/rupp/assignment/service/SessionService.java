@@ -31,9 +31,14 @@ public class SessionService {
     public JMessage create(JSession jSession) {
     	jSession.setCreatedDate(new Date());
     	jSession.setCreatedById(this.user.getId());
-        dao.add(jSession);
-        this.message.setMessage("Session has been inserted successfully!");
-        this.message.setStatus(MessageType.SUCCESS);
+    	try {
+    		dao.add(jSession);
+            this.message.setMessage("Session has been inserted successfully!");
+            this.message.setStatus(MessageType.SUCCESS);
+		} catch (Exception e) {
+	        this.message.setMessage(e.getMessage());
+	        this.message.setStatus(MessageType.ERROR);
+		}
         return message;
     }
     
@@ -41,9 +46,14 @@ public class SessionService {
     	jSession.setModifiedDate(new Date());
     	jSession.setModifiedById(this.user.getId());
     	jSession.setId(id);
-        dao.update(jSession);
-        this.message.setMessage("Session has been updated successfully!");
-        this.message.setStatus(MessageType.SUCCESS);
+        try {
+        	dao.update(jSession);
+            this.message.setMessage("Session has been updated successfully!");
+            this.message.setStatus(MessageType.SUCCESS);
+		} catch (Exception e) {
+	        this.message.setMessage(e.getMessage());
+	        this.message.setStatus(MessageType.ERROR);
+		}
         return message;
     }
     
@@ -52,9 +62,14 @@ public class SessionService {
     	jSession.setModifiedDate(new Date());
     	jSession.setModifiedById(this.user.getId());
     	jSession.setId(id);
-    	dao.remove(jSession);
-    	this.message.setMessage("Session has been removed successfully!");
-        this.message.setStatus(MessageType.SUCCESS);
+    	try {
+    		dao.remove(jSession);
+        	this.message.setMessage("Session has been removed successfully!");
+            this.message.setStatus(MessageType.SUCCESS);
+		} catch (Exception e) {
+	    	this.message.setMessage(e.getMessage());
+	        this.message.setStatus(MessageType.ERROR);
+		}
         return message;
     }
 }

@@ -19,6 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.rupp.assignment.json.JUser;
 import com.rupp.assignment.json.JMessage;
+import com.rupp.assignment.json.JMessage.MessageType;
 
 
 @Controller
@@ -28,6 +29,8 @@ public class UserController {
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private com.rupp.assignment.service.UserService service;
+    @Autowired
+    private JMessage message;
 
     /**
      * return all Grades support Header If-Modified-Since is optional, timestamp of last update; use
@@ -55,19 +58,58 @@ public class UserController {
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
     public JMessage create(HttpServletRequest request, @ModelAttribute JUser domain) {
-    	System.out.println(domain.toString());
+		if(domain.getPassword().isEmpty() || 
+    		domain.getPassword() == null ||
+    		domain.getConfirmPassword().isEmpty() || 
+    		domain.getConfirmPassword() == null ||
+    		domain.getUsername().isEmpty() ||
+    		domain.getUsername() == null ||
+    		domain.getFullName().isEmpty() ||
+    		domain.getFullName() == null 
+    	){
+    		this.message.setMessage("Please fill all require fields!");
+    		this.message.setStatus(MessageType.ERROR);
+    		return this.message;
+    	}
+    	if(domain.getPassword() != domain.getConfirmPassword()){
+    		this.message.setMessage("Password is not match!");
+    		this.message.setStatus(MessageType.ERROR);
+    		return this.message;
+    	}
         return service.create(domain);
     }
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JUser domain) {
+    	if(domain.getFullName().isEmpty() || 
+    		domain.getFullName() == null){
+    		this.message.setMessage("Please fill all require fields!");
+    		this.message.setStatus(MessageType.ERROR);
+    		return this.message;
+    	}
         return service.update(id, domain);
     }
     
     @RequestMapping(value = "v1/change-password/{id}", method = RequestMethod.POST)
     @ResponseBody
     public JMessage changePassword(HttpServletRequest request, @PathVariable int id, @ModelAttribute JUser domain) {
+    	if(domain.getPassword().isEmpty() || 
+    		domain.getPassword() == null ||
+    		domain.getConfirmPassword().isEmpty() || 
+    		domain.getConfirmPassword() == null
+    	){
+    		this.message.setMessage("Please fill all require fields!");
+    		this.message.setStatus(MessageType.ERROR);
+    		return this.message;
+    	}
+    	
+    	if(domain.getPassword() != domain.getConfirmPassword()){
+    		this.message.setMessage("Password is not match!");
+    		this.message.setStatus(MessageType.ERROR);
+    		return this.message;
+    	}
+    	
         return service.changePassword(id, domain);
     }
 

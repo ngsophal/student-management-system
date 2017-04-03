@@ -31,9 +31,15 @@ public class FeeTypeService {
 	    public JMessage create(JFeeType jFeeType) {
 	    	jFeeType.setCreatedDate(new Date());
 	    	jFeeType.setCreatedById(this.user.getId());
-	        dao.add(jFeeType);
-	        this.message.setMessage("Fee Type has been inserted successfully!");
-	        this.message.setStatus(MessageType.SUCCESS);
+	    	try{
+	    		dao.add(jFeeType);
+		        this.message.setMessage("Fee Type has been inserted successfully!");
+		        this.message.setStatus(MessageType.SUCCESS);
+	    	}catch(Exception e){
+	    		this.message.setMessage(e.getMessage());
+		        this.message.setStatus(MessageType.ERROR);
+	    	}
+	        
 	        return message;
 	    }
 	    
@@ -41,9 +47,14 @@ public class FeeTypeService {
 	    	jFeeType.setModifiedDate(new Date());
 	    	jFeeType.setModifiedById(this.user.getId());
 	    	jFeeType.setId(id);
-	        dao.update(jFeeType);
-	        this.message.setMessage("Fee Type has been updated successfully!");
-	        this.message.setStatus(MessageType.SUCCESS);
+	    	try{
+	    		dao.update(jFeeType);
+		        this.message.setMessage("Fee Type has been updated successfully!");
+		        this.message.setStatus(MessageType.SUCCESS);
+	    	}catch (Exception e) {
+		        this.message.setMessage(e.getMessage());
+		        this.message.setStatus(MessageType.ERROR);
+			}
 	        return message;
 	    }
 	    
@@ -52,9 +63,15 @@ public class FeeTypeService {
 	    	jFeeType.setModifiedDate(new Date());
 	    	jFeeType.setModifiedById(this.user.getId());
 	    	jFeeType.setId(id);
-	    	dao.remove(jFeeType);
-	    	this.message.setMessage("Fee Type has been removed successfully!");
-	        this.message.setStatus(MessageType.SUCCESS);
+	    	try {
+	    		dao.remove(jFeeType);
+		    	this.message.setMessage("Fee Type has been removed successfully!");
+		        this.message.setStatus(MessageType.SUCCESS);
+			} catch (Exception e) {
+		    	this.message.setMessage(e.getMessage());
+		        this.message.setStatus(MessageType.ERROR);
+			}
+	    	
 	        return message;
 	    }
 }

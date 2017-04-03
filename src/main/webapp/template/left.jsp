@@ -86,6 +86,12 @@
 					<span>Reports</span>
 				</a>
 			</li>
+			<li>
+				<a href="api/user/logout">
+					<i class="material-icons">forward</i>
+					<span>Logout</span>
+				</a>
+			</li>
 		</ul>
 	</div>
 	<!-- #Menu -->
