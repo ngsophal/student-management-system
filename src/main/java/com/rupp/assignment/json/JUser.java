@@ -1,17 +1,25 @@
 package com.rupp.assignment.json;
 
-import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configurable
 public class JUser extends JCommon  {
-    /** Unique id for this Entity in the database */
     private String username;
     private String password;
-    private String fullname;
+    private String fullName;
+    private String confirmPassword;
     
-    
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -24,11 +32,18 @@ public class JUser extends JCommon  {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getFullname() {
-		return fullname;
+	public String getFullName() {
+		return fullName;
 	}
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
+	public void setFullname(String fullName) {
+		this.fullName = fullName;
 	}
+	
+	public String getAction(){
+		return "<button type='button' data-id='" + this.getId() + "' class='btn btn-primary waves-effect m-r-5 edit'>Edit</button>" +
+				"<button type='button' data-id='" + this.getId() + "' class='btn btn-success waves-effect m-r-5 change-password'>Change Password</button>" +
+				"<button type='button'  data-id='" + this.getId() + "' class='btn btn-danger waves-effect delete'>Delete</button>";
+	}
+	
    
 }

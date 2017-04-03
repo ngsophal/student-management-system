@@ -31,9 +31,14 @@ public class RoomService {
     public JMessage create(JRoom jRoom) {
     	jRoom.setCreatedDate(new Date());
     	jRoom.setCreatedById(this.user.getId());
-        dao.add(jRoom);
-        this.message.setMessage("Room has been inserted successfully!");
-        this.message.setStatus(MessageType.SUCCESS);
+    	try {
+    		dao.add(jRoom);
+            this.message.setMessage("Room has been inserted successfully!");
+            this.message.setStatus(MessageType.SUCCESS);
+		} catch (Exception e) {
+	        this.message.setMessage(e.getMessage());
+	        this.message.setStatus(MessageType.ERROR);
+		}
         return message;
     }
     
@@ -41,9 +46,15 @@ public class RoomService {
     	jRoom.setModifiedDate(new Date());
     	jRoom.setModifiedById(this.user.getId());
     	jRoom.setId(id);
-        dao.update(jRoom);
-        this.message.setMessage("Room has been updated successfully!");
-        this.message.setStatus(MessageType.SUCCESS);
+    	try {
+    		dao.update(jRoom);
+            this.message.setMessage("Room has been updated successfully!");
+            this.message.setStatus(MessageType.SUCCESS);
+		} catch (Exception e) {
+	        this.message.setMessage(e.getMessage());
+	        this.message.setStatus(MessageType.ERROR);
+		}
+        
         return message;
     }
     
@@ -52,9 +63,14 @@ public class RoomService {
     	jRoom.setModifiedDate(new Date());
     	jRoom.setModifiedById(this.user.getId());
     	jRoom.setId(id);
-    	dao.remove(jRoom);
-    	this.message.setMessage("Room has been removed successfully!");
-        this.message.setStatus(MessageType.SUCCESS);
+    	try {
+    		dao.remove(jRoom);
+        	this.message.setMessage("Room has been removed successfully!");
+            this.message.setStatus(MessageType.SUCCESS);
+		} catch (Exception e) {
+	    	this.message.setMessage(e.getMessage());
+	        this.message.setStatus(MessageType.ERROR);
+		}
         return message;
     }
 }

@@ -13,16 +13,6 @@
 		});
 	};
 	
-	this.insert = function(){
-		var data = $(this.formSelector).serialize();
-		return $.ajax({
-			url:'api/' + this.resource + '/'+ this.version,
-			type: 'POST',
-			dataType: 'JSON',
-			data: data
-		});
-	};
-	
 	this.update = function(id){
 		var data = $(this.formSelector).serialize();
 		return $.ajax({
