@@ -1,10 +1,11 @@
 package com.rupp.assignment.json;
 
 
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-@Configurable
+@Component
+@Scope("session")
 public class JUser extends JCommon  {
     private String username;
     private String password;

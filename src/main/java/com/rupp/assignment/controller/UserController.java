@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.rupp.assignment.json.JMessage.MessageType;
 
 
 @Controller
+@Scope("session")
 @RequestMapping(value = {"user", "users" })
 public class UserController {
 
@@ -31,6 +33,8 @@ public class UserController {
     private com.rupp.assignment.service.UserService service;
     @Autowired
     private JMessage message;
+    @Autowired 
+    JUser user;
 
     /**
      * return all Grades support Header If-Modified-Since is optional, timestamp of last update; use
@@ -71,11 +75,19 @@ public class UserController {
     		this.message.setStatus(MessageType.ERROR);
     		return this.message;
     	}
-    	if(domain.getPassword() != domain.getConfirmPassword()){
+    	if(!domain.getPassword().matches(domain.getConfirmPassword()) ){
     		this.message.setMessage("Password is not match!");
     		this.message.setStatus(MessageType.ERROR);
     		return this.message;
     	}
+    	
+    	JUser existedUser = service.findByUsername(domain.getUsername());
+    	if(existedUser != null){
+    		this.message.setMessage("Username has already existed!");
+    		this.message.setStatus(MessageType.ERROR);
+    		return this.message;
+    	}
+    	
         return service.create(domain);
     }
     
@@ -104,7 +116,7 @@ public class UserController {
     		return this.message;
     	}
     	
-    	if(domain.getPassword() != domain.getConfirmPassword()){
+    	if(!domain.getPassword().matches(domain.getConfirmPassword()) ){
     		this.message.setMessage("Password is not match!");
     		this.message.setStatus(MessageType.ERROR);
     		return this.message;
@@ -126,6 +138,7 @@ public class UserController {
          if(user == null){
               return "redirect:/login.jsp";
          }else{
+        	  this.user.setId(user.getId());
         	  request.getSession().setAttribute("userId",user.getId());
               request.getSession().setAttribute("fullName",user.getFullName());
               return "redirect:/index.jsp";

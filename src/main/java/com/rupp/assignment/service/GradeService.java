@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.rupp.assignment.dao.GradeDao;
@@ -41,7 +42,6 @@ public class GradeService {
 	        this.message.setMessage(e.getMessage());
 	        this.message.setStatus(MessageType.ERROR);
 		}
-        
         return message;
     }
     

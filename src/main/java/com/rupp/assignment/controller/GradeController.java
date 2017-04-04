@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,8 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.rupp.assignment.json.JGrade;
 import com.rupp.assignment.json.JMessage;
+import com.rupp.assignment.json.JUser;
+import com.rupp.assignment.json.JMessage.MessageType;
 
 
 @Controller
@@ -33,6 +36,8 @@ public class GradeController {
 
     @Autowired
     private com.rupp.assignment.service.GradeService service;
+    @Autowired
+    private JMessage message;
 
     /**
      * return all Grades support Header If-Modified-Since is optional, timestamp of last update; use
@@ -60,13 +65,26 @@ public class GradeController {
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
     public JMessage create(HttpServletRequest request, @ModelAttribute JGrade domain) {
-    	System.out.println(domain.toString());
+    	if(domain.getName().isEmpty() || 
+        		domain.getName() == null 
+        	){
+        		this.message.setMessage("Please fill all require fields!");
+        		this.message.setStatus(MessageType.ERROR);
+        		return this.message;
+        	}
         return service.create(domain);
     }
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JGrade domain) {
+    	if(domain.getName().isEmpty() || 
+        		domain.getName() == null 
+        	){
+        		this.message.setMessage("Please fill all require fields!");
+        		this.message.setStatus(MessageType.ERROR);
+        		return this.message;
+        	}
         return service.update(id, domain);
     }
     

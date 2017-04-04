@@ -111,4 +111,9 @@ public class UserService {
     	}
     	return null;
     }
+    
+    public JUser findByUsername(String username){
+    	JUser user = dao.findByUsername(username);
+    	return user;
+    }
 }

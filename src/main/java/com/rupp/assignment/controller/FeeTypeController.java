@@ -19,6 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.rupp.assignment.json.JFeeType;
 import com.rupp.assignment.json.JMessage;
+import com.rupp.assignment.json.JMessage.MessageType;
 
 
 @Controller
@@ -29,7 +30,8 @@ public class FeeTypeController {
 
     @Autowired
     private com.rupp.assignment.service.FeeTypeService service;
-
+    @Autowired
+    private JMessage message;
     /**
      * return all Grades support Header If-Modified-Since is optional, timestamp of last update; use
      * "Sat, 29 Oct 1994 19:43:31 GMT"
@@ -56,13 +58,26 @@ public class FeeTypeController {
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
     public JMessage create(HttpServletRequest request, @ModelAttribute JFeeType domain) {
-    	System.out.println(domain.toString());
+    	if(domain.getName().isEmpty() || 
+        		domain.getName() == null 
+        	){
+        		this.message.setMessage("Please fill all require fields!");
+        		this.message.setStatus(MessageType.ERROR);
+        		return this.message;
+        	}
         return service.create(domain);
     }
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JFeeType domain) {
+    	if(domain.getName().isEmpty() || 
+        		domain.getName() == null 
+        	){
+        		this.message.setMessage("Please fill all require fields!");
+        		this.message.setStatus(MessageType.ERROR);
+        		return this.message;
+        	}
         return service.update(id, domain);
     }
     

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import com.rupp.assignment.json.JSession;
+import com.rupp.assignment.json.JMessage.MessageType;
 import com.rupp.assignment.json.JMessage;
 
 
@@ -26,7 +27,8 @@ import com.rupp.assignment.json.JMessage;
 public class SessionController {
 
     private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
-
+    @Autowired
+    private JMessage message;
     @Autowired
     private com.rupp.assignment.service.SessionService service;
 
@@ -50,13 +52,26 @@ public class SessionController {
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
     public JMessage create(HttpServletRequest request, @ModelAttribute JSession domain) {
-    	System.out.println(domain.toString());
+    	if(domain.getName().isEmpty() || 
+    		domain.getName() == null 
+    	){
+    		this.message.setMessage("Please fill all require fields!");
+    		this.message.setStatus(MessageType.ERROR);
+    		return this.message;
+    	}
         return service.create(domain);
     }
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JSession domain) {
+    	if(domain.getName().isEmpty() || 
+        		domain.getName() == null 
+        	){
+        		this.message.setMessage("Please fill all require fields!");
+        		this.message.setStatus(MessageType.ERROR);
+        		return this.message;
+        	}
         return service.update(id, domain);
     }
     

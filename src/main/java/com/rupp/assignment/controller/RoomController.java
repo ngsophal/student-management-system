@@ -19,6 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JRoom;
+import com.rupp.assignment.json.JMessage.MessageType;
 
 
 @Controller
@@ -29,7 +30,9 @@ public class RoomController {
 
     @Autowired
     private com.rupp.assignment.service.RoomService service;
-
+    @Autowired
+    private JMessage message;
+    
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
     @ResponseBody
     public Collection<JRoom> getAll(HttpServletRequest request, WebRequest webRequest,
@@ -50,13 +53,26 @@ public class RoomController {
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
     public JMessage create(HttpServletRequest request, @ModelAttribute JRoom domain) {
-    	System.out.println(domain.toString());
+    	if(domain.getName().isEmpty() || 
+        		domain.getName() == null 
+        	){
+        		this.message.setMessage("Please fill all require fields!");
+        		this.message.setStatus(MessageType.ERROR);
+        		return this.message;
+        	}
         return service.create(domain);
     }
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JRoom domain) {
+    	if(domain.getName().isEmpty() || 
+        		domain.getName() == null 
+        	){
+        		this.message.setMessage("Please fill all require fields!");
+        		this.message.setStatus(MessageType.ERROR);
+        		return this.message;
+        	}
         return service.update(id, domain);
     }
     
