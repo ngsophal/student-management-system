@@ -39,6 +39,14 @@
 			type: 'GET',
 			dataType: 'JSON'
 		});	
+	};
+
+	this.getAll = function(){
+		return $.ajax({
+			url:'api/' + this.resource + '/' + this.version + '/all',
+			type: 'GET',
+			dataType: 'JSON'
+		});
 	}
-	
+
 };

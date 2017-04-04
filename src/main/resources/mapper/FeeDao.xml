@@ -14,11 +14,11 @@
                  column="modified_by"
                  javaType="com.rupp.assignment.json.JUser"
                  select="com.rupp.assignment.dao.UserDao.findById"/>
-        <association property="feeTypeID"
+        <association property="feeType"
                      column="fee_type_id"
                      javaType="com.rupp.assignment.json.JFeeType"
                      select="com.rupp.assignment.dao.FeeTypeDao.findById"/>
-        <association property="courseID"
+        <association property="course"
                      column="course_id"
                      javaType="com.rupp.assignment.json.JCourse"
                      select="com.rupp.assignment.dao.CourseDao.findById"/>
@@ -36,11 +36,11 @@
 			status
         )
         VALUES (
-         #{feeTypeID},
-         #{courseID},
+         #{feeTypeId},
+         #{courseId},
          #{fee},
          #{createdDate},
-         #{createdBy},
+         #{createdById},
          #{status}
          )
     </insert>
@@ -49,11 +49,11 @@
         parameterType="com.rupp.assignment.json.JFee">
         UPDATE fees
         SET 
-           fee_type_id = #{feeTypeID},
-           course_id = #{courseID},
+           fee_type_id = #{feeTypeId},
+           course_id = #{courseId},
            fee = #{fee},
            modified_date = #{modifiedDate},
-           modified_by = #{modifiedBy},
+           modified_by = #{modifiedById},
            status = #{status}
         WHERE id = #{id}
     </update>
@@ -63,7 +63,7 @@
         UPDATE fees
         SET 
            modified_date = #{modifiedDate},
-           modified_by = #{modifiedBy},
+           modified_by = #{modifiedById},
            status = 0
         WHERE id = #{id}
     </update>
@@ -73,7 +73,7 @@
         resultType="com.rupp.assignment.json.JFee">
         SELECT *
         FROM fees
-        WHERE id = #{id} AND status = 1
+        WHERE id = #{id}
     </select>
     
    <select id='getAll' parameterType="map" resultMap="JFeeResult" >

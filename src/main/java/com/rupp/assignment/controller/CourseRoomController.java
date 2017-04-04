@@ -1,6 +1,7 @@
 package com.rupp.assignment.controller;
 
 import com.rupp.assignment.json.JCourseRoom;
+import com.rupp.assignment.json.JMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,26 +39,28 @@ public class CourseRoomController {
         return service.getAll();
     }
 
-    @RequestMapping(value = "v1/course/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<JCourseRoom> getByCourseID(HttpServletRequest request, @PathVariable int id) {
-
-        return service.getByCourseID(id);
-    }
-
-    @RequestMapping(value = "v1/room/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Collection<JCourseRoom> getByRoomID(HttpServletRequest request, @PathVariable int id) {
-
-        return service.getByRoomID(id);
+    public JCourseRoom getDetails(HttpServletRequest request, @PathVariable int id) {
+        return service.getDetails(id);
     }
 
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
-    public JCourseRoom create(HttpServletRequest request, @ModelAttribute JCourseRoom domain) {
+    public JMessage create(HttpServletRequest request, @ModelAttribute JCourseRoom domain) {
+        return service.create(domain);
+    }
 
-        service.create(domain);
-        return domain;
+    @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JCourseRoom domain) {
+        return service.update(id, domain);
+    }
+
+    @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
+    @ResponseBody
+    public JMessage remove(HttpServletRequest request) {
+        return service.remove(Integer.parseInt(request.getParameter("id")));
     }
 
     

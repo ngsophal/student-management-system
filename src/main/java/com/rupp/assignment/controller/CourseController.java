@@ -1,6 +1,7 @@
 package com.rupp.assignment.controller;
 
 import com.rupp.assignment.json.JCourse;
+import com.rupp.assignment.json.JMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,16 +42,25 @@ public class CourseController {
     @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)
     @ResponseBody
     public JCourse getDetails(HttpServletRequest request, @PathVariable int id) {
-
         return service.getDetails(id);
     }
 
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
-    public JCourse create(HttpServletRequest request, @ModelAttribute JCourse domain) {
+    public JMessage create(HttpServletRequest request, @ModelAttribute JCourse domain) {
+        return service.create(domain);
+    }
 
-        service.create(domain);
-        return domain;
+    @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JCourse domain) {
+        return service.update(id, domain);
+    }
+
+    @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
+    @ResponseBody
+    public JMessage remove(HttpServletRequest request) {
+        return service.remove(Integer.parseInt(request.getParameter("id")));
     }
     
 }

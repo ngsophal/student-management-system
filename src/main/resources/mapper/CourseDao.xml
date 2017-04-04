@@ -18,11 +18,11 @@
                  column="modified_by"
                  javaType="com.rupp.assignment.json.JUser"
                  select="com.rupp.assignment.dao.UserDao.findById"/>
-        <association property="gradeId"
+        <association property="grade"
                      column="grade_id"
                      javaType="com.rupp.assignment.json.JGrade"
                      select="com.rupp.assignment.dao.GradeDao.findById"/>
-        <association property="sessionId"
+        <association property="session"
                      column="session_id"
                      javaType="com.rupp.assignment.json.JSession"
                      select="com.rupp.assignment.dao.SessionDao.findById"/>
@@ -31,7 +31,7 @@
   <insert id="add"
         parameterType="com.rupp.assignment.json.JCourse"
         useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO fee_types (
+        INSERT INTO courses (
         	grade_id,
         	session_id,
         	start_date,
@@ -46,7 +46,7 @@
          #{startDate},
          #{endDate},
          #{createdDate},
-         #{createdBy},
+         #{createdById},
          #{status}
          )
     </insert>
@@ -60,7 +60,7 @@
            start_date = #{startDate},
            end_date = #{endDate},
            modified_date = #{modifiedDate},
-           modified_by = #{modifiedBy},
+           modified_by = #{modifiedById},
            status = #{status}
         WHERE id = #{id}
     </update>
@@ -70,7 +70,7 @@
         UPDATE courses
         SET 
            modified_date = #{modifiedDate},
-           modified_by = #{modifiedBy},
+           modified_by = #{modifiedById},
            status = 0
         WHERE id = #{id}
     </update>
@@ -80,7 +80,7 @@
         resultType="com.rupp.assignment.json.JCourse">
         SELECT *
         FROM courses
-        WHERE id = #{id} AND status = 1
+        WHERE id = #{id}
     </select>
     
    <select id='getAll' parameterType="map" resultMap="JCourseResult" >
