@@ -89,7 +89,10 @@
 		SELECT *
 		FROM users
 		WHERE status = 1
+		AND (username LIKE ${search}
+		 OR fullname LIKE  ${search}) 
 		LIMIT #{limit} OFFSET #{offset}
+		
 	</select>
 
 	<select id="count" resultType="int">

@@ -30,6 +30,7 @@ public class UserService {
     }
     
     public Collection<JUser> getPage(int limit, int offset, String search) {
+    	search = "'%" + (search == null ? "":search) + "%'";
         Collection<JUser> dList= dao.getPage(limit, offset, search);
         return dList;
     }
