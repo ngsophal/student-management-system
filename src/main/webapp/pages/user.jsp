@@ -74,7 +74,8 @@
                        data-url="/api/users/v1/all"
                        data-page-list="[10,20]"
                        data-pagination="true"
-                    >
+                       data-search="true"
+                       data-side-pagination="server">
                     <thead>
 	                    <tr>
 	                        <th data-field="id" data-visible="true">ID</th>

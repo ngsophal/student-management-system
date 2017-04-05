@@ -17,7 +17,7 @@ public interface Dao <T extends Object>{
     
     void remove(T domain);
     
-    List<T> getPage(@Param("limit") int limit, @Param("offset") int offset);
+    List<T> getPage(@Param("limit") int limit, @Param("offset") int offset, @Param("search") String search);
     
     List<T> getAllWithOffset(@Param("limit") int limit, @Param("offset") int offset);
     

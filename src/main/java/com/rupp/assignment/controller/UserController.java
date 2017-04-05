@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import com.rupp.assignment.json.JUser;
+import com.rupp.assignment.json.BootstrapTableModel;
 import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JMessage.MessageType;
 
@@ -44,12 +45,17 @@ public class UserController {
      */
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<JUser> getAll(HttpServletRequest request, WebRequest webRequest,
+    public BootstrapTableModel<JUser> getAll(HttpServletRequest request, WebRequest webRequest,
             @RequestHeader(required = false, value = "If-Modified-Since") Date since) {
 
         //LOG.debug(" ============== If-Modified-Since {} ", since);
-
-        return service.getAll();
+    	BootstrapTableModel<JUser> res = new BootstrapTableModel<JUser>();
+    	String search = request.getParameter("search");
+    	int limit = Integer.parseInt(request.getParameter("limit"));
+    	int offset = Integer.parseInt(request.getParameter("offset"));
+    	res.setRows(service.getPage(limit, offset, search));
+    	res.setTotal(service.count());
+        return res;
     }
 
     @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)

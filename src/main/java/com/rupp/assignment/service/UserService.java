@@ -28,6 +28,12 @@ public class UserService {
         
         return dList;
     }
+    
+    public Collection<JUser> getPage(int limit, int offset, String search) {
+        Collection<JUser> dList= dao.getPage(limit, offset, search);
+        return dList;
+    }
+    
     public JUser getDetails(int id) {
         return dao.findById(id);
     }
@@ -115,5 +121,9 @@ public class UserService {
     public JUser findByUsername(String username){
     	JUser user = dao.findByUsername(username);
     	return user;
+    }
+    
+    public Integer count(){
+    	return dao.count();
     }
 }
