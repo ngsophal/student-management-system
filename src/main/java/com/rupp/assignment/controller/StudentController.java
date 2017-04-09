@@ -73,16 +73,14 @@ public class StudentController {
     
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
-    public JMessage create(HttpServletRequest request, @ModelAttribute JStudent domain) {
-    	//if(domain.getFirstname().isEmpty() || domain.getLastname() == null ){
-    	//if(domain.getFirstname().isEmpty() ){
-    	/*System.out.println("First7= "+domain.getFirstname());
-    	if(domain.getFirstname() == null){
-    		System.out.println(domain.getFirstname());
-    	}*/
-    	
-    	if(domain.getFirstname() == null){	
-    		System.out.println("First7= "+domain.getLastname());
+    public JMessage create(HttpServletRequest request, @ModelAttribute JStudent domain) {    	
+    	if(domain.getFirstname().isEmpty() || domain.getLastname().isEmpty() || 
+    			domain.getSex() == null ||
+    			domain.getContact_person_name().isEmpty() ||     			
+    			domain.getContact_person_relationship() == null || 
+    			domain.getContact_person_phone().isEmpty() ||   
+    			domain.getAddress().isEmpty() ||
+        		domain.getLastname() == null ){    		
     		this.message.setMessage("Please fill all require fields!");
         	this.message.setStatus(MessageType.ERROR);
         	return this.message;
@@ -95,11 +93,11 @@ public class StudentController {
     @ResponseBody
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JStudent domain) {
     	if(domain.getFirstname().isEmpty() || domain.getLastname().isEmpty() || 
-    			//domain.getSex().isEmpty() ||
-    			//domain.getContact_person_name().isEmpty() ||     			
-    			//.getContact_person_relationship().isEmpty() || 
-    			//domain.getContact_person_phone().isEmpty() ||   
-    			//domain.getAddress().isEmpty() ||
+    			domain.getSex() == null ||
+    			domain.getContact_person_name().isEmpty() ||     			
+    			domain.getContact_person_relationship() == null || 
+    			domain.getContact_person_phone().isEmpty() ||   
+    			domain.getAddress().isEmpty() ||
         		domain.getLastname() == null 
         	){
         		this.message.setMessage("Please fill all require fields!");
