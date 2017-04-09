@@ -1,21 +1,21 @@
 package com.rupp.assignment.json;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class JStudent extends JCommon  {
     /** Unique id for this Entity in the database */
 	
     private String firstname;
     private String lastname;    
-    private String sex;
+    private Integer sex;
     private Date dob;
     
     private String address;
     private String contact_person_name;
-    private String contact_person_relationship;    
+    private Integer contact_person_relationship;    
     private String contact_person_phone;
-    
-	public String getFirstname() {
+	
+    public String getFirstname() {
 		return firstname;
 	}
 	public void setFirstname(String firstname) {
@@ -27,10 +27,10 @@ public class JStudent extends JCommon  {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-	public String getSex() {
+	public Integer getSex() {
 		return sex;
 	}
-	public void setSex(String sex) {
+	public void setSex(Integer sex) {
 		this.sex = sex;
 	}
 	public Date getDob() {
@@ -51,10 +51,10 @@ public class JStudent extends JCommon  {
 	public void setContact_person_name(String contact_person_name) {
 		this.contact_person_name = contact_person_name;
 	}
-	public String getContact_person_relationship() {
+	public Integer getContact_person_relationship() {
 		return contact_person_relationship;
 	}
-	public void setContact_person_relationship(String contact_person_relationship) {
+	public void setContact_person_relationship(Integer contact_person_relationship) {
 		this.contact_person_relationship = contact_person_relationship;
 	}
 	public String getContact_person_phone() {
@@ -63,6 +63,7 @@ public class JStudent extends JCommon  {
 	public void setContact_person_phone(String contact_person_phone) {
 		this.contact_person_phone = contact_person_phone;
 	}
+    
 	
    
 }

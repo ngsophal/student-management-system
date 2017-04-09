@@ -1,73 +1,105 @@
 <div class="container-fluid">
-	<div class="block-header">
-		<h2>
-			FORM VALIDATION <small>Taken from <a
-				href="https://jqueryvalidation.org/" target="_blank">jqueryvalidation.org</a></small>
-		</h2>
-	</div>
 	<!-- Basic Validation -->
 	<div class="row clearfix">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div class="card">
 				<div class="header">
-					<h2>BASIC VALIDATION</h2>
+					<h2 id="form-title">Student Form</h2>
 					<ul class="header-dropdown m-r--5">
 						<li class="dropdown"><a href="javascript:void(0);"
 							class="dropdown-toggle" data-toggle="dropdown" role="button"
 							aria-haspopup="true" aria-expanded="false"> <i
 								class="material-icons">more_vert</i>
 						</a>
-							<ul class="dropdown-menu pull-right">
-								<li><a href="javascript:void(0);">Action</a></li>
-								<li><a href="javascript:void(0);">Another action</a></li>
-								<li><a href="javascript:void(0);">Something else here</a></li>
-							</ul></li>
 					</ul>
 				</div>
 				<div class="body">
-					<form id="form_validation" method="POST">
-						<div class="form-group form-float">
-							<div class="form-line">
-								<input type="text" class="form-control" name="name" required>
-								<label class="form-label">Name</label>
+					<form id="student-form" method="POST">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<!-- <div class="form-line">
+										<input type="text" class="form-control name" placeholder="Grade Name" name="name" id="name" required >
+									</div> -->									
+									
+									<div class="row clearfix">
+										<div class="col-md-6">
+											<div class="form-group">
+												<div class="form-line">
+													<input class="form-control" placeholder="First Name" type="text" name="firstname" id="firstname" required>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<div class="form-line">
+													<input class="form-control" placeholder="Last Name" type="text" name="lastname" id="lastname" required>
+												</div>
+											</div>
+										</div>
+									</div>
+									 <div class="row clearfix">	
+										<div class="col-md-6">											
+											
+											<div class="form-group">
+			                                    <div class="form-line">
+			                                        <input type="text" class="form-control datepicker dob" placeholder="DOB" name="dob" id="dob" required>
+			                                    </div>
+			                                    <div class="help-info">YYYY-MM-DD format</div>
+			                                </div>
+											
+										</div>									
+										<div class="col-md-6">
+											<div class="form-group">
+												<div class="">													
+													<input id="male" class="with-gap" name="sex" type="radio" value="1">
+													<label for="male">Male</label>
+													<input id="female" class="with-gap" name="sex" type="radio" value="2">
+													<label class="m-l-20" for="female">Female</label>
+												</div>
+											</div>
+										</div>										
+									</div>
+									<div class="row clearfix">
+										<div class="col-md-6">
+											<div class="form-group">
+												<div class="form-line">
+													<input class="form-control" placeholder="Contact Person" type="text" name="contact_person_name" id="contact_person_name" required>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											 <div class="form-group">
+												<div>
+																										
+													<select class="form-control" name="contact_person_relationship" id="contact_person_relationship" required>
+				                                        <option value="">-- Select Contact Relation--</option>
+				                                        <option value="1">Parents</option>
+				                                        <option value="2">Other</option>
+			                                        </select>													
+													
+												</div>
+											</div> 
+										</div>
+									</div>
+									<div class="row clearfix">
+										<div class="col-md-12">
+											<div class="form-group">
+												<div class="form-line">
+													<input type="text" class="form-control contact_person_phone" placeholder="Contact Phone" name="contact_person_phone" id="contact_person_phone" required >
+												</div> 
+											</div>
+										</div>	
+									</div>
+									<div class="form-line">
+										<input type="text" class="form-control address" placeholder="Address" name="address" id="address" required >
+									</div>
+									
+								</div>
 							</div>
 						</div>
-						<div class="form-group form-float">
-							<div class="form-line">
-								<input type="text" class="form-control" name="surname" required>
-								<label class="form-label">Surname</label>
-							</div>
-						</div>
-						<div class="form-group form-float">
-							<div class="form-line">
-								<input type="email" class="form-control" name="email" required>
-								<label class="form-label">Email</label>
-							</div>
-						</div>
-						<div class="form-group">
-							<input type="radio" name="gender" id="male" class="with-gap">
-							<label for="male">Male</label> <input type="radio" name="gender"
-								id="female" class="with-gap"> <label for="female"
-								class="m-l-20">Female</label>
-						</div>
-						<div class="form-group form-float">
-							<div class="form-line">
-								<textarea name="description" cols="30" rows="5"
-									class="form-control no-resize" required></textarea>
-								<label class="form-label">Description</label>
-							</div>
-						</div>
-						<div class="form-group form-float">
-							<div class="form-line">
-								<input type="password" class="form-control" name="password"
-									required> <label class="form-label">Password</label>
-							</div>
-						</div>
-						<div class="form-group">
-							<input type="checkbox" id="checkbox" name="checkbox"> <label
-								for="checkbox">I have read and accept the terms</label>
-						</div>
-						<button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+						<button class="btn btn-success waves-effect" id="new">New</button>
+						<button class="btn btn-primary waves-effect" id="submit">Add</button>
 					</form>
 				</div>
 			</div>
@@ -80,235 +112,180 @@
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div class="card">
 				<div class="header">
-					<h2>BASIC EXAMPLE</h2>
-					<ul class="header-dropdown m-r--5">
-						<li class="dropdown"><a href="javascript:void(0);"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false"> <i
-								class="material-icons">more_vert</i>
-						</a>
-							<ul class="dropdown-menu pull-right">
-								<li><a href="javascript:void(0);">Action</a></li>
-								<li><a href="javascript:void(0);">Another action</a></li>
-								<li><a href="javascript:void(0);">Something else here</a></li>
-							</ul></li>
-					</ul>
+					<h2>STUDENT LIST</h2>
 				</div>
 				<div class="body">
-					<table
-						class="table table-bordered table-striped table-hover js-basic-example dataTable">
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Position</th>
-								<th>Office</th>
-								<th>Age</th>
-								<th>Start date</th>
-								<th>Salary</th>
-							</tr>
-						</thead>
-						<tfoot>
-							<tr>
-								<th>Name</th>
-								<th>Position</th>
-								<th>Office</th>
-								<th>Age</th>
-								<th>Start date</th>
-								<th>Salary</th>
-							</tr>
-						</tfoot>
-						<tbody>
-							<tr>
-								<td>Tiger Nixon</td>
-								<td>System Architect</td>
-								<td>Edinburgh</td>
-								<td>61</td>
-								<td>2011/04/25</td>
-								<td>$320,800</td>
-							</tr>
-							<tr>
-								<td>Garrett Winters</td>
-								<td>Accountant</td>
-								<td>Tokyo</td>
-								<td>63</td>
-								<td>2011/07/25</td>
-								<td>$170,750</td>
-							</tr>
-							<tr>
-								<td>Ashton Cox</td>
-								<td>Junior Technical Author</td>
-								<td>San Francisco</td>
-								<td>66</td>
-								<td>2009/01/12</td>
-								<td>$86,000</td>
-							</tr>
-							<tr>
-								<td>Cedric Kelly</td>
-								<td>Senior Javascript Developer</td>
-								<td>Edinburgh</td>
-								<td>22</td>
-								<td>2012/03/29</td>
-								<td>$433,060</td>
-							</tr>
-							<tr>
-								<td>Airi Satou</td>
-								<td>Accountant</td>
-								<td>Tokyo</td>
-								<td>33</td>
-								<td>2008/11/28</td>
-								<td>$162,700</td>
-							</tr>
-							<tr>
-								<td>Brielle Williamson</td>
-								<td>Integration Specialist</td>
-								<td>New York</td>
-								<td>61</td>
-								<td>2012/12/02</td>
-								<td>$372,000</td>
-							</tr>
-							<tr>
-								<td>Herrod Chandler</td>
-								<td>Sales Assistant</td>
-								<td>San Francisco</td>
-								<td>59</td>
-								<td>2012/08/06</td>
-								<td>$137,500</td>
-							</tr>
-							<tr>
-								<td>Rhona Davidson</td>
-								<td>Integration Specialist</td>
-								<td>Tokyo</td>
-								<td>55</td>
-								<td>2010/10/14</td>
-								<td>$327,900</td>
-							</tr>
-							<tr>
-								<td>Brielle Williamson</td>
-								<td>Integration Specialist</td>
-								<td>New York</td>
-								<td>61</td>
-								<td>2012/12/02</td>
-								<td>$372,000</td>
-							</tr>
-							<tr>
-								<td>Herrod Chandler</td>
-								<td>Sales Assistant</td>
-								<td>San Francisco</td>
-								<td>59</td>
-								<td>2012/08/06</td>
-								<td>$137,500</td>
-							</tr>
-							<tr>
-								<td>Rhona Davidson</td>
-								<td>Integration Specialist</td>
-								<td>Tokyo</td>
-								<td>55</td>
-								<td>2010/10/14</td>
-								<td>$327,900</td>
-							</tr>
-							<tr>
-								<td>Brielle Williamson</td>
-								<td>Integration Specialist</td>
-								<td>New York</td>
-								<td>61</td>
-								<td>2012/12/02</td>
-								<td>$372,000</td>
-							</tr>
-							<tr>
-								<td>Herrod Chandler</td>
-								<td>Sales Assistant</td>
-								<td>San Francisco</td>
-								<td>59</td>
-								<td>2012/08/06</td>
-								<td>$137,500</td>
-							</tr>
-							<tr>
-								<td>Rhona Davidson</td>
-								<td>Integration Specialist</td>
-								<td>Tokyo</td>
-								<td>55</td>
-								<td>2010/10/14</td>
-								<td>$327,900</td>
-							</tr>
-							<tr>
-								<td>Brielle Williamson</td>
-								<td>Integration Specialist</td>
-								<td>New York</td>
-								<td>61</td>
-								<td>2012/12/02</td>
-								<td>$372,000</td>
-							</tr>
-							<tr>
-								<td>Herrod Chandler</td>
-								<td>Sales Assistant</td>
-								<td>San Francisco</td>
-								<td>59</td>
-								<td>2012/08/06</td>
-								<td>$137,500</td>
-							</tr>
-							<tr>
-								<td>Rhona Davidson</td>
-								<td>Integration Specialist</td>
-								<td>Tokyo</td>
-								<td>55</td>
-								<td>2010/10/14</td>
-								<td>$327,900</td>
-							</tr>
-							<tr>
-								<td>Brielle Williamson</td>
-								<td>Integration Specialist</td>
-								<td>New York</td>
-								<td>61</td>
-								<td>2012/12/02</td>
-								<td>$372,000</td>
-							</tr>
-							<tr>
-								<td>Herrod Chandler</td>
-								<td>Sales Assistant</td>
-								<td>San Francisco</td>
-								<td>59</td>
-								<td>2012/08/06</td>
-								<td>$137,500</td>
-							</tr>
-							<tr>
-								<td>Rhona Davidson</td>
-								<td>Integration Specialist</td>
-								<td>Tokyo</td>
-								<td>55</td>
-								<td>2010/10/14</td>
-								<td>$327,900</td>
-							</tr>
-							<tr>
-								<td>Brielle Williamson</td>
-								<td>Integration Specialist</td>
-								<td>New York</td>
-								<td>61</td>
-								<td>2012/12/02</td>
-								<td>$372,000</td>
-							</tr>
-							<tr>
-								<td>Herrod Chandler</td>
-								<td>Sales Assistant</td>
-								<td>San Francisco</td>
-								<td>59</td>
-								<td>2012/08/06</td>
-								<td>$137,500</td>
-							</tr>
-							<tr>
-								<td>Rhona Davidson</td>
-								<td>Integration Specialist</td>
-								<td>Tokyo</td>
-								<td>55</td>
-								<td>2010/10/14</td>
-								<td>$327,900</td>
-							</tr>
-							
-			
-						</tbody>
-					</table>
+					<table class="table" id="student-list"
+                       data-toggle="table"
+                       data-toolbar="#get"
+                       data-url="/api/students/v1/all"
+                       data-page-list="[10,20]"
+                       data-pagination="true"
+                    >
+                    <thead>
+	                    <tr>
+	                        <th data-field="id" data-visible="true">ID</th>
+	                        <th data-field="firstname" data-visible="true">First Name</th>
+	                        <th data-field="lastname" data-visible="true">Last Name</th>
+	                        <th data-field="sex" data-visible="true">Sex</th>
+	                        <th data-field="dob" data-visible="true">DOB</th>
+	                        <th data-field="action" data-visible="true">Action</th>
+	                    </tr>
+                    </thead>
+                </table>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- #END# Basic Examples -->
 </div>
+<script type="text/javascript">
+var apiHelper = new ApiHelper('#student-form', 'student', 'v1');
+$(document).ready(function() {
+    var currentId = '';
+    $('#student-form').validate({
+    	highlight: function (input) {
+            $(input).parents('.form-line').addClass('error');
+        },
+        unhighlight: function (input) {
+            $(input).parents('.form-line').removeClass('error');
+        },
+        errorPlacement: function (error, element) {
+            $(element).parents('.form-group').append(error);
+		}
+    });
+	$('#submit').on('click', function(e){
+		e.preventDefault();
+		if($('#student-form').valid()){
+			if(isInsertMode()){
+	    		apiHelper.insert().done(function(r){
+	    			if(r.status == 'SUCCESS'){
+		        		swal(r.message, "", "success");
+		        		resetForm();
+	    				$('#student-list').bootstrapTable('refresh');	
+	    			}else{
+		        		swal(r.message, "", "error");
+	    			}
+	                
+	    		});
+	    	}else{
+	    		apiHelper.update(currentId).done(function(r){
+	    			if(r.status == 'SUCCESS'){
+		        		swal(r.message, "", "success");
+	    				$('#student-list').bootstrapTable('refresh');	
+	    			}else{
+		        		swal(r.message, "", "error");
+	    			}
+	    		});
+	    	}
+		}
+    });
+	
+	$('#student-list').on('click', '.edit', function(e){
+		e.preventDefault();
+		currentId = $(this).attr('data-id');
+		
+		apiHelper.getDetail(currentId).done(function(r){
+			//console.log(r);
+			switchToUpdateForm(currentId);
+			$('#firstname').val(r.firstname);
+			$('#lastname').val(r.lastname);
+			
+			$('#contact_person_relationship').selectpicker("val",r.contact_person_relationship); //val(r.contact_person_relationship);
+			
+			if(r.sex ==1){	
+				$("#male").prop("checked", true);				
+			}else if(r.sex ==2){	
+				$("#female").prop("checked", true);				
+			}
+			
+			$('#dob').val(r.dob);
+			
+			$('#contact_person_name').val(r.contact_person_name);
+			
+			
+			$('#contact_person_phone').val(r.contact_person_phone);
+			$('#address').val(r.address);
+		})
+		
+	})
+	
+	$('#new').on('click', function(e){
+		e.preventDefault();
+		switchToNewForm();
+	});
+	
+	$('#student-list').on('click', '.delete', function(e){
+		e.preventDefault();
+		currentId = $(this).attr('data-id');
+		showAjaxLoaderMessage();
+	});
+	
+	  
+
+	  
+	function isInsertMode(){
+		return currentId == '';
+	}
+	
+	function switchToUpdateForm(id){
+		$('#submit').text('Update');
+		$('#form-title').text('Student Form | Edit ID: ' + currentId);
+	}
+	
+	function switchToNewForm(){
+		currentId = '';
+		$('#submit').text('Add');
+		$('#form-title').text('Student Form');
+		
+		$('#firstname').val('');
+		$('#lastname').val('');
+		
+		$('#contact_person_relationship').selectpicker("val",''); //val(r.contact_person_relationship);		
+		
+		$("#male").prop("checked", false);
+		$("#female").prop("checked", false);
+		
+		$('#dob').val('');
+		
+		$('#contact_person_name').val('');
+		
+		
+		$('#contact_person_phone').val('');
+		$('#address').val('');
+
+	}
+	
+	function showAjaxLoaderMessage() {
+	    swal({
+	        title: "Delete Confirmation",
+	        text: "Are you sure to delete this student?",
+	        type: "info",
+	        showCancelButton: true,
+	        closeOnConfirm: true,
+	        showLoaderOnConfirm: true,
+	    }, function () {
+	        apiHelper.remove(currentId).done(function(r){
+	        	if(r.status == 'SUCCESS'){
+	        		swal(r.message, "", "success");
+	        		$('#student-list').bootstrapTable('refresh');
+	 	        	currentId = '';
+	        	}else{
+	        		swal(r.message, "", "error");
+	 	        	currentId = '';
+	        	}
+               
+	        });
+	    });
+	}
+	
+	function resetForm(){
+		$('#name').val('');
+	}
+	
+	
+	
+});
+
+
+</script>
