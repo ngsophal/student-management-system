@@ -8,6 +8,7 @@
 		<result property='firstname' column='firstname' />		
 		<result property='lastname' column='lastname' />
 		<result property='sex' column='sex' />
+		<result property='sexLabel' column='sex_label' />
 		<result property='dob' column='dob' />
 		<result property='address' column='address' />
 		<result property='contact_person_name' column='contact_person_name' />
@@ -103,15 +104,17 @@
     </select>
     
    <select id='getAll' parameterType="map" resultMap="StudentResult" >
-        SELECT *
-        FROM students
-        WHERE status=1 
+        SELECT if(st.sex=1,'M',  if(st.sex=2,'F','')) AS sex_label,
+	st.firstname, st.lastname, st.dob, st.id
+        FROM students AS st
+        WHERE st.status=1
     </select>
     
     <select id="getPage" parameterType="map" resultMap="StudentResult">
-        SELECT *
-        FROM students
-        WHERE status=1
+        SELECT if(st.sex=1,'M',  if(st.sex=2,'F','')) AS sex_label,
+	st.firstname, st.lastname, st.dob, st.id
+        FROM students AS st
+        WHERE st.status=1
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
