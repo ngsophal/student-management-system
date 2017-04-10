@@ -127,7 +127,7 @@
 	                        <th data-field="id" data-visible="true">ID</th>
 	                        <th data-field="firstname" data-visible="true">First Name</th>
 	                        <th data-field="lastname" data-visible="true">Last Name</th>
-	                        <th data-field="sex" data-visible="true">Sex</th>
+	                        <th data-field="sexLabel" data-visible="true">Sex</th>
 	                        <th data-field="dob" data-visible="true">DOB</th>
 	                        <th data-field="action" data-visible="true">Action</th>
 	                    </tr>

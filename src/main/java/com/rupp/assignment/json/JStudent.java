@@ -9,11 +9,18 @@ public class JStudent extends JCommon  {
     private String lastname;    
     private Integer sex;
     private Date dob;
-    
-    private String address;
+    private String sexLabel;
+	private String address;
     private String contact_person_name;
     private Integer contact_person_relationship;    
     private String contact_person_phone;
+    
+    public String getSexLabel() {
+  		return sexLabel;
+  	}
+  	public void setSexLabel(String sexLabel) {
+  		this.sexLabel = sexLabel;
+  	}
 	
     public String getFirstname() {
 		return firstname;
