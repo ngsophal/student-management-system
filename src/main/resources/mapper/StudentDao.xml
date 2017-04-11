@@ -8,6 +8,7 @@
 		<result property='firstname' column='firstname' />		
 		<result property='lastname' column='lastname' />
 		<result property='sex' column='sex' />
+		<result property='sexLabel' column='sex_label' />
 		<result property='dob' column='dob' />
 		<result property='address' column='address' />
 		<result property='contact_person_name' column='contact_person_name' />
@@ -34,12 +35,14 @@
         
         	firstname,
         	lastname,
-        	sex,
-        	dob,
+        	
         	address,
         	contact_person_name,
-        	contact_person_relationship,
         	contact_person_phone,
+        	
+        	contact_person_relationship,
+        	sex,
+        	dob,
         	        	
         	created_date,
 			created_by,
@@ -48,15 +51,17 @@
         VALUES (
          #{firstname},
          #{lastname},
-         #{sex},
-         #{dob},
+         
          #{address},
          #{contact_person_name},
-         #{contact_person_relationship},
          #{contact_person_phone},
          
+         #{contact_person_relationship},
+         #{sex},
+         #{dob},
+         
          #{createdDate},
-         #{createdBy},
+         #{createdById},
          #{status}
          )
     </insert>
@@ -75,8 +80,8 @@
            contact_person_phone = #{contact_person_phone},
            
            modified_date = #{modifiedDate},
-           modified_by = #{modifiedBy},
-           status = #status
+           modified_by = #{modifiedById},
+           status = #{status}
         WHERE id = #{id}
     </update>
 
@@ -85,7 +90,7 @@
         UPDATE students
         SET 
            modified_date = #{modifiedDate},
-           modified_by = #{modifiedBy},
+           modified_by = #{modifiedById},
            status = 0
         WHERE id = #{id}
     </update>
@@ -95,22 +100,27 @@
         resultType="com.rupp.assignment.json.JStudent">
         SELECT *
         FROM students
-        WHERE id = #{id}
+        WHERE status=1 AND id = #{id}
     </select>
     
    <select id='getAll' parameterType="map" resultMap="StudentResult" >
-        SELECT *
-        FROM students
+        SELECT if(st.sex=1,'M',  if(st.sex=2,'F','')) AS sex_label,
+	st.firstname, st.lastname, st.dob, st.id
+        FROM students AS st
+        WHERE st.status=1
     </select>
     
     <select id="getPage" parameterType="map" resultMap="StudentResult">
-        SELECT *
-        FROM students
+        SELECT if(st.sex=1,'M',  if(st.sex=2,'F','')) AS sex_label,
+	st.firstname, st.lastname, st.dob, st.id
+        FROM students AS st
+        WHERE st.status=1
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
     <select id="count" resultType="int">
         SELECT COUNT(*) 
         FROM students 
+        WHERE status=1
     </select>
 </mapper>
