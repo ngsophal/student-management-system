@@ -98,8 +98,8 @@
 
     <select id="findById" parameterType="int"  resultMap="StudentResult" 
         resultType="com.rupp.assignment.json.JStudent">
-        SELECT *
-        FROM students
+        SELECT if(st.sex=1,'M',  if(st.sex=2,'F','')) AS sex_label, st.*
+        FROM students st
         WHERE status=1 AND id = #{id}
     </select>
     

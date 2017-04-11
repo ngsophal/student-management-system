@@ -14,8 +14,13 @@ public class JStudent extends JCommon  {
     private String contact_person_name;
     private Integer contact_person_relationship;    
     private String contact_person_phone;
+    private String fullname;
     
-    public String getSexLabel() {
+    public String getFullname() {
+		return this.firstname + " " + this.lastname;
+	}
+	
+	public String getSexLabel() {
   		return sexLabel;
   	}
   	public void setSexLabel(String sexLabel) {

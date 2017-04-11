@@ -157,7 +157,7 @@
 	                    <thead>
 		                    <tr>
 		                        <th data-field="id" data-visible="true">ID</th>
-		                        <th data-field="student.studentName" data-visible="true">Student Name</th>
+		                        <th data-field="student.fullname" data-visible="true">Student Name</th>
 		                        <th data-field="student.sexLabel" data-visible="true">Sex</th>
 		                        <th data-field="student.dob" data-visible="true">DOB</th>
 		                        <th data-field="course.grade" data-visible="true">C</th>
