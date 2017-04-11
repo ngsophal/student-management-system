@@ -30,8 +30,7 @@
 						<label for="student-id">Student</label>
 						<div class="form-group ">
 							<div class="form-line">
-								<select class="form-control show-tick" data-live-search="true" id="student-id">
-                                        <option>0001 - Sopheak Hang - Male - 07-Jul-2012</option>
+								<select class="form-control" id="student">
 								</select>								
 							</div>
 						</div>
@@ -147,43 +146,155 @@
 					</ul>
 				</div>
 				<div class="body">
-					<table
-						class="table table-bordered table-striped table-hover js-basic-example dataTable">
-						<thead>
-							<tr>
-								<th>N</th>
-								<th>Student Name</th>
-								<th>Sex</th>
-								<th>DOB</th>
-								<th>Course</th>
-								<th>Room</th>
-								<th>Enrollment Date</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Dara Chea</td>
-								<td>Male</td>
-								<td>02-Jan-2011</td>
-								<td>Grade A - Evening</td>
-								<td>A</td>
-								<td>01-March-2017</td>
-								<td>
-									<button type="button" class="btn btn-warning waves-effect">Edit</button>
-									<button type="button" class="btn btn-danger waves-effect">Delete</button>
-									<button type="button" class="btn btn-success waves-effect">Pay</button>
-								</td>
-							</tr>
-							
-			
-						</tbody>
-					</table>
+					<table class="table" id="enrollment-list"
+	                       data-toggle="table"
+	                       data-toolbar="#get"
+	                       data-url="/api/enrollments/v1/all"
+	                       data-page-list="[10,20]"
+	                       data-pagination="true"
+	                       data-search="true"
+	                       data-side-pagination="server">
+	                    <thead>
+		                    <tr>
+		                        <th data-field="id" data-visible="true">ID</th>
+		                        <th data-field="student.studentName" data-visible="true">Student Name</th>
+		                        <th data-field="student.sexLabel" data-visible="true">Sex</th>
+		                        <th data-field="student.dob" data-visible="true">DOB</th>
+		                        <th data-field="course.grade" data-visible="true">C</th>
+		                        <th data-field="action" data-visible="true">Action</th>
+		                    </tr>
+	                    </thead>
+	                </table>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- #END# Basic Examples -->
 </div>
+
+<script type="text/javascript">
+var apiHelper = new ApiHelper('#enrollment-form', 'enrollment', 'v1');
+var state = 'insert';
+
+$(document).ready(function() {
+    var currentId = '';
+    $('#enrollment-form').validate({
+    	highlight: function (input) {
+            $(input).parents('.form-line').addClass('error');
+        },
+        unhighlight: function (input) {
+            $(input).parents('.form-line').removeClass('error');
+        },
+        errorPlacement: function (error, element) {
+            $(element).parents('.form-group').append(error);
+		}
+    });
+    
+	$('#submit').on('click', function(e){
+		e.preventDefault();
+		if($('#enrollment-form').valid()){
+			if(state == 'insert'){
+	    		apiHelper.insert().done(function(r){
+	    			if(r.status == 'SUCCESS'){
+		        		swal(r.message, "", "success");
+		        		resetForm();
+	    				$('#enrollment-list').bootstrapTable('refresh');	
+	    			}else{
+		        		swal(r.message, "", "error");
+	    			}
+	                
+	    		});
+	    	}else if(state == 'update'){
+	    		apiHelper.update(currentId).done(function(r){
+	    			if(r.status == 'SUCCESS'){
+		        		swal(r.message, "", "success");
+	    				$('#enrollment-list').bootstrapTable('refresh');	
+	    			}else{
+		        		swal(r.message, "", "error");
+	    			}
+	    		});
+	    	}
+		}
+    });
+	
+	$('#enrollment-list').on('click', '.edit', function(e){
+		e.preventDefault();
+		currentId = $(this).attr('data-id');
+		apiHelper.getDetail(currentId).done(function(r){
+			switchToUpdateForm(currentId);
+			$('#username').val(r.username);
+			$('#full-name').val(r.fullName);
+		})
+		
+	});
+	
+	$('#new').on('click', function(e){
+		e.preventDefault();
+		switchToNewForm();
+	});
+	
+	$('#enrollment-list').on('click', '.delete', function(e){
+		e.preventDefault();
+		currentId = $(this).attr('data-id');
+		showAjaxLoaderMessage();
+	});
+});	
+	function switchToUpdateForm(id){
+		state = 'update';
+		$('#submit').text('Update');
+		$('#form-title').text('User Form | Edit ID: ' + currentId);
+		$('#username').parent().parent().parent().hide();
+		$('#password').parent().parent().parent().hide();
+		$('#confirm-password').parent().parent().parent().hide();
+		$('#full-name').parent().parent().parent().show();
+	}
+	
+	function switchToNewForm(){
+		state = 'insert';
+		currentId = '';
+		$('#submit').text('Add');
+		$('#form-title').text('User Form');
+		
+		$('#full-name').parent().parent().parent().show();
+		$('#username').parent().parent().parent().show();
+		$('#password').parent().parent().parent().show();
+		$('#confirm-password').parent().parent().parent().show();
+		$('#username').parent().parent().parent().show();
+		
+		$('#full-name').val('');
+		$('#username').val('');
+		$('#password').val('');
+		$('#confirm-password').val('');
+
+	}
+	
+	function showAjaxLoaderMessage() {
+	    swal({
+	        title: "Delete Confirmation",
+	        text: "Are you sure to delete this enrollment?",
+	        type: "info",
+	        showCancelButton: true,
+	        closeOnConfirm: true,
+	        showLoaderOnConfirm: true,
+	    }, function () {
+	        apiHelper.remove(currentId).done(function(r){
+	        	if(r.status == 'SUCCESS'){
+	        		swal(r.message, "", "success");
+	        		$('#enrollment-list').bootstrapTable('refresh');
+	 	        	currentId = '';
+	        	}else{
+	        		swal(r.message, "", "error");
+	 	        	currentId = '';
+	        	}
+               
+	        });
+	    });
+	}
+	
+	function resetForm(){
+		switchToNewForm();
+	}
+		
+
+
+</script>

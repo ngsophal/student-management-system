@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rupp.assignment.dao.EnrollmentDao">
+	<resultMap type='com.rupp.assignment.json.JEnrollment' id='EnrollmentResult'>
+
+		<id property='id' column='id' />
+		<result property='studentId' column='student_id' />
+		<result property='courseId' column='course_id' />
+		<result property='roomId' column='room_id' />
+		<result property='enrollmentDate' column='enrollment_date' />
+		<result property='createdDate' column='created_date' />
+		<result property='modifiedDate' column='modified_date' />
+		<result property="status" column="status" />
+		<association property="student" column="student_id"
+			javaType="com.rupp.assignment.json.JStudent" select="com.rupp.assignment.dao.StudentDao.findById" />
+		<association property="course" column="course_id"
+			javaType="com.rupp.assignment.json.JCourse" select="com.rupp.assignment.dao.CourseDao.findById" />
+		<association property="room" column="room_id"
+			javaType="com.rupp.assignment.json.JRoom" select="com.rupp.assignment.dao.RoomDao.findById" />
+		<association property="createdBy" column="created_by"
+			javaType="com.rupp.assignment.json.JUser" select="com.rupp.assignment.dao.UserDao.findByIdWithoutMap" />
+		<association property="modifiedBy" column="modified_by"
+			javaType="com.rupp.assignment.json.JUser" select="com.rupp.assignment.dao.UserDao.findByIdWithoutMap" />
+	</resultMap>
+
+
+	<insert id="add" parameterType="com.rupp.assignment.json.JEnrollment"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO enrollments (
+		student_id,
+		course_id,
+		room_id,
+		enrollment_date,
+		created_date,
+		created_by,
+		status
+		)
+		VALUES (
+		#{studentId},
+		#{courseId},
+		#{roomId},
+		#{enrollmentDate},
+		#{createdDate},
+		#{createdById},
+		#{status}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.rupp.assignment.json.JEnrollment">
+		UPDATE enrollments
+		SET
+		student_id = #{studentId},
+		course_id = #{courseId},
+		room_id = #{roomId},
+		enrollment_date = #{enrollmentDate},
+		modified_date = #{modifiedDate},
+		modified_by = #{modifiedById}
+		WHERE id = #{id}
+	</update>
+
+	<update id="remove" parameterType="int">
+		UPDATE enrollments
+		SET
+		status = 0,
+		modified_date = #{modifiedDate},
+		modified_by = #{modifiedById}
+		WHERE id = #{id}
+	</update>
+
+	<select id="findById" parameterType="int" resultMap="EnrollmentResult"
+		resultType="com.rupp.assignment.json.JEnrollment">
+		SELECT *
+		FROM enrollments
+		WHERE id = #{id}
+	</select>
+	
+	<select id="findByIdWithoutMap" parameterType="int" >
+		SELECT *
+		FROM enrollments
+		WHERE id = #{id}
+	</select>
+	
+	<select id='getAll' parameterType="map" resultMap='EnrollmentResult'>
+		SELECT *
+		FROM enrollments
+		WHERE status = 1
+	</select>
+
+	<select id="getPage" parameterType="map" resultMap="EnrollmentResult">
+		SELECT *
+		FROM enrollments
+		WHERE status = 1
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT COUNT(*)
+		FROM enrollments
+		WHERE status = 1
+	</select>
+</mapper>
