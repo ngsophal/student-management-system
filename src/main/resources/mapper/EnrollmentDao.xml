@@ -32,8 +32,7 @@
 		room_id,
 		enrollment_date,
 		created_date,
-		created_by,
-		status
+		created_by
 		)
 		VALUES (
 		#{studentId},
@@ -41,8 +40,7 @@
 		#{roomId},
 		#{enrollmentDate},
 		#{createdDate},
-		#{createdById},
-		#{status}
+		#{createdById}
 		)
 	</insert>
 
@@ -87,15 +85,37 @@
 	</select>
 
 	<select id="getPage" parameterType="map" resultMap="EnrollmentResult">
-		SELECT *
-		FROM enrollments
-		WHERE status = 1
+		SELECT e.*
+		FROM enrollments e
+			INNER JOIN courses c ON c.id = e.course_id
+			INNER JOIN sessions s ON s.id = c.session_id
+			INNER JOIN grades g ON g.id = c.grade_id
+			INNER JOIN rooms r ON r.id = e.room_id
+			INNER JOIN students st ON st.id = e.student_id
+		WHERE e.status = 1
+		AND (
+			CONCAT(g.name , " - ", s.name) LIKE ${search}
+		 	OR CONCAT(st.firstname," ", st.lastname) LIKE  ${search}
+		 	OR r.name LIKE ${search}
+		 
+		 ) 
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
 
-	<select id="count" resultType="int">
-		SELECT COUNT(*)
-		FROM enrollments
-		WHERE status = 1
+	<select id="count" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM enrollments e
+			INNER JOIN courses c ON c.id = e.course_id
+			INNER JOIN sessions s ON s.id = c.session_id
+			INNER JOIN grades g ON g.id = c.grade_id
+			INNER JOIN rooms r ON r.id = e.room_id
+			INNER JOIN students st ON st.id = e.student_id
+		WHERE e.status = 1
+		AND (
+			CONCAT(g.name , " - ", s.name) LIKE ${search}
+		 	OR CONCAT(st.firstname," ", st.lastname) LIKE  ${search}
+		 	OR r.name LIKE ${search}
+		 
+		 ) 
 	</select>
 </mapper>

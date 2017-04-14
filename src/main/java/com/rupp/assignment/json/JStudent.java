@@ -75,6 +75,12 @@ public class JStudent extends JCommon  {
 	public void setContact_person_phone(String contact_person_phone) {
 		this.contact_person_phone = contact_person_phone;
 	}
+	
+	public String getAction(){
+		return "<button type='button' data-id='" + this.getId() + "' class='btn btn-primary waves-effect m-r-5 edit'>Edit</button>" +
+				"<a href='index.jsp?p=enrollment&studentId=" + this.getId() + "' class='btn btn-primary waves-effect m-r-5'>Enroll</a>" +
+				"<button type='button'  data-id='" + this.getId() + "' class='btn btn-danger waves-effect delete'>Delete</button>";
+	}
     
 	
    

@@ -1,6 +1,6 @@
 package com.rupp.assignment.json;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class JEnrollment extends JCommon {
 
@@ -54,5 +54,11 @@ public class JEnrollment extends JCommon {
 	public void setEnrollmentDate(Date enrollmentDate) {
 		this.enrollmentDate = enrollmentDate;
 	}
+	public String getAction(){
+		return "<a href='index.jsp?p=enrollment&enrollmentId=" + this.getId() + "' class='btn btn-primary waves-effect m-r-5'>Edit</a>" +
+				"<a href='index.jsp?p=payment&enrollmentId=" + this.getId() + "' class='btn btn-primary waves-effect m-r-5'>Pay</a>" +
+				"<button type='button'  data-id='" + this.getId() + "' class='btn btn-danger waves-effect delete'>Delete</button>";
+	}
+	
    
 }

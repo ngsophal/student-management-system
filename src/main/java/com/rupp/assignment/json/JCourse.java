@@ -12,6 +12,14 @@ public class JCourse extends JCommon {
 
 	private int gradeId;
 	private int sessionId;
+	private String name;
+	
+	
+
+	public String getName() {
+		return grade.getName() + " - " + session.getName();
+	}
+
 
 	public int getGradeId() {
 		return gradeId;

@@ -33,19 +33,32 @@
 		});
 	};
 	
-	this.getDetail = function(id){
+	this.getDetail = function(id, isAsync){
+		if(isAsync == null) isAsync = true;
 		return $.ajax({
 			url:'api/' + this.resource + '/' + this.version + '/' + id,
 			type: 'GET',
-			dataType: 'JSON'
+			dataType: 'JSON',
+			async: isAsync
 		});	
 	};
-
-	this.getAll = function(){
+	
+	this.getSubResource = function(id, subResource, isAsync){
+		if(isAsync == null) isAsync = true;
+		return $.ajax({
+			url:'api/' + this.resource + '/' + this.version + '/' + id + '/'+subResource,
+			type: 'GET',
+			dataType: 'JSON',
+			async: isAsync
+		});	
+	};
+	this.getAll = function(isAsync){
+		if(isAsync == null) isAsync = true;
 		return $.ajax({
 			url:'api/' + this.resource + '/' + this.version + '/all',
 			type: 'GET',
-			dataType: 'JSON'
+			dataType: 'JSON',
+			async: isAsync
 		});
 	}
 

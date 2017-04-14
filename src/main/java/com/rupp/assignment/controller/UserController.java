@@ -54,7 +54,7 @@ public class UserController {
     	int limit = Integer.parseInt(request.getParameter("limit"));
     	int offset = Integer.parseInt(request.getParameter("offset"));
     	res.setRows(service.getPage(limit, offset, search));
-    	res.setTotal(service.count());
+    	res.setTotal(service.count(search));
         return res;
     }
 

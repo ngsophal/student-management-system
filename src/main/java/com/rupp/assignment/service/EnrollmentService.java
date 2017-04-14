@@ -41,9 +41,10 @@ public class EnrollmentService {
     	jEnrollment.setCreatedDate(new Date());
     	jEnrollment.setCreatedById(this.user.getId());
 		try{
-			dao.add(jEnrollment);
+			int id = dao.add(jEnrollment);
 	        this.message.setMessage("Enrollment has been inserted successfully!");
 	        this.message.setStatus(MessageType.SUCCESS);
+	        this.message.setInsertedId(id);
 		}catch(Exception e){
 	        this.message.setMessage(e.getMessage());
 	        this.message.setStatus(MessageType.ERROR);
@@ -83,7 +84,7 @@ public class EnrollmentService {
         return message;
     }
    
-    public Integer count(){
-    	return dao.count();
-    }
+    public Integer count(String search){
+    	search = "'%" + (search == null ? "":search) + "%'";
+    	return dao.count(search);    }
 }

@@ -124,7 +124,8 @@ public class UserService {
     	return user;
     }
     
-    public Integer count(){
-    	return dao.count();
+    public Integer count(String search){
+    	search = "'%" + (search == null ? "":search) + "%'";
+    	return dao.count(search);
     }
 }

@@ -36,9 +36,9 @@
 				</a>
 			</li>
 			<li>
-				<a href="index.jsp?p=enrollment">
+				<a href="index.jsp?p=enrollment_list">
 					<i class="material-icons">directions_walk</i>
-					<span>Enrollment</span>
+					<span>Enrollment List</span>
 				</a>
 			</li>
 			<li>

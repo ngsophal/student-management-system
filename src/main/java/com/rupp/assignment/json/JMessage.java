@@ -5,6 +5,14 @@ public class JMessage {
 	
 	private MessageType status; 
 	private String message;
+	private int insertedId;
+	
+	public int getInsertedId() {
+		return insertedId;
+	}
+	public void setInsertedId(int insertedId) {
+		this.insertedId = insertedId;
+	}
 	public JMessage() {
 		// TODO Auto-generated constructor stub
 	}

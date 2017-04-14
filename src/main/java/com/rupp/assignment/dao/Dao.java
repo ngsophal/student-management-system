@@ -9,8 +9,8 @@ public interface Dao <T extends Object>{
     
     T findById(@Param("id") int id);
     
-    void add(T domain);
-        
+    int add(T domain);
+    
     void update(T domain);
     
     List<T> getAll();
@@ -21,5 +21,5 @@ public interface Dao <T extends Object>{
     
     List<T> getAllWithOffset(@Param("limit") int limit, @Param("offset") int offset);
     
-    Integer count();
+    Integer count(@Param("search") String search);
 }

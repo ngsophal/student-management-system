@@ -1,183 +1,151 @@
+<%
+String studentId = request.getParameter("studentId");
+String enrollmentId = request.getParameter("enrollmentId");
+String state = "";
+if(enrollmentId != "" && enrollmentId != null) state = "edit";
+else if(studentId != "") state = "insert";
+
+%>
 <div class="container-fluid">
 	<div class="block-header">
 		<h2>
-			Enrollment
+			Enrollment <% if(state == "edit") out.print(" | Edit ID:" + enrollmentId); %>
 		</h2>
 	</div>
 	<!-- Basic Validation -->
 	
 	<div class="row clearfix">
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+                   <div class="header bg-red">
+                       <h2>
+                          Student Information
+                       </h2>
+                      
+                   </div>
+                   <div class="body">
+                   		<div class="row">
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>First name:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-first-name"></div>
+                   		
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Last name:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-last-name"></div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Sex:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-sex"></div>
+                   		
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Date of Birth:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-dob"></div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Address:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-address"></div>
+                   		
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Contact Person Name:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-contact-person"></div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Contact Person Relationship:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-contact-person-relationship"></div>
+                   		
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Contact Person Phone Number:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-contact-person-phone-number"></div>
+                   		</div>
+                   </div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row clearfix">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div class="card">
 				<div class="header">
 					<h2>Enrollment</h2>
-					<ul class="header-dropdown m-r--5">
-						<li class="dropdown"><a href="javascript:void(0);"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false"> <i
-								class="material-icons">more_vert</i>
-						</a>
-							<ul class="dropdown-menu pull-right">
-								<li><a href="javascript:void(0);">Action</a></li>
-								<li><a href="javascript:void(0);">Another action</a></li>
-								<li><a href="javascript:void(0);">Something else here</a></li>
-							</ul>
-						</li>
-					</ul>
 				</div>
 				<div class="body">
-					<form id="form_validation" method="POST">
-						<label for="student-id">Student</label>
-						<div class="form-group ">
-							<div class="form-line">
-								<select class="form-control" id="student">
-								</select>								
-							</div>
-						</div>
-						<label for="course">Course</label>
+					<form id="enrollment-form" method="POST">
+						<input type="hidden" id="student-id" name="studentId" value="">
+						<label for="course-id">Course</label>
 						<div class="form-group">
 							<div class="form-line">
-								<select class="form-control show-tick" data-live-search="true">
-                                    <option value="1">Grade A - Evening</option>
+								<select class="form-control show-tick" id="course-id" name="courseId" required>
 								</select>
 							</div>
 						</div>
 						<label for="room">Room</label>
 						<div class="form-group form-float">
 							<div class="form-line">
-								<select class="form-control show-tick" data-live-search="true" id="room">
-                                        <option>A</option>
+								<select class="form-control show-tick" id="room-id" name="roomId" required>
 								</select>
 							</div>
 						</div>
 						<label for="enrollment-date">Enrollment Date</label>
 						<div class="form-group">
 							<div class="form-line">
-								 <input type="text" class="datepicker form-control" name="enrollment_date" id="enrollment-date" >								
+								 <input type="text" class="datepicker form-control" name="enrollmentDate" id="enrollment-date" required>								
 							</div>
 						</div>
-						
-						<button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
-						
-						<button class="btn btn-primary waves-effect" type="submit">SUBMIT & PAY</button>
-						
+						<button class="btn btn-primary waves-effect" id="submit"><% if(state == "edit") out.print("Update"); else out.print("Add"); %></button>
 					</form>
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-			<div class="card">
-                   <div class="header bg-red">
-                       <h2>
-                          Student Information
-                       </h2>
-                       <ul class="header-dropdown m-r--5">
-                           <li class="dropdown">
-                               <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                   <i class="material-icons">more_vert</i>
-                               </a>
-                               <ul class="dropdown-menu pull-right">
-                                   <li><a href="javascript:void(0);">Action</a></li>
-                                   <li><a href="javascript:void(0);">Another action</a></li>
-                                   <li><a href="javascript:void(0);">Something else here</a></li>
-                               </ul>
-                           </li>
-                       </ul>
-                   </div>
-                   <div class="body">
-                   		<div class="row">
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>First name:</label></div>
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Sopheak</div>
-                   		</div>
-                   		<div class="row">
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Last name:</label></div>
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Hang</div>
-                   		</div>
-                   		<div class="row">
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Sex:</label></div>
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                   				Male
-                   			</div>
-                   		</div>
-                   		<div class="row">
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Date of Birth:</label></div>
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">07-July-2012</div>
-                   		</div>
-                   		<div class="row">
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Address:</label></div>
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">#434C, St 22BT, Boeng Tumpon, Mean Chey, Phnom Penh</div>
-                   		</div>
-                   		<div class="row">
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Contact Person Name:</label></div>
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Heng Nary</div>
-                   		</div>
-                   		<div class="row">
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Contact Person Relationship:</label></div>
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Mother</div>
-                   		</div>
-                   		<div class="row">
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><label>Contact Person Phone Number:</label></div>
-                   			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">012121212</div>
-                   		</div>
-                   </div>
-			</div>
-			
-		</div>
 	</div>
-	<!-- #END# Basic Validation -->
-
-	<!-- Basic Examples -->
-	<div class="row clearfix">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<div class="card">
-				<div class="header">
-					<h2>Enrollment List</h2>
-					<ul class="header-dropdown m-r--5">
-						<li class="dropdown"><a href="javascript:void(0);"
-							class="dropdown-toggle" data-toggle="dropdown" role="button"
-							aria-haspopup="true" aria-expanded="false"> <i
-								class="material-icons">more_vert</i>
-						</a>
-							<ul class="dropdown-menu pull-right">
-								<li><a href="javascript:void(0);">Action</a></li>
-								<li><a href="javascript:void(0);">Another action</a></li>
-								<li><a href="javascript:void(0);">Something else here</a></li>
-							</ul></li>
-					</ul>
-				</div>
-				<div class="body">
-					<table class="table" id="enrollment-list"
-	                       data-toggle="table"
-	                       data-toolbar="#get"
-	                       data-url="/api/enrollments/v1/all"
-	                       data-page-list="[10,20]"
-	                       data-pagination="true"
-	                       data-search="true"
-	                       data-side-pagination="server">
-	                    <thead>
-		                    <tr>
-		                        <th data-field="id" data-visible="true">ID</th>
-		                        <th data-field="student.fullname" data-visible="true">Student Name</th>
-		                        <th data-field="student.sexLabel" data-visible="true">Sex</th>
-		                        <th data-field="student.dob" data-visible="true">DOB</th>
-		                        <th data-field="course.grade" data-visible="true">C</th>
-		                        <th data-field="action" data-visible="true">Action</th>
-		                    </tr>
-	                    </thead>
-	                </table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- #END# Basic Examples -->
 </div>
 
 <script type="text/javascript">
 var apiHelper = new ApiHelper('#enrollment-form', 'enrollment', 'v1');
-var state = 'insert';
+var studentApiHelper = new ApiHelper('', 'student', 'v1');
+var courseApiHelper = new ApiHelper('', 'course', 'v1');
+
+var state = '<%= state %>';
+var enrollmentId = '<%= enrollmentId %>';
+var studentId = '<%= studentId %>';
+
 
 $(document).ready(function() {
-    var currentId = '';
+	console.log(state);
+    loadCourses();
+    if(state == 'edit'){
+    	loadEnrollment();
+    }else{
+    	loadRooms();	
+    }
+    loadStudent();
+
+    $('#course-id').on('change', function(e){
+    	loadRooms();	
+    });
+    
+    $('#submit').on('click', function(e){
+		e.preventDefault();
+		if($('#enrollment-form').valid()){
+			if(state == 'insert'){
+	    		apiHelper.insert().done(function(r){
+	    			if(r.status == 'SUCCESS'){
+		        		swal(r.message, "", "success");
+		        		//resetForm();
+	    				$('#enrollment-list').bootstrapTable('refresh');	
+	    			}else{
+		        		swal(r.message, "", "error");
+	    			}
+	                
+	    		});
+	    	}else if(state == 'edit'){
+	    		apiHelper.update(enrollmentId).done(function(r){
+	    			if(r.status == 'SUCCESS'){
+		        		swal(r.message, "", "success");
+	    				$('#enrollment-list').bootstrapTable('refresh');	
+	    			}else{
+		        		swal(r.message, "", "error");
+	    			}
+	    		});
+	    	}
+		}
+    });
+    
     $('#enrollment-form').validate({
     	highlight: function (input) {
             $(input).parents('.form-line').addClass('error');
@@ -189,112 +157,62 @@ $(document).ready(function() {
             $(element).parents('.form-group').append(error);
 		}
     });
-    
-	$('#submit').on('click', function(e){
-		e.preventDefault();
-		if($('#enrollment-form').valid()){
-			if(state == 'insert'){
-	    		apiHelper.insert().done(function(r){
-	    			if(r.status == 'SUCCESS'){
-		        		swal(r.message, "", "success");
-		        		resetForm();
-	    				$('#enrollment-list').bootstrapTable('refresh');	
-	    			}else{
-		        		swal(r.message, "", "error");
-	    			}
-	                
-	    		});
-	    	}else if(state == 'update'){
-	    		apiHelper.update(currentId).done(function(r){
-	    			if(r.status == 'SUCCESS'){
-		        		swal(r.message, "", "success");
-	    				$('#enrollment-list').bootstrapTable('refresh');	
-	    			}else{
-		        		swal(r.message, "", "error");
-	    			}
-	    		});
-	    	}
-		}
-    });
 	
-	$('#enrollment-list').on('click', '.edit', function(e){
-		e.preventDefault();
-		currentId = $(this).attr('data-id');
-		apiHelper.getDetail(currentId).done(function(r){
-			switchToUpdateForm(currentId);
-			$('#username').val(r.username);
-			$('#full-name').val(r.fullName);
-		})
-		
-	});
-	
-	$('#new').on('click', function(e){
-		e.preventDefault();
-		switchToNewForm();
-	});
-	
-	$('#enrollment-list').on('click', '.delete', function(e){
-		e.preventDefault();
-		currentId = $(this).attr('data-id');
-		showAjaxLoaderMessage();
-	});
 });	
-	function switchToUpdateForm(id){
-		state = 'update';
-		$('#submit').text('Update');
-		$('#form-title').text('User Form | Edit ID: ' + currentId);
-		$('#username').parent().parent().parent().hide();
-		$('#password').parent().parent().parent().hide();
-		$('#confirm-password').parent().parent().parent().hide();
-		$('#full-name').parent().parent().parent().show();
+		
+	
+	function loadStudent(){		
+		studentApiHelper.getDetail(studentId, false).done(function(r){
+			$('#st-first-name').html(r.firstname);
+			$('#st-last-name').html(r.lastname);
+			$('#st-sex').html(r.sexLabel);
+			$('#st-dob').html(r.dob);
+			$('#st-address').html(r.address);
+			$('#st-contact-person').html(r.contact_person_name);
+			$('#st-contact-person-relationship').html(r.contact_person_relationship);
+			$('#st-contact-person-phone-number').html(r.contact_person_phone);
+		})
 	}
 	
-	function switchToNewForm(){
-		state = 'insert';
-		currentId = '';
-		$('#submit').text('Add');
-		$('#form-title').text('User Form');
-		
-		$('#full-name').parent().parent().parent().show();
-		$('#username').parent().parent().parent().show();
-		$('#password').parent().parent().parent().show();
-		$('#confirm-password').parent().parent().parent().show();
-		$('#username').parent().parent().parent().show();
-		
-		$('#full-name').val('');
-		$('#username').val('');
-		$('#password').val('');
-		$('#confirm-password').val('');
+	function loadEnrollment(){
+		apiHelper.getDetail(enrollmentId, false).done(function(r){
+			loadRooms();
+			$('#student-id').val(r.studentId);
+			$('#course-id').val(r.courseId);
+			$('#room-id').val(r.roomId);
+			$('#enrollment-date').val(r.enrollmentDate);
+			$('#course-id').selectpicker('refresh');
+			$('#room-id').selectpicker('refresh');
+			studentId = r.studentId;
 
+		});
 	}
 	
-	function showAjaxLoaderMessage() {
-	    swal({
-	        title: "Delete Confirmation",
-	        text: "Are you sure to delete this enrollment?",
-	        type: "info",
-	        showCancelButton: true,
-	        closeOnConfirm: true,
-	        showLoaderOnConfirm: true,
-	    }, function () {
-	        apiHelper.remove(currentId).done(function(r){
-	        	if(r.status == 'SUCCESS'){
-	        		swal(r.message, "", "success");
-	        		$('#enrollment-list').bootstrapTable('refresh');
-	 	        	currentId = '';
-	        	}else{
-	        		swal(r.message, "", "error");
-	 	        	currentId = '';
-	        	}
-               
-	        });
-	    });
-	}
-	
-	function resetForm(){
-		switchToNewForm();
-	}
-		
+	function loadCourses(){		
+		courseApiHelper.getAll(false).done(function(r){
+			var options = '';
+			for(var i in r){
+				options += "<option value='" + r[i].id + "'>" + r[i].name + "</option>";	
 
+			}
+			console.log(options);
+			$('#course-id').html(options);
+			$('#course-id').selectpicker('refresh');
+		})
+	}
+	
+	function loadRooms(){
+		var courseId = $('#course-id').selectpicker('val');
+		console.log(courseId);
+		courseApiHelper.getSubResource(courseId, 'rooms', false).done(function(r){
+			var options = '';
+			for(var i in r){
+				options += "<option value='" + r[i].id + "'>" + r[i].name + "</option>";	
+
+			}
+			$('#room-id').html(options);
+			$('#room-id').selectpicker('refresh');
+		});
+	}
 
 </script>

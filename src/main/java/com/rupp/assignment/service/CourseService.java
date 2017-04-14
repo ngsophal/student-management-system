@@ -1,19 +1,25 @@
 package com.rupp.assignment.service;
 
-import com.rupp.assignment.dao.CourseDao;
-import com.rupp.assignment.json.JCourse;
-import com.rupp.assignment.json.JMessage;
-import com.rupp.assignment.json.JUser;
+import java.util.Collection;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Date;
+import com.rupp.assignment.dao.CourseDao;
+import com.rupp.assignment.dao.RoomDao;
+import com.rupp.assignment.json.JCourse;
+import com.rupp.assignment.json.JMessage;
+import com.rupp.assignment.json.JRoom;
+import com.rupp.assignment.json.JUser;
 
 @Service
 public class CourseService {
     @Autowired
     private CourseDao dao;
+    @Autowired
+    private RoomDao roomDao;
+    
     @Autowired
     private JUser user;
     @Autowired
@@ -23,6 +29,12 @@ public class CourseService {
         Collection<JCourse> dList= dao.getAll();
         return dList;
     }
+    
+    public Collection<JRoom> getRoomsByCourseId(int courseId) {
+        Collection<JRoom> dList= roomDao.findByCourseId(courseId);
+        return dList;
+    }
+    
     public JCourse getDetails(int id) {
         return dao.findById(id);
     }

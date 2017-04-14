@@ -65,6 +65,19 @@
         WHERE id = #{id}
     </select>
     
+    <select id="findByCourseId" parameterType="int" resultMap="RoomResult"
+        resultType="com.rupp.assignment.json.JRoom">
+        SELECT
+        	r.id, 
+			r.name,
+        	r.created_date,
+			r.created_by,
+			r.status
+        FROM rooms r
+        INNER JOIN courses_rooms cr ON cr.room_id = r.id
+        WHERE course_id = #{courseId} AND r.status = 1
+    </select>
+    
    <select id='getAll' parameterType="map" resultMap="RoomResult" >
         SELECT *
         FROM rooms

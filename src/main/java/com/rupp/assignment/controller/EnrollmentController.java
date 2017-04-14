@@ -21,6 +21,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.rupp.assignment.json.BootstrapTableModel;
 import com.rupp.assignment.json.JEnrollment;
 import com.rupp.assignment.json.JMessage;
+import com.rupp.assignment.json.JMessage.MessageType;
 
 @Controller
 @RequestMapping(value = {"enrollment", "enrollments" })
@@ -49,7 +50,7 @@ public class EnrollmentController {
     	int limit = Integer.parseInt(request.getParameter("limit"));
     	int offset = Integer.parseInt(request.getParameter("offset"));
     	res.setRows(service.getPage(limit, offset, search));
-    	res.setTotal(service.count());
+    	res.setTotal(service.count(search));
         return res;
     }
 
@@ -63,32 +64,18 @@ public class EnrollmentController {
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
     public JMessage create(HttpServletRequest request, @ModelAttribute JEnrollment domain) {
-	/*	if(domain.getPassword().isEmpty() || 
-    		domain.getPassword() == null ||
-    		domain.getConfirmPassword().isEmpty() || 
-    		domain.getConfirmPassword() == null ||
-    		domain.getUsername().isEmpty() ||
-    		domain.getUsername() == null ||
-    		domain.getFullName().isEmpty() ||
-    		domain.getFullName() == null 
-    	){
+
+    	if(domain.getCourseId() == 0 ||
+    		domain.getRoomId() == 0 ||
+    		domain.getEnrollmentDate() == null ){
     		this.message.setMessage("Please fill all require fields!");
     		this.message.setStatus(MessageType.ERROR);
     		return this.message;
     	}
-    	if(!domain.getPassword().matches(domain.getConfirmPassword()) ){
-    		this.message.setMessage("Password is not match!");
-    		this.message.setStatus(MessageType.ERROR);
-    		return this.message;
-    	}
     	
-    	JUser existedUser = service.findByUsername(domain.getUsername());
-    	if(existedUser != null){
-    		this.message.setMessage("Username has already existed!");
-    		this.message.setStatus(MessageType.ERROR);
-    		return this.message;
-    	}
-    	*/
+    	// check if course enrolled
+    	
+    	// check if enrollment is paid
     	
         return service.create(domain);
     }
@@ -96,13 +83,14 @@ public class EnrollmentController {
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JEnrollment domain) {
-    	/*
-    	if(domain.getFullName().isEmpty() || 
-    		domain.getFullName() == null){
+    	
+    	if(domain.getCourseId() == 0 ||
+    		domain.getRoomId() == 0 ||
+    		domain.getEnrollmentDate() == null ){
     		this.message.setMessage("Please fill all require fields!");
     		this.message.setStatus(MessageType.ERROR);
     		return this.message;
-    	}*/
+    	}
         return service.update(id, domain);
     }
     

@@ -95,10 +95,12 @@
 		
 	</select>
 
-	<select id="count" resultType="int">
+	<select id="count" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		FROM users
 		WHERE status = 1
+		AND (username LIKE ${search}
+		 OR fullname LIKE  ${search}) 
 	</select>
 	
 	<select id="findByUsername" parameterType="String" resultMap='UserResult'>

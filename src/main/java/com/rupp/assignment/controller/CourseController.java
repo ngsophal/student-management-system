@@ -2,6 +2,8 @@ package com.rupp.assignment.controller;
 
 import com.rupp.assignment.json.JCourse;
 import com.rupp.assignment.json.JMessage;
+import com.rupp.assignment.json.JRoom;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +25,18 @@ public class CourseController {
     @Autowired
     private com.rupp.assignment.service.CourseService service;
 
-    /**
-     * return all Categories support Header If-Modified-Since is optional, timestamp of last update; use
-     * "Sat, 29 Oct 1994 19:43:31 GMT"
-     * 
-     * @return Iterable<JFeeType>
-     */
+
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<JCourse> getAll(HttpServletRequest request, WebRequest webRequest,
-                                      @RequestHeader(required = false, value = "If-Modified-Since") Date since) {
-
-        //LOG.debug(" ============== If-Modified-Since {} ", since);
+    public Collection<JCourse> getAll(HttpServletRequest request, WebRequest webRequest) {
 
         return service.getAll();
+    }
+    
+    @RequestMapping(value = "v1/{courseId}/rooms", method = RequestMethod.GET)
+    @ResponseBody
+    public Collection<JRoom> getRoomsByCourseId(HttpServletRequest request, @PathVariable int courseId) {
+        return service.getRoomsByCourseId(courseId);
     }
 
     @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)
