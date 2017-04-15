@@ -105,14 +105,14 @@
     
    <select id='getAll' parameterType="map" resultMap="StudentResult" >
         SELECT if(st.sex=1,'M',  if(st.sex=2,'F','')) AS sex_label,
-	st.firstname, st.lastname, st.dob, st.id
+				st.firstname, st.lastname, st.dob, st.id
         FROM students AS st
         WHERE st.status=1
     </select>
     
     <select id="getPage" parameterType="map" resultMap="StudentResult">
         SELECT if(st.sex=1,'M',  if(st.sex=2,'F','')) AS sex_label,
-	st.firstname, st.lastname, st.dob, st.id
+				st.firstname, st.lastname, st.dob, st.id
         FROM students AS st
         WHERE st.status=1
         LIMIT #{limit} OFFSET #{offset}

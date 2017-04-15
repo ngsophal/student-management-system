@@ -81,10 +81,15 @@
                 </ul>
 			</li>
 			<li>
-				<a href="index.jsp?p=report">
+				<a href="javascript:void(0);" class="menu-toggle">
 					<i class="material-icons">insert_chart</i>
 					<span>Reports</span>
 				</a>
+				<ul class="ml-menu">
+                    <li>
+                        <a href="index.jsp?p=report_student">Student Report</a>
+                    </li>
+                </ul>
 			</li>
 			<li>
 				<a href="api/user/logout">
