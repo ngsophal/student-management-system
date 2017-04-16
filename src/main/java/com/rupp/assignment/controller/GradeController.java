@@ -25,11 +25,16 @@ import org.springframework.web.context.request.WebRequest;
 import com.rupp.assignment.json.JGrade;
 import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JUser;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import com.rupp.assignment.json.JMessage.MessageType;
 
 
 @Controller
 @RequestMapping(value = {"grade", "grades" })
+@Api(tags = "grades")
 public class GradeController {
 
     private static final Logger LOG = LoggerFactory.getLogger(GradeController.class);
@@ -39,14 +44,10 @@ public class GradeController {
     @Autowired
     private JMessage message;
 
-    /**
-     * return all Grades support Header If-Modified-Since is optional, timestamp of last update; use
-     * "Sat, 29 Oct 1994 19:43:31 GMT"
-     * 
-     * @return Iterable<JGrade>
-     */
+    
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="get all grades", notes = "get all grades")
     public Collection<JGrade> getAll(HttpServletRequest request, WebRequest webRequest,
             @RequestHeader(required = false, value = "If-Modified-Since") Date since) {
 
@@ -57,6 +58,7 @@ public class GradeController {
 
     @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="get detail grade by id", notes = "get detail grade by id", response = JGrade.class)
     public JGrade getDetails(HttpServletRequest request, @PathVariable int id) {
 
         return service.getDetails(id);
@@ -64,6 +66,7 @@ public class GradeController {
 
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="create grade", notes = "create grade", response = JMessage.class)
     public JMessage create(HttpServletRequest request, @ModelAttribute JGrade domain) {
     	if(domain.getName().isEmpty() || 
         		domain.getName() == null 
@@ -77,6 +80,7 @@ public class GradeController {
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="update grade", notes = "update grade", response = JMessage.class)
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JGrade domain) {
     	if(domain.getName().isEmpty() || 
         		domain.getName() == null 
@@ -90,6 +94,7 @@ public class GradeController {
     
     @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="remove grade", notes = "remove grade", response = JMessage.class)
     public JMessage remove(HttpServletRequest request) {
         return service.remove(Integer.parseInt(request.getParameter("id")));
     }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
@@ -17,50 +18,102 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = "com.rupp.assignment")
 @EnableTransactionManagement
-@ImportResource(value = {"classpath:/persistence-db.xml"})
+@ImportResource(value = { "classpath:/persistence-db.xml" })
 @MapperScan("com.rupp.assignment.dao")
-@PropertySource(name="application",value={"classpath:/application.properties"})
+@PropertySource(name = "application", value = { "classpath:/application.properties" })
 @Lazy
+@EnableSwagger2 // for swagger annotation
+
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
-    
-    // -------------- Services -----------------------
+	// -------------- Services -----------------------
 
-    // -------------- Message Converters ----------------------
+	// -------------- Message Converters ----------------------
 
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		SkipNullObjectMapper skipNullMapper = new SkipNullObjectMapper();
+		skipNullMapper.init();
+		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+		converter.setObjectMapper(skipNullMapper);
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		skipNullMapper.setDateFormat(formatter);
+
+		converters.add(converter);
+	}
+
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/api/**").allowedOrigins("http://domain2.com") // put
+																			// *
+																			// for
+																			// all
+				.allowedMethods("PUT", "DELETE").allowedHeaders("header1", "header2", "header3") // Content-Language
+																									// ,
+																									// put
+																									// *
+																									// for
+																									// all
+				.exposedHeaders("header1", "header2").allowCredentials(false).maxAge(3600);
+	}
+    //<mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"></mvc:resources>
+    //<mvc:resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"></mvc:resources>
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        SkipNullObjectMapper skipNullMapper = new SkipNullObjectMapper();
-        skipNullMapper.init();
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setObjectMapper(skipNullMapper);
-        
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        skipNullMapper.setDateFormat(formatter);
-        
-        converters.add(converter);
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+          .addResourceLocations("classpath:/META-INF/resources/");
+     
+        registry.addResourceHandler("/webjars/**")
+          .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
     
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
-            .allowedOrigins("http://domain2.com") // put * for all
-            .allowedMethods("PUT", "DELETE")
-            .allowedHeaders("header1", "header2", "header3") //Content-Language , put * for all
-            .exposedHeaders("header1", "header2")
-            .allowCredentials(false).maxAge(3600);
+//    @Override
+//    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+//        configurer.enable();
+//    }
+    
+    //<bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"></bean>
+//    @Bean("swagger2Config")
+//    public Swagger2DocumentationConfiguration getSwagger2DocumentationConfiguration() {
+//        return new Swagger2DocumentationConfiguration();
+//    }
+    
+    @Bean
+    public Docket api() { 
+        return new Docket(DocumentationType.SWAGGER_2)
+           .apiInfo(getApiInfoForVersion("1"))
+          .select()                                  
+          .apis(RequestHandlerSelectors.any())
+          .paths(PathSelectors.any())
+          .build()
+         // .pathMapping("api")
+          //.securitySchemes(Arrays.asList(apiKey())
+                  ;
     }
     
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
-   
+//    private ApiKey apiKey() {
+//        return new ApiKey("mykey", "api_key", "header");
+//    }
     
+    private ApiInfo getApiInfoForVersion(String version) {
+        Contact defaultContact = new Contact("Company", "https://github.com/sophea/docrest-swagger-spring-rest-api", "");
+        return new ApiInfo("Version " + version, "Api Documentation. Each REST-API Request must start with /api. ", version, "urn:tos",
+            defaultContact, "Restricted usage", "https://github.com/sophea/docrest-swagger-spring-rest-api");
+    }
 }
