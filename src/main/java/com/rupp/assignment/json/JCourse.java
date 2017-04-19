@@ -2,16 +2,25 @@ package com.rupp.assignment.json;
 
 import java.sql.Date;
 
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
+
 public class JCourse extends JCommon {
 
-    private JGrade grade;
+	@ApiParam(hidden=true, required=false)
+	private JGrade grade;
+	@ApiParam(hidden=true, required=false)
 	private JSession session;
-
+	
+    @ApiModelProperty( value = "Course start date", required = true ) 
 	private Date startDate;
+    @ApiModelProperty( value = "Course end date", required = true ) 
 	private Date endDate;
-
+    @ApiModelProperty( value = "Grade id", required = true ) 
 	private int gradeId;
+    @ApiModelProperty( value = "session id", required = true ) 
 	private int sessionId;
+	@ApiParam(hidden=true, required=false)
 	private String name;
 	
 	

@@ -169,7 +169,7 @@ $(document).ready(function() {
 			$('#st-dob').html(r.dob);
 			$('#st-address').html(r.address);
 			$('#st-contact-person').html(r.contact_person_name);
-			$('#st-contact-person-relationship').html(r.contact_person_relationship);
+			$('#st-contact-person-relationship').html(r.contact_person_relationship_label);
 			$('#st-contact-person-phone-number').html(r.contact_person_phone);
 		})
 	}

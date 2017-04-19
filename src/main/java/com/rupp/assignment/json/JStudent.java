@@ -15,11 +15,24 @@ public class JStudent extends JCommon  {
     private Integer contact_person_relationship;    
     private String contact_person_phone;
     private String fullname;
+    private String contact_person_relationship_label;
     
     public String getFullname() {
-		return this.firstname + " " + this.lastname;
+    	this.fullname = this.firstname + " " + this.lastname;
+		return this.fullname;
 	}
 	
+    
+	public String getContact_person_relationship_label() {
+		return contact_person_relationship_label;
+	}
+
+
+	public void setContact_person_relationship_label(String contact_person_relationship_label) {
+		this.contact_person_relationship_label = contact_person_relationship_label;
+	}
+
+
 	public String getSexLabel() {
   		return sexLabel;
   	}

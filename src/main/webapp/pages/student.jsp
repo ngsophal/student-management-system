@@ -125,6 +125,8 @@
                        data-url="/api/students/v1/all"
                        data-page-list="[10,20]"
                        data-pagination="true"
+                       data-search="true"
+                       data-side-pagination="server"
                     >
                     <thead>
 	                    <tr>

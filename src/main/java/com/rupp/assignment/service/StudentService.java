@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.rupp.assignment.dao.StudentDao;
 import com.rupp.assignment.json.JStudent;
+import com.rupp.assignment.json.JEnrollment;
 import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JUser;
 import com.rupp.assignment.json.JMessage.MessageType;
@@ -27,6 +28,13 @@ public class StudentService {
         
         return dList;
     }
+    
+    public Collection<JStudent> getPage(int limit, int offset, String search) {
+    	search = "'%" + (search == null ? "":search) + "%'";
+        Collection<JStudent> dList= dao.getPage(limit, offset, search);
+        return dList;
+    }
+    
     public JStudent getDetails(int id) {
         return dao.findById(id);
     }
@@ -77,6 +85,11 @@ public class StudentService {
 		}
     	
         return message;
+    }
+    
+    public Integer count(String search){
+    	search = "'%" + (search == null ? "":search) + "%'";
+    	return dao.count(search);    
     }
 }
 
