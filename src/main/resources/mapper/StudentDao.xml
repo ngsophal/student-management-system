@@ -121,7 +121,9 @@
 			st.contact_person_phone LIKE ${search}
 		 	OR CONCAT(st.firstname," ", st.lastname) LIKE  ${search}		 
 		 ) 
+		ORDER BY st.id DESC 
 		LIMIT #{limit} OFFSET #{offset}
+		
     </select>
 
     <select id="count" resultType="int">

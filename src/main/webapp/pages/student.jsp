@@ -178,7 +178,7 @@ $(document).ready(function() {
 	    		apiHelper.insert().done(function(r){
 	    			if(r.status == 'SUCCESS'){
 		        		swal(r.message, "", "success");
-		        		resetForm();
+		        		switchToNewForm();//resetForm();
 	    				$('#student-list').bootstrapTable('refresh');	
 	    			}else{
 		        		swal(r.message, "", "error");
