@@ -44,14 +44,14 @@ public class MyFilter implements Filter {
 	    HttpServletResponse resp = (HttpServletResponse)response;
 	    String requestPath = req.getRequestURI();
 		HttpSession session = req.getSession(true);
-        //chain.doFilter(request, response);// sends request to next resource
-
+        chain.doFilter(request, response);// sends request to next resource
+/*
 		if (session.getAttribute("userId") != null) {	
 	        chain.doFilter(request, response);// sends request to next resource
 		 }else{
 			 resp.sendRedirect("/login.jsp");
 		 } 
-
+ */
 	}
 
 	/**

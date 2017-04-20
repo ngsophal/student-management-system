@@ -8,10 +8,11 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value="JStudent", description="JSON Model for showing detail student")
 public class JStudent extends JCommon  {
 	
+
     @ApiModelProperty( value = "First name", required = true ) 
-    private String firstname;
+    private String firstName;
     @ApiModelProperty( value = "Last name", required = true ) 
-    private String lastname;    
+    private String lastName;    
     @ApiModelProperty( value = "Sex", required = true ) 
     private Integer sex;
     @ApiModelProperty( value = "Date of birth", required = true ) 
@@ -29,7 +30,7 @@ public class JStudent extends JCommon  {
     private String contact_person_relationship_label;
     
     public String getFullname() {
-    	this.fullname = this.firstname + " " + this.lastname;
+    	this.fullname = this.firstName + " " + this.lastName;
 		return this.fullname;
 	}
 	
@@ -52,16 +53,16 @@ public class JStudent extends JCommon  {
   	}
 	
     public String getFirstname() {
-		return firstname;
+		return firstName;
 	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstname(String firstName) {
+		this.firstName = firstName;
 	}
 	public String getLastname() {
-		return lastname;
+		return lastName;
 	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastname(String lastName) {
+		this.lastName = lastName;
 	}
 	public Integer getSex() {
 		return sex;
