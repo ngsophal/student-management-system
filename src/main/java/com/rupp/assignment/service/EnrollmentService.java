@@ -86,5 +86,6 @@ public class EnrollmentService {
    
     public Integer count(String search){
     	search = "'%" + (search == null ? "":search) + "%'";
-    	return dao.count(search);    }
+    	return dao.count(search);    
+    }
 }

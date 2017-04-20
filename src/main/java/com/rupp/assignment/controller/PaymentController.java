@@ -15,8 +15,12 @@ import org.springframework.web.context.request.WebRequest;
 
 
 import com.rupp.assignment.json.JPayment;
+import com.rupp.assignment.json.JStudent;
+import com.rupp.assignment.json.BootstrapTableModel;
 import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JMessage.MessageType;
+
+import io.swagger.annotations.ApiOperation;
 
 
 @Controller
@@ -30,21 +34,21 @@ public class PaymentController {
     @Autowired
     private JMessage message;    
     
-    /**
-     * return all Categories support Header If-Modified-Since is optional, timestamp of last update; use
-     * "Sat, 29 Oct 1994 19:43:31 GMT"
-     * 
-     * @return Iterable<JPayment>
-     */
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<JPayment> getAll(HttpServletRequest request, WebRequest webRequest,
+    @ApiOperation(value="Get all payments", notes = "Get all payments", response = JPayment.class, responseContainer = "List")
+    public BootstrapTableModel<JPayment> getAll(HttpServletRequest request, WebRequest webRequest,
             @RequestHeader(required = false, value = "If-Modified-Since") Date since) {
-
-        //LOG.debug(" ============== If-Modified-Since {} ", since);
-
-        return service.getAll();
+    	
+        BootstrapTableModel<JPayment> res = new BootstrapTableModel<JPayment>();
+    	String search = request.getParameter("search");
+    	int limit = Integer.parseInt(request.getParameter("limit"));
+    	int offset = Integer.parseInt(request.getParameter("offset"));
+    	res.setRows(service.getPage(limit, offset, search));
+    	res.setTotal(service.count(search));
+        return res;
     }
+
 
     @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)
     @ResponseBody

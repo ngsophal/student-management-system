@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.rupp.assignment.dao.PaymentDao;
 import com.rupp.assignment.json.JPayment;
+import com.rupp.assignment.json.JEnrollment;
 import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JUser;
 import com.rupp.assignment.json.JMessage.MessageType;
@@ -27,6 +28,13 @@ public class PaymentService {
         
         return dList;
     }
+    
+    public Collection<JPayment> getPage(int limit, int offset, String search) {
+    	search = "'%" + (search == null ? "":search) + "%'";
+        Collection<JPayment> dList= dao.getPage(limit, offset, search);
+        return dList;
+    }
+    
     public JPayment getDetails(int id) {
         return dao.findById(id);
     }
@@ -77,6 +85,11 @@ public class PaymentService {
 		}
     	
         return message;
+    }
+    
+    public Integer count(String search){
+    	search = "'%" + (search == null ? "":search) + "%'";
+    	return dao.count(search);    
     }
 }
 

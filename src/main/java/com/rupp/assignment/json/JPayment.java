@@ -56,7 +56,12 @@ public class JPayment extends JCommon  {
 	public void setFeeType(JFeeType feeType) {
 		this.feeType = feeType;
 	}
+	public String getAction(){
+		return "<button type='button'  data-id='" + this.getId() + "' class='btn btn-primary m-r-5  waves-effect print'>Print</button>" +
+				"<button type='button'  data-id='" + this.getId() + "' class='btn btn-danger m-r-5  waves-effect delete'>Delete</button>";
+	}
 	
+   
 	
    
 }
