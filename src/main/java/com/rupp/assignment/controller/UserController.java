@@ -1,6 +1,5 @@
 package com.rupp.assignment.controller;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +22,8 @@ import com.rupp.assignment.json.BootstrapTableModel;
 import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JMessage.MessageType;
 
+import io.swagger.annotations.ApiOperation;
+
 
 @Controller
 @Scope("session")
@@ -37,18 +38,13 @@ public class UserController {
     @Autowired 
     JUser user;
 
-    /**
-     * return all Grades support Header If-Modified-Since is optional, timestamp of last update; use
-     * "Sat, 29 Oct 1994 19:43:31 GMT"
-     * 
-     * @return Iterable<JUser>
-     */
+ 
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get all users by paging", notes = "Get all users by paging", response = JUser.class, responseContainer = "List")
     public BootstrapTableModel<JUser> getAll(HttpServletRequest request, WebRequest webRequest,
             @RequestHeader(required = false, value = "If-Modified-Since") Date since) {
 
-        //LOG.debug(" ============== If-Modified-Since {} ", since);
     	BootstrapTableModel<JUser> res = new BootstrapTableModel<JUser>();
     	String search = request.getParameter("search");
     	int limit = Integer.parseInt(request.getParameter("limit"));
@@ -60,6 +56,7 @@ public class UserController {
 
     @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get user by id", notes = "Get user by id", response = JUser.class)
     public JUser getDetails(HttpServletRequest request, @PathVariable int id) {
 
         return service.getDetails(id);
@@ -67,6 +64,7 @@ public class UserController {
 
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Create user", notes = "Create user", response = JMessage.class)
     public JMessage create(HttpServletRequest request, @ModelAttribute JUser domain) {
 		if(domain.getPassword().isEmpty() || 
     		domain.getPassword() == null ||
@@ -99,6 +97,7 @@ public class UserController {
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Update user", notes = "Update user", response = JMessage.class)
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JUser domain) {
     	if(domain.getFullName().isEmpty() || 
     		domain.getFullName() == null){
@@ -111,6 +110,7 @@ public class UserController {
     
     @RequestMapping(value = "v1/change-password/{id}", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Change password", notes = "Change password", response = JMessage.class)
     public JMessage changePassword(HttpServletRequest request, @PathVariable int id, @ModelAttribute JUser domain) {
     	if(domain.getPassword().isEmpty() || 
     		domain.getPassword() == null ||
@@ -134,11 +134,13 @@ public class UserController {
     
     @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Remove user", notes = "Remove user", response = JMessage.class)
     public JMessage remove(HttpServletRequest request) {
         return service.remove(Integer.parseInt(request.getParameter("id")));
     }
     
     @RequestMapping(value = "login", method = RequestMethod.POST)
+    @ApiOperation(value="Login", notes = "Login")
     public String login(HttpServletRequest request) {
          JUser user = service.login(request.getParameter("username"), request.getParameter("password"));
          if(user == null){
@@ -152,6 +154,7 @@ public class UserController {
     }
     
     @RequestMapping(value = "logout")
+    @ApiOperation(value="Logout", notes = "Logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
         return "redirect:/login.jsp";

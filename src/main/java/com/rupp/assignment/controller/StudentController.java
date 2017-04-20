@@ -26,13 +26,13 @@ import org.springframework.web.context.request.WebRequest;
 
 
 import com.rupp.assignment.json.JStudent;
+import com.rupp.assignment.json.BootstrapTableModel;
 import com.rupp.assignment.json.JMessage;
-//import com.rupp.assignment.json.JUser;
 import com.rupp.assignment.json.JMessage.MessageType;
+import io.swagger.annotations.ApiOperation;
 
 
 
-//import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -46,26 +46,26 @@ public class StudentController {
     @Autowired
     private JMessage message;    
     
-    /**
-     * return all Categories support Header If-Modified-Since is optional, timestamp of last update; use
-     * "Sat, 29 Oct 1994 19:43:31 GMT"
-     * 
-     * @return Iterable<JStudent>
-     */
+
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<JStudent> getAll(HttpServletRequest request, WebRequest webRequest,
+    @ApiOperation(value="Get all students", notes = "Get all students", response = JStudent.class, responseContainer = "List")
+    public BootstrapTableModel<JStudent> getAll(HttpServletRequest request, WebRequest webRequest,
             @RequestHeader(required = false, value = "If-Modified-Since") Date since) {
-
-        //LOG.debug(" ============== If-Modified-Since {} ", since);
-
-        return service.getAll();
+    	
+        BootstrapTableModel<JStudent> res = new BootstrapTableModel<JStudent>();
+    	String search = request.getParameter("search");
+    	int limit = Integer.parseInt(request.getParameter("limit"));
+    	int offset = Integer.parseInt(request.getParameter("offset"));
+    	res.setRows(service.getPage(limit, offset, search));
+    	res.setTotal(service.count(search));
+        return res;
     }
 
     @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get student by id", notes = "Get student by id", response = JStudent.class)
     public JStudent getDetails(HttpServletRequest request, @PathVariable int id) {
-
         return service.getDetails(id);
     }
 
@@ -73,6 +73,7 @@ public class StudentController {
     
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Create student", notes = "Create student", response = JMessage.class)
     public JMessage create(HttpServletRequest request, @ModelAttribute JStudent domain) {    	
     	if(domain.getFirstname().isEmpty() || domain.getLastname().isEmpty() || 
     			domain.getSex() == null ||
@@ -91,6 +92,7 @@ public class StudentController {
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Update student", notes = "Update student", response = JMessage.class)
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JStudent domain) {
     	if(domain.getFirstname().isEmpty() || domain.getLastname().isEmpty() || 
     			domain.getSex() == null ||
@@ -110,6 +112,7 @@ public class StudentController {
     
     @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Remove student", notes = "Remove student", response = JMessage.class)
     public JMessage remove(HttpServletRequest request) {
         return service.remove(Integer.parseInt(request.getParameter("id")));
     }

@@ -2,14 +2,22 @@ package com.rupp.assignment.json;
 
 import java.sql.Date;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value="JEnrollment", description="JSON Model for showing enrollment details")
 public class JEnrollment extends JCommon {
 
+    @ApiModelProperty( value = "Student ID", required = true ) 
     private int studentId;
     private JStudent student;
+    @ApiModelProperty( value = "Course ID", required = true ) 
     private int courseId;
     private JCourse course;
+    @ApiModelProperty( value = "Room ID", required = true ) 
 	private int roomId;
 	private JRoom room;
+    @ApiModelProperty( value = "Enrollment date", required = true ) 
 	private Date enrollmentDate;
 	
 	public int getStudentId() {

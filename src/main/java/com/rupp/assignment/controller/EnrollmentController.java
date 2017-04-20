@@ -21,7 +21,10 @@ import org.springframework.web.context.request.WebRequest;
 import com.rupp.assignment.json.BootstrapTableModel;
 import com.rupp.assignment.json.JEnrollment;
 import com.rupp.assignment.json.JMessage;
+import com.rupp.assignment.json.JUser;
 import com.rupp.assignment.json.JMessage.MessageType;
+
+import io.swagger.annotations.ApiOperation;
 
 @Controller
 @RequestMapping(value = {"enrollment", "enrollments" })
@@ -33,18 +36,13 @@ public class EnrollmentController {
     @Autowired
     private JMessage message;
 
-    /**
-     * return all Grades support Header If-Modified-Since is optional, timestamp of last update; use
-     * "Sat, 29 Oct 1994 19:43:31 GMT"
-     * 
-     * @return Iterable<JEnrollment>
-     */
+
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get all enrollments by paging", notes = "Get all enrollments by paging", response = JEnrollment.class, responseContainer = "List")
     public BootstrapTableModel<JEnrollment> getAll(HttpServletRequest request, WebRequest webRequest,
             @RequestHeader(required = false, value = "If-Modified-Since") Date since) {
 
-        //LOG.debug(" ============== If-Modified-Since {} ", since);
     	BootstrapTableModel<JEnrollment> res = new BootstrapTableModel<JEnrollment>();
     	String search = request.getParameter("search");
     	int limit = Integer.parseInt(request.getParameter("limit"));
@@ -56,13 +54,14 @@ public class EnrollmentController {
 
     @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get enrollment by id", notes = "Get enrollment by id", response = JEnrollment.class)
     public JEnrollment getDetails(HttpServletRequest request, @PathVariable int id) {
-
         return service.getDetails(id);
     }
 
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Create enrollment", notes = "Create enrollment", response = JMessage.class)
     public JMessage create(HttpServletRequest request, @ModelAttribute JEnrollment domain) {
 
     	if(domain.getCourseId() == 0 ||
@@ -82,6 +81,7 @@ public class EnrollmentController {
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Update enrollment", notes = "Update enrollment", response = JMessage.class)
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JEnrollment domain) {
     	
     	if(domain.getCourseId() == 0 ||
@@ -96,6 +96,7 @@ public class EnrollmentController {
     
     @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Remove enrollment", notes = "Remove enrollment", response = JMessage.class)
     public JMessage remove(HttpServletRequest request) {
         return service.remove(Integer.parseInt(request.getParameter("id")));
     }

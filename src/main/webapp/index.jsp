@@ -1,4 +1,4 @@
-﻿<%@ page import="java.nio.file.Path" %>
+<%@ page import="java.nio.file.Path" %>
 <%@ page import="java.nio.file.Paths" %>
 <%@ page import="java.io.File" %>
 <%@ page import="java.nio.file.Files" %>
@@ -14,7 +14,7 @@
 
 <section class="content">
     <%
-        String req = "pages/welcome"+".jsp";
+        String req = "pages/student"+".jsp";
 
         if (request.getParameterMap().containsKey("p")) {
             String p = "pages/" + request.getParameter("p") + ".jsp";

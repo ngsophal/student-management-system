@@ -19,7 +19,11 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.rupp.assignment.json.JSession;
 import com.rupp.assignment.json.JMessage.MessageType;
+
+import io.swagger.annotations.ApiOperation;
+
 import com.rupp.assignment.json.JMessage;
+import com.rupp.assignment.json.JRoom;
 
 
 @Controller
@@ -34,16 +38,15 @@ public class SessionController {
 
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get all sessions", notes = "Get all sessions", response = JSession.class, responseContainer = "List")
     public Collection<JSession> getAll(HttpServletRequest request, WebRequest webRequest,
             @RequestHeader(required = false, value = "If-Modified-Since") Date since) {
-
-        //LOG.debug(" ============== If-Modified-Since {} ", since);
-
         return service.getAll();
     }
 
     @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get session by id", notes = "Get session by id", response = JRoom.class)
     public JSession getDetails(HttpServletRequest request, @PathVariable int id) {
 
         return service.getDetails(id);
@@ -51,6 +54,7 @@ public class SessionController {
 
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Create session", notes = "Create sessions", response = JMessage.class)
     public JMessage create(HttpServletRequest request, @ModelAttribute JSession domain) {
     	if(domain.getName().isEmpty() || 
     		domain.getName() == null 
@@ -64,6 +68,7 @@ public class SessionController {
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Update session", notes = "Update session", response = JMessage.class)
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JSession domain) {
     	if(domain.getName().isEmpty() || 
         		domain.getName() == null 
@@ -77,6 +82,7 @@ public class SessionController {
     
     @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Remove session", notes = "Remove session", response = JMessage.class)
     public JMessage remove(HttpServletRequest request) {
         return service.remove(Integer.parseInt(request.getParameter("id")));
     }

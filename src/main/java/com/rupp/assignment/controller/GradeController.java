@@ -47,18 +47,15 @@ public class GradeController {
     
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value="get all grades", notes = "get all grades")
+    @ApiOperation(value="Get all grades", notes = "Get all grades", responseContainer = "List")
     public Collection<JGrade> getAll(HttpServletRequest request, WebRequest webRequest,
             @RequestHeader(required = false, value = "If-Modified-Since") Date since) {
-
-        //LOG.debug(" ============== If-Modified-Since {} ", since);
-
         return service.getAll();
     }
 
     @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value="get detail grade by id", notes = "get detail grade by id", response = JGrade.class)
+    @ApiOperation(value="Get detail grade by id", notes = "Get detail grade by id", response = JGrade.class)
     public JGrade getDetails(HttpServletRequest request, @PathVariable int id) {
 
         return service.getDetails(id);
@@ -66,7 +63,7 @@ public class GradeController {
 
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
-    @ApiOperation(value="create grade", notes = "create grade", response = JMessage.class)
+    @ApiOperation(value="Create grade", notes = "Create grade", response = JMessage.class)
     public JMessage create(HttpServletRequest request, @ModelAttribute JGrade domain) {
     	if(domain.getName().isEmpty() || 
         		domain.getName() == null 
@@ -80,7 +77,7 @@ public class GradeController {
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
-    @ApiOperation(value="update grade", notes = "update grade", response = JMessage.class)
+    @ApiOperation(value="Update grade", notes = "Update grade", response = JMessage.class)
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JGrade domain) {
     	if(domain.getName().isEmpty() || 
         		domain.getName() == null 
@@ -94,7 +91,7 @@ public class GradeController {
     
     @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
     @ResponseBody
-    @ApiOperation(value="remove grade", notes = "remove grade", response = JMessage.class)
+    @ApiOperation(value="Remove grade", notes = "Remove grade", response = JMessage.class)
     public JMessage remove(HttpServletRequest request) {
         return service.remove(Integer.parseInt(request.getParameter("id")));
     }
