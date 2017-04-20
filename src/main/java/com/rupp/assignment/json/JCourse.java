@@ -2,14 +2,16 @@ package com.rupp.assignment.json;
 
 import java.sql.Date;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
+import springfox.documentation.annotations.ApiIgnore;
 
+@ApiModel(value="JCourse", description="JSON Model for showing course details")
 public class JCourse extends JCommon {
-
-	@ApiParam(hidden=true, required=false)
+	@ApiModelProperty(required = false, hidden = true)
 	private JGrade grade;
-	@ApiParam(hidden=true, required=false)
+	@ApiModelProperty(required = false, hidden = true)
 	private JSession session;
 	
     @ApiModelProperty( value = "Course start date", required = true ) 
@@ -18,9 +20,9 @@ public class JCourse extends JCommon {
 	private Date endDate;
     @ApiModelProperty( value = "Grade id", required = true ) 
 	private int gradeId;
-    @ApiModelProperty( value = "session id", required = true ) 
+    @ApiModelProperty( value = "Session id", required = true ) 
 	private int sessionId;
-	@ApiParam(hidden=true, required=false)
+    @ApiModelProperty(required = false, hidden = true)
 	private String name;
 	
 	

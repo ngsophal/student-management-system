@@ -1,11 +1,16 @@
 package com.rupp.assignment.json;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value="JCourseRoom", description="JSON Model for showing rooms which belong to course")
 public class JCourseRoom extends JCommon{
 
     private JCourse course;
 	private JRoom room;
-
+    @ApiModelProperty( value = "Course ID", required = true ) 
 	private int courseId;
+    @ApiModelProperty( value = "Room ID", required = true ) 
 	private int roomId;
 
 	public int getCourseId() {

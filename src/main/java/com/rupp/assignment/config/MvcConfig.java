@@ -14,6 +14,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -86,7 +87,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public Docket api() { 
         return new Docket(DocumentationType.SWAGGER_2)
-           .apiInfo(getApiInfoForVersion("1"))
+          .ignoredParameterTypes(AuthenticationPrincipal.class)
+          .apiInfo(getApiInfoForVersion("1"))
           .select()                                  
           .apis(RequestHandlerSelectors.any())
           .paths(PathSelectors.any())

@@ -2,17 +2,28 @@ package com.rupp.assignment.json;
 
 import java.sql.Date;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value="JStudent", description="JSON Model for showing detail student")
 public class JStudent extends JCommon  {
-    /** Unique id for this Entity in the database */
 	
+    @ApiModelProperty( value = "First name", required = true ) 
     private String firstname;
+    @ApiModelProperty( value = "Last name", required = true ) 
     private String lastname;    
+    @ApiModelProperty( value = "Sex", required = true ) 
     private Integer sex;
+    @ApiModelProperty( value = "Date of birth", required = true ) 
     private Date dob;
     private String sexLabel;
+    @ApiModelProperty( value = "Address", required = true ) 
 	private String address;
+    @ApiModelProperty( value = "Contact person name", required = true ) 
     private String contact_person_name;
+    @ApiModelProperty( value = "Contact person relationship", required = true ) 
     private Integer contact_person_relationship;    
+    @ApiModelProperty( value = "Contact person phone number", required = true ) 
     private String contact_person_phone;
     private String fullname;
     private String contact_person_relationship_label;
