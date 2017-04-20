@@ -5,8 +5,8 @@ import java.sql.Date;
 public class JStudent extends JCommon  {
     /** Unique id for this Entity in the database */
 	
-    private String firstname;
-    private String lastname;    
+    private String firstName;
+    private String lastName;    
     private Integer sex;
     private Date dob;
     private String sexLabel;
@@ -14,10 +14,9 @@ public class JStudent extends JCommon  {
     private String contact_person_name;
     private Integer contact_person_relationship;    
     private String contact_person_phone;
-    private String fullname;
     
     public String getFullname() {
-		return this.firstname + " " + this.lastname;
+		return this.firstName + " " + this.lastName;
 	}
 	
 	public String getSexLabel() {
@@ -28,16 +27,16 @@ public class JStudent extends JCommon  {
   	}
 	
     public String getFirstname() {
-		return firstname;
+		return firstName;
 	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstname(String firstName) {
+		this.firstName = firstName;
 	}
 	public String getLastname() {
-		return lastname;
+		return lastName;
 	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastname(String lastName) {
+		this.lastName = lastName;
 	}
 	public Integer getSex() {
 		return sex;

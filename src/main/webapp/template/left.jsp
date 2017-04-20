@@ -42,9 +42,9 @@
 				</a>
 			</li>
 			<li>
-				<a href="index.jsp?p=payment">
+				<a href="index.jsp?p=payment_list">
 					<i class="material-icons">payment</i>
-					<span>Payment</span>
+					<span>Payment List</span>
 				</a>
 			</li>
 		

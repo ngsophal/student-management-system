@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rupp.assignment.dao.PaymentDao">
+	
+	<resultMap type='com.rupp.assignment.json.JPayment' id='PaymentResult'>
+
+		<id property='id' column='id' />
+		<result property='enrollmentId' column='enrollment_id' />		
+		<result property='paymentAmount' column='payment_amount' />
+		
+		<result property='paymentDate' column='payment_date' />
+		<result property='discount' column='discount' />
+		<result property='feeTypeId' column='fee_type_id' />		
+		
+		<result property='createdDate' column='created_date' />
+		<result property='modifiedDate' column='modified_date' />
+		<result property="status" column="status" />
+		<association property="createdBy"
+                 column="created_by" 
+                 javaType="com.rupp.assignment.json.JUser" 
+                 select="com.rupp.assignment.dao.UserDao.findById"/>
+		<association property="modifiedBy"
+                 column="modified_by" 
+                 javaType="com.rupp.assignment.json.JUser" 
+                 select="com.rupp.assignment.dao.UserDao.findById"/>
+                 
+        <association property="enrollment" 
+        			 column="enrollment_id"
+					 javaType="com.rupp.assignment.json.JEnrollment" 
+					 select="com.rupp.assignment.dao.EnrollmentDao.findById" />
+		<association property="feeType" 
+					 column="fee_type_id"
+					 javaType="com.rupp.assignment.json.JFeeType" 
+					 select="com.rupp.assignment.dao.FeeTypeDao.findById" />
+	</resultMap>
+	
+  <insert id="add"
+        parameterType="com.rupp.assignment.json.JPayment"
+        useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO payments (
+        
+        	enrollment_id,
+        	payment_amount,
+        	
+        	payment_date,
+        	discount,
+        	fee_type_id,
+        	        	
+        	created_date,
+			created_by,
+			status
+        )
+        VALUES (
+         #{enrollmentId},
+         #{paymentAmount},
+         
+         #{paymentDate},
+         #{discount},
+         #{feeTypeId},         
+         
+         #{createdDate},
+         #{createdById},
+         #{status}
+         )
+    </insert>
+
+   <update id="update"
+        parameterType="com.rupp.assignment.json.JPayment">
+        UPDATE payments
+        SET 
+           enrollment_id = #{enrollmentId},
+           payment_amount = #{paymentAmount},
+           
+           payment_date = #{paymentDate},           
+           discount = #{discount},
+           fee_type_id = #{feeTypeId},
+           
+           modified_date = #{modifiedDate},
+           modified_by = #{modifiedById},
+           status = #{status}
+        WHERE id = #{id}
+    </update>
+
+ 	<update id="remove"
+        parameterType="int">
+        UPDATE payments
+        SET 
+           modified_date = #{modifiedDate},
+           modified_by = #{modifiedById},
+           status = 0
+        WHERE id = #{id}
+    </update>
+    
+
+    <select id="findById" parameterType="int"  resultMap="PaymentResult" 
+        resultType="com.rupp.assignment.json.JPayment">
+        SELECT p.*
+        
+        FROM payments AS p
+        WHERE p.status=1 AND p.id = #{id}
+    </select>
+    
+   <select id='getAll' parameterType="map" resultMap="PaymentResult" >
+        SELECT p.*
+				
+        FROM payments AS p
+        WHERE p.status=1
+    </select>
+    
+    <select id="getPage" parameterType="map" resultMap="PaymentResult">
+        SELECT p.*
+				
+        FROM payments AS p
+        INNER JOIN enrollments AS e ON e.id=p.enrollment_id
+        INNER JOIN fee_types AS t ON t.id=p.fee_type_id
+        WHERE p.status=1
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(*) 
+        FROM payments AS p
+        INNER JOIN enrollments AS e ON e.id=p.enrollment_id
+        INNER JOIN fee_types AS t ON t.id=p.fee_type_id
+        WHERE status=1
+    </select>
+</mapper>

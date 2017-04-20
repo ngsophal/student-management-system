@@ -364,6 +364,7 @@ $(document).ready(function() {
 	        showLoaderOnConfirm: true,
 	    }, function () {
 	        apiHelper.remove(currentId).done(function(r){
+	        	
 	        	if(r.status == 'SUCCESS'){
 	        		swal(r.message, "", "success");
 	        		$('#student-list').bootstrapTable('refresh');
