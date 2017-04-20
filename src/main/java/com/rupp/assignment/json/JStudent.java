@@ -10,9 +10,9 @@ public class JStudent extends JCommon  {
 	
 
     @ApiModelProperty( value = "First name", required = true ) 
-    private String firstname;
+    private String firstName;
     @ApiModelProperty( value = "Last name", required = true ) 
-    private String lastname;    
+    private String lastName;    
     @ApiModelProperty( value = "Sex", required = true ) 
     private Integer sex;
     @ApiModelProperty( value = "Date of birth", required = true ) 
@@ -30,9 +30,8 @@ public class JStudent extends JCommon  {
     private String contact_person_relationship_label;
     
     public String getFullname() {
-    	this.fullname = this.firstname + " " + this.lastname;
+    	this.fullname = this.firstName + " " + this.lastName;
 		return this.fullname;
->>>>>>> 9551d6e23b3f5c6995113b582caf6534c33bf0fe
 	}
 	
     
