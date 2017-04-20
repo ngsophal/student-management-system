@@ -5,9 +5,9 @@ KMS is a system developed to manage student enrollment in a kindergarten school.
 ## Table of Contents
 
 - [Feature](#feature)
-- [Technology](#technology)
+- [Backend Technology](#backend-technology)
 - [Installation](#installation)
-- [Usage](#usage)
+- [Documentation](#documentation)
 
 ## Feature
 
@@ -25,54 +25,36 @@ KMS is a system developed to manage student enrollment in a kindergarten school.
 - Manage payment
 - Enrollment Report
 
-## Technology
+## Backend Technology
 
 - Spring MVC
 - Spring REST Api
 - Spring Security
 - MyBatis
-- Swagger
 
 ## Installation
 
 
 1. Clone project from this repository:
 ```sh
-git clone https://github.com/hangsopheak/customer-spring-rest-api.git
+git clone https://github.com/ngsophal/student-management-system.git
 ```
 
 2. Import database from kms.sql in the root of project
 3. Update database connection configuration in pom.xml
 4. cd to project directory
-5. Install maven dependencies: ```sh mvn install```
-6. Generate Eclipse IDE files (Specifically for Eclipse):
-```sh
-mvn eclipse:eclipse
-```
+5. Install maven dependencies: ``` mvn install```
+6. Generate Eclipse IDE files (Specifically for Eclipse)``` mvn eclipse:eclipse```
 7. Import project to IDE
-8. Start web server service using jetty
-```sh
-mvn jetty:run
-```
-9. Open browser
+8. Start web server service using jetty ``` mvn jetty:run```
+9. Open browser and login with account 
+- username: admin
+- password: admin123
 
-## Usage
 
-Replace the contents of `README.md` with your project's:
+## Documentation
 
-- Name
-- Description
-- Installation instructions
-- Usage instructions
-- Support instructions
-- Contributing instructions
+- [REST Documentation as html](https://github.com/ngsophal/student-management-system/docs/index.html)
+- [REST Documentation as pdf](https://github.com/ngsophal/student-management-system/docs/index.pdf)
 
-Feel free to remove any sections that aren't applicable to your project.
 
-## Support
-
-Please [open an issue](https://github.com/fraction/readme-boilerplate/issues/new) for support.
-
-## Contributing
-
-Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/fraction/readme-boilerplate/compare/).
