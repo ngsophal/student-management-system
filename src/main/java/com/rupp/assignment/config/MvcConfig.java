@@ -14,6 +14,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -72,8 +73,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 																									// all
 				.exposedHeaders("header1", "header2").allowCredentials(false).maxAge(3600);
 	}
-    //<mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"></mvc:resources>
-    //<mvc:resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"></mvc:resources>
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html")
@@ -83,37 +82,24 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
           .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
     
-//    @Override
-//    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-//        configurer.enable();
-//    }
-    
-    //<bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"></bean>
-//    @Bean("swagger2Config")
-//    public Swagger2DocumentationConfiguration getSwagger2DocumentationConfiguration() {
-//        return new Swagger2DocumentationConfiguration();
-//    }
+
     
     @Bean
     public Docket api() { 
         return new Docket(DocumentationType.SWAGGER_2)
-           .apiInfo(getApiInfoForVersion("1"))
+          .ignoredParameterTypes(AuthenticationPrincipal.class)
+          .apiInfo(getApiInfoForVersion("1"))
           .select()                                  
           .apis(RequestHandlerSelectors.any())
           .paths(PathSelectors.any())
-          .build()
-         // .pathMapping("api")
-          //.securitySchemes(Arrays.asList(apiKey())
-                  ;
+          .build();
     }
     
-//    private ApiKey apiKey() {
-//        return new ApiKey("mykey", "api_key", "header");
-//    }
+
     
     private ApiInfo getApiInfoForVersion(String version) {
-        Contact defaultContact = new Contact("Company", "https://github.com/sophea/docrest-swagger-spring-rest-api", "");
+        Contact defaultContact = new Contact("Company", "https://github.com/ngsophal/student-management-system", "");
         return new ApiInfo("Version " + version, "Api Documentation. Each REST-API Request must start with /api. ", version, "urn:tos",
-            defaultContact, "Restricted usage", "https://github.com/sophea/docrest-swagger-spring-rest-api");
+            defaultContact, "Restricted usage", "https://github.com/ngsophal/student-management-system");
     }
 }

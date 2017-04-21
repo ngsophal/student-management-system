@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import com.rupp.assignment.json.JFeeType;
+import com.rupp.assignment.json.JGrade;
 import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JMessage.MessageType;
+
+import io.swagger.annotations.ApiOperation;
 
 
 @Controller
@@ -32,24 +35,18 @@ public class FeeTypeController {
     private com.rupp.assignment.service.FeeTypeService service;
     @Autowired
     private JMessage message;
-    /**
-     * return all Grades support Header If-Modified-Since is optional, timestamp of last update; use
-     * "Sat, 29 Oct 1994 19:43:31 GMT"
-     * 
-     * @return Iterable<JFeeType>
-     */
+    
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get all fee types", notes = "Get all fee types", response = JFeeType.class, responseContainer = "List")
     public Collection<JFeeType> getAll(HttpServletRequest request, WebRequest webRequest,
             @RequestHeader(required = false, value = "If-Modified-Since") Date since) {
-
-        //LOG.debug(" ============== If-Modified-Since {} ", since);
-
         return service.getAll();
     }
 
     @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get detail fee type by id", notes = "Get detail fee type by id", response = JFeeType.class)
     public JFeeType getDetails(HttpServletRequest request, @PathVariable int id) {
 
         return service.getDetails(id);
@@ -57,6 +54,7 @@ public class FeeTypeController {
 
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Create fee type", notes = "Create fee type", response = JMessage.class)
     public JMessage create(HttpServletRequest request, @ModelAttribute JFeeType domain) {
     	if(domain.getName().isEmpty() || 
         		domain.getName() == null 
@@ -70,6 +68,7 @@ public class FeeTypeController {
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Update fee type", notes = "Update fee type", response = JMessage.class)
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JFeeType domain) {
     	if(domain.getName().isEmpty() || 
         		domain.getName() == null 
@@ -83,6 +82,7 @@ public class FeeTypeController {
     
     @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Remove fee type", notes = "Remove fee type", response = JMessage.class)
     public JMessage remove(HttpServletRequest request) {
         return service.remove(Integer.parseInt(request.getParameter("id")));
     }

@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
+import com.rupp.assignment.json.JFeeType;
 import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JRoom;
 import com.rupp.assignment.json.JMessage.MessageType;
+
+import io.swagger.annotations.ApiOperation;
 
 
 @Controller
@@ -35,16 +38,15 @@ public class RoomController {
     
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get all rooms", notes = "Get all rooms", response = JRoom.class, responseContainer = "List")
     public Collection<JRoom> getAll(HttpServletRequest request, WebRequest webRequest,
             @RequestHeader(required = false, value = "If-Modified-Since") Date since) {
-
-        //LOG.debug(" ============== If-Modified-Since {} ", since);
-
         return service.getAll();
     }
 
     @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get room by id", notes = "Get room by id", response = JRoom.class)
     public JRoom getDetails(HttpServletRequest request, @PathVariable int id) {
 
         return service.getDetails(id);
@@ -52,6 +54,7 @@ public class RoomController {
 
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Create room", notes = "Create room", response = JMessage.class)
     public JMessage create(HttpServletRequest request, @ModelAttribute JRoom domain) {
     	if(domain.getName().isEmpty() || 
         		domain.getName() == null 
@@ -65,6 +68,7 @@ public class RoomController {
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Update room", notes = "Update room", response = JMessage.class)
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JRoom domain) {
     	if(domain.getName().isEmpty() || 
         		domain.getName() == null 
@@ -78,6 +82,7 @@ public class RoomController {
     
     @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Remove room", notes = "Remove room", response = JMessage.class)
     public JMessage remove(HttpServletRequest request) {
         return service.remove(Integer.parseInt(request.getParameter("id")));
     }

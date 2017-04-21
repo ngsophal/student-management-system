@@ -7,60 +7,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import com.rupp.assignment.dao.StudentDao;
-import com.rupp.assignment.json.JStudent;
+import com.rupp.assignment.dao.PaymentDao;
+import com.rupp.assignment.json.JPayment;
 import com.rupp.assignment.json.JEnrollment;
 import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JUser;
 import com.rupp.assignment.json.JMessage.MessageType;
 
 @Service
-public class StudentService {
+public class PaymentService {
     @Autowired
-    private StudentDao dao;
+    private PaymentDao dao;
     @Autowired
     private JUser user;
     @Autowired
     private JMessage message;
     
-    public Collection<JStudent> getAll() {
-        Collection<JStudent> dList= dao.getAll();
+    public Collection<JPayment> getAll() {
+        Collection<JPayment> dList= dao.getAll();
         
         return dList;
     }
     
-    public Collection<JStudent> getPage(int limit, int offset, String search) {
+    public Collection<JPayment> getPage(int limit, int offset, String search) {
     	search = "'%" + (search == null ? "":search) + "%'";
-        Collection<JStudent> dList= dao.getPage(limit, offset, search);
+        Collection<JPayment> dList= dao.getPage(limit, offset, search);
         return dList;
     }
     
-    public JStudent getDetails(int id) {
+    public JPayment getDetails(int id) {
         return dao.findById(id);
     }
-    public JMessage create(JStudent jStudent) {
-    	jStudent.setCreatedDate(new Date());
-    	jStudent.setCreatedById(this.user.getId());
+    public JMessage create(JPayment jPayment) {
+    	jPayment.setCreatedDate(new Date());
+    	jPayment.setCreatedById(this.user.getId());
     	try {
-    		dao.add(jStudent);
-            this.message.setMessage("Student has been inserted successfully!");
+    		dao.add(jPayment);
+            this.message.setMessage("Payment has been inserted successfully!");
             this.message.setStatus(MessageType.SUCCESS);
 		} catch (Exception e) {
-			dao.add(jStudent);
+			dao.add(jPayment);
 	        this.message.setMessage(e.getMessage());
 	        this.message.setStatus(MessageType.ERROR);
 		}
         return message;
     }
     
-    public JMessage update(int id, JStudent jStudent) {
-    	jStudent.setModifiedDate(new Date());
-    	jStudent.setModifiedById(this.user.getId());
-    	jStudent.setId(id);
+    public JMessage update(int id, JPayment jPayment) {
+    	jPayment.setModifiedDate(new Date());
+    	jPayment.setModifiedById(this.user.getId());
+    	jPayment.setId(id);
     	
     	try {
-    		dao.update(jStudent);
-            this.message.setMessage("Student has been updated successfully!");
+    		dao.update(jPayment);
+            this.message.setMessage("Payment has been updated successfully!");
             this.message.setStatus(MessageType.SUCCESS);
 		} catch (Exception e) {
 	        this.message.setMessage(e.getMessage());
@@ -71,13 +71,13 @@ public class StudentService {
     }
     
     public JMessage remove(int id){
-    	JStudent jStudent = new JStudent();
-    	jStudent.setModifiedDate(new Date());
-    	jStudent.setModifiedById(this.user.getId());
-    	jStudent.setId(id);
+    	JPayment jPayment = new JPayment();
+    	jPayment.setModifiedDate(new Date());
+    	jPayment.setModifiedById(this.user.getId());
+    	jPayment.setId(id);
     	try {
-    		dao.remove(jStudent);
-        	this.message.setMessage("Student has been removed successfully!");
+    		dao.remove(jPayment);
+        	this.message.setMessage("Payment has been removed successfully!");
             this.message.setStatus(MessageType.SUCCESS);
 		} catch (Exception e) {
 	    	this.message.setMessage(e.getMessage());

@@ -2,24 +2,49 @@ package com.rupp.assignment.json;
 
 import java.sql.Date;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value="JStudent", description="JSON Model for showing detail student")
 public class JStudent extends JCommon  {
-    /** Unique id for this Entity in the database */
 	
-    private String firstname;
-    private String lastname;    
+
+    @ApiModelProperty( value = "First name", required = true ) 
+    private String firstName;
+    @ApiModelProperty( value = "Last name", required = true ) 
+    private String lastName;    
+    @ApiModelProperty( value = "Sex", required = true ) 
     private Integer sex;
+    @ApiModelProperty( value = "Date of birth", required = true ) 
     private Date dob;
     private String sexLabel;
+    @ApiModelProperty( value = "Address", required = true ) 
 	private String address;
+    @ApiModelProperty( value = "Contact person name", required = true ) 
     private String contact_person_name;
+    @ApiModelProperty( value = "Contact person relationship", required = true ) 
     private Integer contact_person_relationship;    
+    @ApiModelProperty( value = "Contact person phone number", required = true ) 
     private String contact_person_phone;
     private String fullname;
+    private String contact_person_relationship_label;
     
     public String getFullname() {
-		return this.firstname + " " + this.lastname;
+    	this.fullname = this.firstName + " " + this.lastName;
+		return this.fullname;
 	}
 	
+    
+	public String getContact_person_relationship_label() {
+		return contact_person_relationship_label;
+	}
+
+
+	public void setContact_person_relationship_label(String contact_person_relationship_label) {
+		this.contact_person_relationship_label = contact_person_relationship_label;
+	}
+
+
 	public String getSexLabel() {
   		return sexLabel;
   	}
@@ -28,16 +53,16 @@ public class JStudent extends JCommon  {
   	}
 	
     public String getFirstname() {
-		return firstname;
+		return firstName;
 	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstname(String firstName) {
+		this.firstName = firstName;
 	}
 	public String getLastname() {
-		return lastname;
+		return lastName;
 	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastname(String lastName) {
+		this.lastName = lastName;
 	}
 	public Integer getSex() {
 		return sex;

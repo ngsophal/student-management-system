@@ -125,6 +125,8 @@
                        data-url="/api/students/v1/all"
                        data-page-list="[10,20]"
                        data-pagination="true"
+                       data-search="true"
+                       data-side-pagination="server"
                     >
                     <thead>
 	                    <tr>
@@ -177,7 +179,7 @@ $(document).ready(function() {
 	    		apiHelper.insert().done(function(r){
 	    			if(r.status == 'SUCCESS'){
 		        		swal(r.message, "", "success");
-		        		resetForm();
+		        		switchToNewForm();//resetForm();
 	    				$('#student-list').bootstrapTable('refresh');	
 	    			}else{
 		        		swal(r.message, "", "error");

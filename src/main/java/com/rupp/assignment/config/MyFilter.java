@@ -50,8 +50,8 @@ public class MyFilter implements Filter {
 	        chain.doFilter(request, response);// sends request to next resource
 		 }else{
 			 resp.sendRedirect("/login.jsp");
-		 } */
-
+		 } 
+ */
 	}
 
 	/**

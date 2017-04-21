@@ -6,6 +6,9 @@
 
 		<id property='id' column='id' />
 		<result property='fee' column='fee' />
+		<result property='feeTypeId' column='fee_type_id' />	
+		<result property='courseId' column='course_id' />
+		<result property='fee' column='fee' />
 		<association property="createdBy"
                  column="created_by"
                  javaType="com.rupp.assignment.json.JUser"

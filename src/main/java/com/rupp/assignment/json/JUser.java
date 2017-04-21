@@ -4,13 +4,22 @@ package com.rupp.assignment.json;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 @Component
 @Scope("session")
+@ApiModel(value="JUser", description="JSON Model for showing detail user")
 public class JUser extends JCommon  {
+    @ApiModelProperty( value = "Username", required = true ) 
     private String username;
+    @ApiModelProperty( value = "Password", required = true ) 
     private String password;
-    private String fullName;
+    @ApiModelProperty( value = "Confirm password", required = true ) 
     private String confirmPassword;
+    @ApiModelProperty( value = "Full name", required = true ) 
+    private String fullName;
+    
     
 	public String getConfirmPassword() {
 		return confirmPassword;

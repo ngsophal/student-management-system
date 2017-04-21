@@ -13,8 +13,8 @@
 		<result property='address' column='address' />
 		<result property='contact_person_name' column='contact_person_name' />
 		<result property='contact_person_relationship' column='contact_person_relationship' />
+		<result property='contact_person_relationship_label' column='contact_person_relationship_label' />
 		<result property='contact_person_phone' column='contact_person_phone' />
-		
 		<result property='createdDate' column='created_date' />
 		<result property='modifiedDate' column='modified_date' />
 		<result property="status" column="status" />
@@ -51,15 +51,12 @@
         VALUES (
          #{firstname},
          #{lastname},
-         
          #{address},
          #{contact_person_name},
          #{contact_person_phone},
-         
          #{contact_person_relationship},
          #{sex},
-         #{dob},
-         
+         #{dob},    
          #{createdDate},
          #{createdById},
          #{status}
@@ -98,29 +95,44 @@
 
     <select id="findById" parameterType="int"  resultMap="StudentResult" 
         resultType="com.rupp.assignment.json.JStudent">
-        SELECT if(st.sex=1,'M',  if(st.sex=2,'F','')) AS sex_label, st.*
+        SELECT 
+        	if(st.sex=1,'M',  if(st.sex=2,'F','')) AS sex_label, 
+        	if(st.contact_person_relationship=1,'Parents',  if(st.contact_person_relationship=2,'Other','')) AS contact_person_relationship_label,
+        	st.*
         FROM students st
         WHERE status=1 AND id = #{id}
     </select>
     
    <select id='getAll' parameterType="map" resultMap="StudentResult" >
         SELECT if(st.sex=1,'M',  if(st.sex=2,'F','')) AS sex_label,
+                if(st.contact_person_relationship=1,'Parents',  if(st.contact_person_relationship=2,'Other','')) AS contact_person_relationship_label,
 				st.firstname, st.lastname, st.dob, st.id
         FROM students AS st
         WHERE st.status=1
     </select>
     
-    <select id="getPage" parameterType="map" resultMap="StudentResult">
+	<select id="getPage" parameterType="map" resultMap="StudentResult">
         SELECT if(st.sex=1,'M',  if(st.sex=2,'F','')) AS sex_label,
+                if(st.contact_person_relationship=1,'Parents',  if(st.contact_person_relationship=2,'Other','')) AS contact_person_relationship_label,
 				st.firstname, st.lastname, st.dob, st.id
         FROM students AS st
         WHERE st.status=1
-        LIMIT #{limit} OFFSET #{offset}
+		AND (
+			st.contact_person_phone LIKE ${search}
+		 	OR CONCAT(st.firstname," ", st.lastname) LIKE  ${search}		 
+		 ) 
+		ORDER BY st.id DESC 
+		LIMIT #{limit} OFFSET #{offset}
+		
     </select>
 
     <select id="count" resultType="int">
         SELECT COUNT(*) 
-        FROM students 
-        WHERE status=1
+        FROM students AS st
+        WHERE st.status = 1 
+        AND (
+			st.contact_person_phone LIKE ${search}
+		 	OR CONCAT(st.firstname," ", st.lastname) LIKE  ${search}		 
+		 ) 
     </select>
 </mapper>
