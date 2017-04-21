@@ -3,6 +3,7 @@ package com.rupp.assignment.controller;
 import com.rupp.assignment.json.JFee;
 import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JUser;
+import com.rupp.assignment.json.JMessage.MessageType;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -26,6 +27,8 @@ public class FeeController {
 
     @Autowired
     private com.rupp.assignment.service.FeeService service;
+    @Autowired
+    private JMessage message;  
 
 
     @RequestMapping(value = "v1/all", method = RequestMethod.GET)
@@ -49,6 +52,11 @@ public class FeeController {
     @ResponseBody
     @ApiOperation(value="Create fee", notes = "Create fee", response = JMessage.class)
     public JMessage create(HttpServletRequest request, @ModelAttribute JFee domain) {
+    	if(	domain.getCourseId() <= 0 || domain.getFee() <= 0  || domain.getFeeTypeId() <= 0 ){		
+    		this.message.setMessage("Please fill all require fields!");
+        	this.message.setStatus(MessageType.ERROR);
+        	return this.message;
+        }
         return service.create(domain);
     }
 
@@ -56,6 +64,11 @@ public class FeeController {
     @ResponseBody
     @ApiOperation(value="Update fee", notes = "Update fee", response = JMessage.class)
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JFee domain) {
+    	if(	domain.getCourseId() <= 0 || domain.getFee() <= 0  || domain.getFeeTypeId() <= 0 ){		
+    		this.message.setMessage("Please fill all require fields!");
+        	this.message.setStatus(MessageType.ERROR);
+        	return this.message;
+        }
         return service.update(id, domain);
     }
 
