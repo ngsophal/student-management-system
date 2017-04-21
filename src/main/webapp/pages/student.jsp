@@ -150,6 +150,7 @@
 </div>
 <script type="text/javascript">
 $(function () {
+
     $('#student_form').validate({
         rules: {
             'sex': {

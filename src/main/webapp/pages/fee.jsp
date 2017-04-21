@@ -99,7 +99,7 @@ $(document).ready(function() {
 		if($('#fee-form').valid()){
 			if(isInsertMode()){
 	    		apiHelper.insert().done(function(r){
-					console.log(r)
+					//console.log(r)
 	    			if(r.status == 'SUCCESS'){
 		        		swal(r.message, "", "success");
 		        		resetForm();
