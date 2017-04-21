@@ -83,7 +83,7 @@
 	<!-- #END# Basic Examples -->
 </div>
 <script type="text/javascript">
-var apiHelper = new ApiHelper('#course-form', 'course', 'v1');
+var apiHelper = new ApiHelper('#course-form', 'enrollment_report', 'v1');
 $(document).ready(function() {
 
 	var currentId = '';

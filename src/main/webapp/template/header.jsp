@@ -59,12 +59,20 @@
 	
 	<script type="text/javascript">
 		$(function(){
+
 			$('.datepicker').bootstrapMaterialDatePicker({
 		        format: 'YYYY-MM-DD',//'dddd DD MMMM YYYY',
 		        clearButton: true,
 		        weekStart: 1,
 		        time: false
 			});
+
+            $.ajaxSetup({
+                beforeSend: function (jqXHR, settings) {
+                    jqXHR.setRequestHeader("X-API-KEY", 'sd3209Sdkl2DF3dfzsDGEsZ8476');
+                }
+            });
+
 		});
 	</script>
 </head>

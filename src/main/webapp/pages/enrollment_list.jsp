@@ -50,7 +50,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		currentId = $(this).attr('data-id');
 		showAjaxLoaderMessage();
-	}); 
+	});
 });	
 		
 	function showAjaxLoaderMessage() {

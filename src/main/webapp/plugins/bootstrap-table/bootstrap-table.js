@@ -254,7 +254,9 @@
         cache: true,
         contentType: 'application/json',
         dataType: 'json',
-        ajaxOptions: {},
+        ajaxOptions: {
+            headers : {'X-API-KEY' : 'sd3209Sdkl2DF3dfzsDGEsZ8476'}
+        },
         queryParams: function (params) {
             return params;
         },
