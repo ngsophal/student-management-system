@@ -1,25 +1,20 @@
 package com.rupp.assignment.security;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by uyutthy on 4/20/2017.
  */
 public class SecurityFilter implements Filter {
+    private static final Set<String> ALLOWED_PATHS = Collections.unmodifiableSet(new HashSet<>(
+            Arrays.asList("/api/user/login", "/api/user/logout")));
 
     private static final Logger LOG = LoggerFactory.getLogger(SecurityFilter.class);
     /**api_key by request parameter*/
@@ -55,13 +50,23 @@ public class SecurityFilter implements Filter {
 
         LOG.debug(String.format(">> Client's IP address: %s, api_key: %s, X-API-Key: %s", request.getRemoteAddr(), request.getParameter(API_KEY_PARAM),
                 request.getHeader(HEADER_NAME_API_KEY)));
-        //check request api_key present ?
-        if (! (verifyApiKey(request) || verifyIpAddress(request.getRemoteAddr()))) {
-            LOG.error("Either the client's IP address is not allowed, API key is invalid");
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Either the client's IP address is not allowed, API key is invalid");
-            return;
-        }
 
+        String path = request.getRequestURI().substring(request.getContextPath().length()).replaceAll("[/]+$", "");
+
+        LOG.debug(path);
+
+        boolean allowedPath = ALLOWED_PATHS.contains(path);
+
+        if (allowedPath) {
+            chain.doFilter(req, resp);
+        }
+        else {
+            if (! (verifyApiKey(request) || verifyIpAddress(request.getRemoteAddr()))) {
+                LOG.error("Either the client's IP address is not allowed, API key is invalid");
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Either the client's IP address is not allowed, API key is invalid");
+                return;
+            }
+        }
         chain.doFilter(req, resp);
     }
     /**

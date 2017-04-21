@@ -72,7 +72,7 @@
 				</a>
 				<ul class="ml-menu">
                     <li>
-                        <a href="index.jsp?p=report_student">Student Report</a>
+                        <a href="index.jsp?p=report_student_enrollment">Student Report</a>
                     </li>
                 </ul>
 			</li>

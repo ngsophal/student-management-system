@@ -1,18 +1,11 @@
 package com.rupp.assignment.config;
 
-import java.io.IOException;
-import java.util.Date;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 /**
  * Servlet Filter implementation class MyFilter
@@ -46,11 +39,12 @@ public class MyFilter implements Filter {
 		HttpSession session = req.getSession(true);
        // chain.doFilter(request, response);// sends request to next resource
 
-		if (session.getAttribute("userId") != null) {	
+		if (session.getAttribute("userId") != null) {
 	        chain.doFilter(request, response);// sends request to next resource
 		 }else{
 			 resp.sendRedirect("/login.jsp");
-		 } 
+		 }
+
 
 	}
 
