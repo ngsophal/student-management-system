@@ -73,9 +73,12 @@ public class EnrollmentController {
     	}
     	
     	// check if course enrolled
-    	
-    	// check if enrollment is paid
-    	
+    	JEnrollment existedEnrollment = service.findEnrolledCourse(domain.getStudentId(), domain.getCourseId());
+    	if(existedEnrollment != null){
+    		this.message.setMessage("This student has already enrolled that course");
+    		this.message.setStatus(MessageType.ERROR);
+    		return this.message;
+    	}    	
         return service.create(domain);
     }
     
@@ -91,6 +94,15 @@ public class EnrollmentController {
     		this.message.setStatus(MessageType.ERROR);
     		return this.message;
     	}
+    	
+    	// check if course enrolled
+    	JEnrollment existedEnrollment = service.findEnrolledCourseExcludeEnrollment(domain.getStudentId(), domain.getCourseId(), id);
+    	if(existedEnrollment != null){
+    		this.message.setMessage("This student has already enrolled that course");
+    		this.message.setStatus(MessageType.ERROR);
+    		return this.message;
+    	}    	
+        
         return service.update(id, domain);
     }
     

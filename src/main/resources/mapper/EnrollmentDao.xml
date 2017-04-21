@@ -118,4 +118,21 @@
 		 
 		 ) 
 	</select>
+	
+	<select id="findEnrolledCourse" parameterType="map"  resultMap='EnrollmentResult'>
+		SELECT *
+		FROM enrollments
+		WHERE status = 1 AND 
+		course_id = #{courseId} AND
+		student_id = #{studentId}
+	</select>
+	
+	<select id="findEnrolledCourseExcludeEnrollment" parameterType="map"  resultMap='EnrollmentResult'>
+		SELECT *
+		FROM enrollments
+		WHERE status = 1 AND 
+		course_id = #{courseId} AND
+		student_id = #{studentId} AND
+		id  <![CDATA[ <> ]]> #{enrollmentId}
+	</select>
 </mapper>

@@ -88,4 +88,14 @@ public class EnrollmentService {
     	search = "'%" + (search == null ? "":search) + "%'";
     	return dao.count(search);    
     }
+    
+    public JEnrollment findEnrolledCourse(int studentId, int courseId){
+    	JEnrollment jEnrollment = dao.findEnrolledCourse(studentId, courseId);
+    	return jEnrollment;
+    }
+    
+    public JEnrollment findEnrolledCourseExcludeEnrollment(int studentId, int courseId, int enrollmentId){
+    	JEnrollment jEnrollment = dao.findEnrolledCourseExcludeEnrollment(studentId, courseId, enrollmentId);
+    	return jEnrollment;
+    }
 }

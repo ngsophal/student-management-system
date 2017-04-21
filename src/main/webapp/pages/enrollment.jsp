@@ -66,7 +66,7 @@ else if(studentId != "") state = "insert";
 				</div>
 				<div class="body">
 					<form id="enrollment-form" method="POST">
-						<input type="hidden" id="student-id" name="studentId" value="">
+						<input type="hidden" id="student-id" name="studentId" value="<%=studentId%>">
 						<label for="course-id">Course</label>
 						<div class="form-group">
 							<div class="form-line">

@@ -110,7 +110,7 @@ $(document).ready(function() {
 	    			if(r.status == 'SUCCESS'){
 		        		swal(r.message, "", "success");
 		        		resetForm();
-	    				$('#fee-list').bootstrapTable('refresh');
+	    				$('#course-list').bootstrapTable('refresh');
 	    			}else{
 		        		swal(r.message, "", "error");
 	    			}
