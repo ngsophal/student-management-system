@@ -62,11 +62,11 @@
          #{feeTypeId},         
          
          #{createdDate},
-         #{createdById},
+         #{createdBy},
          #{status}
          )
-    </insert>
-
+   </insert>
+   <!-- 	
    <update id="update"
         parameterType="com.rupp.assignment.json.JPayment">
         UPDATE payments
@@ -82,7 +82,7 @@
            modified_by = #{modifiedById},
            status = #{status}
         WHERE id = #{id}
-    </update>
+    </update> -->
 
  	<update id="remove"
         parameterType="int">

@@ -22,43 +22,19 @@
 					<form id="payment-form" method="POST">
 						<div class="row">
 							<div class="col-sm-6">
-								<div class="form-group form-float">
+								<label for="enrollment-id">EnrollmentID</label>
+								<div class="form-group">
 									<div class="form-line">
-										<input type="text" class="form-control payment-id" name="payment_date" id="payment-id" value="<%= request.getParameter("enrollmentId") %>" >
-										<label class="form-label">Payment ID</label>
+										<input type="text" class="form-control enrollment-id" name="enrollmentId" id="enrollment-id" value="<%= request.getParameter("enrollmentId") %>" required>
 									</div>
 								</div>
 							</div>
 
 							<div class="col-sm-6">
-								<div class="form-group form-float">
+								<label for="payment-date">Payment Date</label>
+								<div class="form-group">
 									<div class="form-line">
-										<input type="text" class="form-control payment-date datepicker" name="payment_date" id="payment-date" >
-										<label class="form-label">Payment Date</label>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="form-group form-float">
-									<div class="form-line">
-										<select class="form-control show-tick" required>
-											<option value="">Please Choose Type of Payment</option>
-											<option value="1">Quarter</option>
-											<option value="2">Semester</option>
-											<option value="3">Year</option>
-										</select>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div class="form-group form-float">
-									<div class="form-line">
-										<input type="text" class="form-control payment-amount" name="payment_amount" id="payment-amount" >
-										<label class="form-label">Payment Amount</label>
+										<input type="text" class="form-control payment-date datepicker" name="paymentDate" id="payment-date" required>
 									</div>
 								</div>
 							</div>
@@ -66,16 +42,35 @@
 
 						<div class="row">
 							<div class="col-sm-6">
-								<div class="form-group form-float">
+								<label for="feetype-id">Payment Type</label>
+								<div class="form-group">
+									<select class="form-control show-tick" name="feeTypeId" id="feetype-id" required>
+																				
+									</select>
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<label for="feetype-id">Payment Amount</label>
+								<div class="form-group">
+									<div class="form-line">
+										<input type="text" class="form-control payment-amount" name="paymentAmount" id="payment-amount" required>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-6">
+								<label for="discount">Discount</label>
+								<div class="form-group  ">
 									<div class="form-line">
 										<input type="text" class="form-control discount" name="discount" id="discount" value="0">
-										<label class="form-label">Discount</label>
 									</div>
 								</div>
 							</div>
 
-							<div class="col-sm-6">
-								
+							<div class="col-sm-6">								
 							</div>
 						</div>
 						<button class="btn btn-primary waves-effect" id="submit">Add</button>
@@ -87,7 +82,7 @@
 	<!-- #END# Basic Validation -->
 
 	<!-- Basic Examples -->
-	<div class="row clearfix">
+	<!-- <div class="row clearfix">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div class="card">
 				<div class="header">
@@ -113,13 +108,13 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- #END# Basic Examples -->
 </div>
 
 <script type="text/javascript">
 $(function () {
-    $('#payment_form').validate({
+    $('#payment-form').validate({
         
         highlight: function (input) {
             $(input).closest('.form-group').addClass('error');
@@ -133,10 +128,13 @@ $(function () {
     });
 });
 var apiHelper = new ApiHelper('#payment-form', 'payment', 'v1');
+var feeTypeApiHelper = new ApiHelper('', 'fee-type', 'v1');
 
 //var currentId = '';
 $(document).ready(function() {
+	
 	var currentId = '';
+	loadFeeTypes();
 	$('#submit').on('click', function(e){
 		e.preventDefault();
 		if($('#payment-form').valid()){
@@ -144,7 +142,7 @@ $(document).ready(function() {
 	    		apiHelper.insert().done(function(r){
 	    			if(r.status == 'SUCCESS'){
 		        		swal(r.message, "", "success");
-		        		resetForm();
+		        		switchToNewForm();
 	    				$('#payment-list').bootstrapTable('refresh');	
 	    			}else{
 		        		swal(r.message, "", "error");
@@ -169,6 +167,29 @@ $(document).ready(function() {
 		currentId = $(this).attr('data-id');
 		showAjaxLoaderMessage();
 	}); 
+	
+	function loadFeeTypes(){		
+		feeTypeApiHelper.getAll(false).done(function(r){
+			var options = '<option value="">Please Choose Type of Payment</option>';
+			for(var i in r){
+				options += "<option value='" + r[i].id + "'>" + r[i].name + "</option>";
+			}
+			//console.log(options);
+			$('#feetype-id').html(options);
+			$('#feetype-id').selectpicker('refresh');
+		})
+	}
+	
+	function switchToNewForm(){
+		currentId = '';
+		$('#submit').text('Add');
+		$('#form-title').text('Payment Form');		
+		$('#enrollment-id').val('');
+		$('#payment-date').val('');		
+		$('#feetype-id').selectpicker("val",'');		
+		$('#payment-amount').val('');		
+		$('#discount').val('');
+	}
 	
 	function isInsertMode(){
 		return currentId == '';
