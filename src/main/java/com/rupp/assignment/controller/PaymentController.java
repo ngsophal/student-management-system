@@ -88,4 +88,10 @@ public class PaymentController {
         return service.remove(Integer.parseInt(request.getParameter("id")));
     }
     
+    @RequestMapping(value = "v1/{erollmentid}/{feetypeid}", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getFee(HttpServletRequest request, @PathVariable int erollmentid, @PathVariable int feetypeid) {
+        return service.getFee(erollmentid, feetypeid);
+    }
+    
 }

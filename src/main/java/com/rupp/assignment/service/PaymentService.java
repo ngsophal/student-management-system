@@ -91,6 +91,10 @@ public class PaymentService {
     	search = "'%" + (search == null ? "":search) + "%'";
     	return dao.count(search);    
     }
+    
+    public Integer getFee(int enrollmentid, int feetypeid){
+    	return dao.getFee(enrollmentid, feetypeid);   
+    }
 }
 
 

@@ -22,4 +22,6 @@ public interface Dao <T extends Object>{
     List<T> getAllWithOffset(@Param("limit") int limit, @Param("offset") int offset);
     
     Integer count(@Param("search") String search);
+    
+    Integer getFee(@Param("erollmentid") int erollmentid, @Param("feetypeid") int feetypeid);
 }

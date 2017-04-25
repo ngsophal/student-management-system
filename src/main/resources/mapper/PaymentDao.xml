@@ -156,4 +156,15 @@
 		 ) 
 
     </select>
+    
+    <select id="getFee" resultType="int">
+    	SELECT f.fee
+		FROM fees f
+		WHERE
+			f.fee_type_id= ${feetypeid} AND 
+			f.course_id=(SELECT e.course_id
+						 FROM enrollments e
+						 WHERE e.id=${erollmentid}) 
+		Limit 1
+    </select>
 </mapper>
