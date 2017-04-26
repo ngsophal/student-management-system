@@ -88,4 +88,27 @@ public class PaymentController {
         return service.remove(Integer.parseInt(request.getParameter("id")));
     }
     
+    @RequestMapping(value = "v1/{erollmentid}/{feetypeid}", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getFee(HttpServletRequest request, @PathVariable int erollmentid, @PathVariable int feetypeid) {
+        return service.getFee(erollmentid, feetypeid);
+    }
+    
+    @RequestMapping(value = "v2/{erollmentid}/{feetypeid}", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getExistFee(HttpServletRequest request, @PathVariable int erollmentid, @PathVariable int feetypeid) {
+        return service.getExistFee(erollmentid, feetypeid);
+    }
+    
+    /*@RequestMapping(value = "v2/{erollmentid}/{feetypeid}", method = RequestMethod.POST)
+    @ResponseBody
+    public JMessage getExistFee(HttpServletRequest request, @PathVariable int erollmentid, @PathVariable int feetypeid) {
+    	if( erollmentid <= 0  || feetypeid <= 0 ){
+        		this.message.setMessage("Please fill all require fields!");        	
+        		this.message.setStatus(MessageType.ERROR);
+        		return this.message;
+        }
+        return service.getExistFee(erollmentid, feetypeid);
+    }*/
+    
 }
