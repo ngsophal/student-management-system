@@ -167,4 +167,12 @@
 						 WHERE e.id=${erollmentid}) 
 		Limit 1
     </select>
+    <select id="getExistFee" resultType="int">
+    	SELECT COUNT(f.fee)
+		FROM fees f
+		WHERE
+			f.fee_type_id=${feetypeid} AND 
+			f.course_id=${erollmentid}
+		Limit 1
+    </select>
 </mapper>

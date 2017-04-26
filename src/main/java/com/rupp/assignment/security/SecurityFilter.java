@@ -32,7 +32,7 @@ public class SecurityFilter implements Filter {
         LOG.info("init Security filter");
 
         /**initialize ip address either here or you get from web.xml*/
-        //WHITELISTED_IPS.add("127.0.0.1");
+        WHITELISTED_IPS.add("127.0.0.1");
         //WHITELISTED_IPS.add("192.168.0.1");
         //WHITELISTED_IPS.add("10.1.2.29");
     }
