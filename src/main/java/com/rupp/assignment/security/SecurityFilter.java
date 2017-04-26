@@ -56,12 +56,9 @@ public class SecurityFilter implements Filter {
         LOG.debug(path);
 
         boolean allowedPath = ALLOWED_PATHS.contains(path);
-
-        if (allowedPath) {
-            chain.doFilter(req, resp);
-        }
-        else {
-            if (! (verifyApiKey(request) || verifyIpAddress(request.getRemoteAddr()))) {
+       	
+        if(!allowedPath) {
+            if (! (verifyApiKey(request) )) {
                 LOG.error("Either the client's IP address is not allowed, API key is invalid");
                 response.sendError(HttpServletResponse.SC_FORBIDDEN, "Either the client's IP address is not allowed, API key is invalid");
                 return;
