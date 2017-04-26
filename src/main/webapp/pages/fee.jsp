@@ -31,7 +31,7 @@
 								</div>
 								<div class="form-group">
 									<div class="form-line">
-										<input type="text" class="form-control name" placeholder="Fee Name" name="fee" id="fee" required>
+										<input type="text" class="form-control name" placeholder="Fee" name="fee" id="fee" required>
 									</div>
 								</div>
 							</div>
@@ -96,9 +96,10 @@ $(document).ready(function() {
 		apiHelper.resource = 'fee';
 		apiHelper.version  = 'v1';
 
-		if($('#fee-form').valid()){
+		if($('#fee-form').valid()){	
 			if(isInsertMode()){
-	    		apiHelper.insert().done(function(r){
+				/*
+				apiHelper.insert().done(function(r){		    			
 					//console.log(r)
 	    			if(r.status == 'SUCCESS'){
 		        		swal(r.message, "", "success");
@@ -106,9 +107,45 @@ $(document).ready(function() {
 	    				$('#fee-list').bootstrapTable('refresh');
 	    			}else{
 		        		swal(r.message, "", "error");
-	    			}
-	                
+	    			}		    				                
 	    		});
+	    		*/
+	    		//Save-------------
+				var varType = $('#fee-type-id').val();
+				var varCourse = $('#course-id').val();
+			    var varUrl = 'api/fees/v1/' + varType + '/' + varCourse;
+
+			    if(varType > 0 && varCourse > 0){
+			    	$.ajax({
+				    	  url: varUrl,
+				    	  type: "get", //send it through get method
+				    	  data: {
+				    	  },
+				    	  success: function(response) {
+				    		  //console.log(response);
+				    		  if(response == 0){//not exist, save
+				    			  apiHelper.insert().done(function(r){		    			
+										//console.log(r)
+						    			if(r.status == 'SUCCESS'){
+							        		swal(r.message, "", "success");
+							        		resetForm();
+						    				$('#fee-list').bootstrapTable('refresh');
+						    			}else{
+							        		swal(r.message, "", "error");
+						    			}		    				                
+						    	  });
+				    		  }else{
+				    			  swal("Course for this period already exist! ", "", "error");
+				    		  }
+				    	      //Do Something
+				    	  },
+				    	  error: function(xhr) {
+				    		  //console.log(xhr);
+				    	    //Do Something to handle error
+				    	  }
+					});
+			    }
+	    		//end save--------------
 	    	}else{
 	    		apiHelper.update(currentId).done(function(r){
 					console.log(r)

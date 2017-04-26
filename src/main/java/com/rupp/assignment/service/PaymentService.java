@@ -96,28 +96,7 @@ public class PaymentService {
     	return dao.getFee(enrollmentid, feetypeid);   
     }
     
-    public Integer getExistFee(int enrollmentid, int feetypeid) {  
-    	int valid = 0;
-    	valid = dao.getExistFee(enrollmentid, feetypeid);
-    	if(valid > 0){
-    		valid = 1;
-    	}
-    	return valid;
-    	/*try {
-    		valid = dao.getExistFee(enrollmentid, feetypeid);
-    		if(valid > 0){
-    			this.message.setMessage("Fee for this course and fee type already exist! Please find and update!");                
-    		}else{
-    			this.message.setMessage("Fee for this course and fee type not already exist!");             
-    		}
-    		this.message.setStatus(MessageType.SUCCESS);
-		} catch (Exception e) {
-	        this.message.setMessage(e.getMessage());
-	        this.message.setStatus(MessageType.ERROR);
-		}
-        
-        return message;*/
-    }
+    
     
 }
 

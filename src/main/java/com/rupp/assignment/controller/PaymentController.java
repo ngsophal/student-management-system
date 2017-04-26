@@ -94,11 +94,6 @@ public class PaymentController {
         return service.getFee(erollmentid, feetypeid);
     }
     
-    @RequestMapping(value = "v2/{erollmentid}/{feetypeid}", method = RequestMethod.GET)
-    @ResponseBody
-    public Integer getExistFee(HttpServletRequest request, @PathVariable int erollmentid, @PathVariable int feetypeid) {
-        return service.getExistFee(erollmentid, feetypeid);
-    }
     
     /*@RequestMapping(value = "v2/{erollmentid}/{feetypeid}", method = RequestMethod.POST)
     @ResponseBody

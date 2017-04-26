@@ -24,5 +24,5 @@ public interface Dao <T extends Object>{
     Integer count(@Param("search") String search);
     
     Integer getFee(@Param("erollmentid") int erollmentid, @Param("feetypeid") int feetypeid);
-    Integer getExistFee(@Param("erollmentid") int erollmentid, @Param("feetypeid") int feetypeid);
+    Integer getExistFee(@Param("feetypeid") int erollmentid, @Param("courseid") int feetypeid);
 }

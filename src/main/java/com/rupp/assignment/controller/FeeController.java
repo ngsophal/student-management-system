@@ -79,4 +79,10 @@ public class FeeController {
         return service.remove(Integer.parseInt(request.getParameter("id")));
     }
     
+    @RequestMapping(value = "v1/{feetypeid}/{courseid}", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getExistFee(HttpServletRequest request, @PathVariable int feetypeid, @PathVariable int courseid) {
+        return service.getExistFee(feetypeid, courseid);
+    }
+    
 }
