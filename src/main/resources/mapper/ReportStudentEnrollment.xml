@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rupp.assignment.dao.ReportStudentEnrollmentDao">
+	<resultMap type='com.rupp.assignment.json.JReportStudentEnrollment' id='resultMap'>
+		<result property='studentID' column='student_id' />
+		<result property='firstName' column='firstname' />
+		<result property='lastName' column='lastname' />
+		<result property='sex' column='sex' />
+		<result property='dob' column='dob' />
+		<result property='address' column='address' />
+		<result property="contactPersonName" column="contact_person_name" />
+		<result property="contactPersonRelationship" column="contact_person_relationship" />
+		<result property="contactPersonPhone" column="contact_person_phone" />
+		<result property="courseName" column="course_name" />
+		<result property="roomName" column="room_name" />
+		<result property="entrollmentDate" column="enrollment_date" />
+	</resultMap>
+
+
+	<select id='getStudentEnrollmentReport' parameterType="map" resultMap='resultMap'>
+		SELECT
+			s.id as student_id,
+			s.firstname,
+			s.lastname,
+			s.sex,
+			s.dob,
+			s.address,
+			s.contact_person_name,
+			s.contact_person_relationship,
+			s.contact_person_phone,
+			CONCAT(g.name, '-', se.name) as course_name,
+			r.name as room_name,
+			en.enrollment_date
+		FROM enrollments en
+		INNER JOIN students s ON s.id = en.student_id
+		INNER JOIN courses c ON c.id = en.course_id
+		INNER JOIN rooms r ON r.id = en.room_id
+		INNER JOIN grades g ON g.id = c.grade_id
+		INNER JOIN sessions se ON se.id = c.session_id
+		WHERE en.`status` = 1 AND en.enrollment_date BETWEEN #{fromDate} AND #{toDate}
+	</select>
+
+</mapper>
