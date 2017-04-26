@@ -54,7 +54,8 @@
 								<label for="feetype-id">Payment Amount</label>
 								<div class="form-group">
 									<div class="form-line">
-										<input type="text" class="form-control payment-amount" name="paymentAmount" id="payment-amount" required>
+										<input type="text" class="form-control payment-amount" name="paymentAmount" id="payment-amount" required readonly>
+										<input type="hidden" id="payment-amount-hidden">
 									</div>
 								</div>
 							</div>
@@ -160,6 +161,69 @@ $(document).ready(function() {
 	    		});
 	    	}
 		}
+    });
+	
+	$('#feetype-id').on('change', function (e) {
+	    var varCourse = this.value;
+	    var varEenrol = $('#enrollment-id').val();
+	    var varUrl = 'api/payments/v1/' + varEenrol + '/' + varCourse;
+	    
+	    $("#discount").val(0);
+	    $('#payment-amount').val(0);	
+		$('#payment-amount-hidden').val(0);
+		
+	    if(varCourse > 0 && varEenrol > 0){
+	    	$.ajax({
+		    	  url: varUrl,
+		    	  type: "get", //send it through get method
+		    	  data: {
+		    	  },
+		    	  success: function(response) {
+		    		  console.log(response);
+		    		  $('#payment-amount').val(response);	
+		    		  $('#payment-amount-hidden').val(response);
+		    	      //Do Something
+		    	  },
+		    	  error: function(xhr) {
+		    		  console.log(xhr);	    	  
+		    	    //Do Something to handle error
+		    	  }
+			});
+	    }	    
+	});
+	
+	
+	$('#discount').on('input',function(e){
+		calAmount();
+	});
+	function calAmount(){
+		var vaPayAmou = $("#payment-amount-hidden").val();
+	    var vaDiscount = $("#discount").val();
+	    var total = 0;
+	    if(vaPayAmou > 0 && vaDiscount > 0){
+	    	total = vaPayAmou - (vaPayAmou * vaDiscount) / 100;
+	    	if(total > 0) $("#payment-amount").val(total);
+	    }
+		
+	}
+	
+	$("input[id*='discount']").keydown(function (event) {
+
+        if (event.shiftKey == true) {
+            event.preventDefault();
+        }
+
+        if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46 || event.keyCode == 190) {
+        	
+
+        } else {
+            event.preventDefault();
+        }
+        
+        if($(this).val().indexOf('.') !== -1 && event.keyCode == 190){
+            event.preventDefault();
+        }
+        	
     });
 	
 	$('#payment-list').on('click', '.delete', function(e){
