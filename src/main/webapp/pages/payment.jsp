@@ -1,4 +1,71 @@
+<%
+String enrollmentId = request.getParameter("enrollmentId");
+String state = "";
+if(enrollmentId != "" && enrollmentId != null) state = "edit";
+
+%>
 <div class="container-fluid">
+	<div class="block-header">
+		<h2>
+			Payment <% if(state == "edit") out.print(" | Enrollment ID:" + enrollmentId); %>
+		</h2>
+	</div>
+	
+	<div class="row clearfix">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+                   <div class="header bg-red">
+                       <h2>
+                          Enrollment Information
+                       </h2>                      
+                   </div>
+                   <div class="body">
+                   		<div class="row">
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>First name:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-first-name"></div>
+                   		
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Last name:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-last-name"></div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Sex:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-sex"></div>
+                   		
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Date of Birth:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-dob"></div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Address:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-address"></div>
+                   		
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Contact Person Name:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-contact-person"></div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Contact Person Relationship:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-contact-person-relationship"></div>
+                   		
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Contact Person Phone Number:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-contact-person-phone-number"></div>
+                   		</div>
+                   		
+                   		<div class="row">
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Course:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-course"></div>
+                   		
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Room:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-room"></div>
+                   		</div>
+                   		<div class="row">
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Enrollment Date:</label></div>
+                   			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="st-enrollment-date"></div>
+                   		
+                   		</div>
+                   </div>
+			</div>
+		</div>
+	</div>
+	
 	<!-- Basic Validation -->
 	<div class="row clearfix">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -114,6 +181,8 @@
 </div>
 
 <script type="text/javascript">
+var enrollmentId = '<%= enrollmentId %>';
+
 $(function () {
     $('#payment-form').validate({
         
@@ -130,9 +199,12 @@ $(function () {
 });
 var apiHelper = new ApiHelper('#payment-form', 'payment', 'v1');
 var feeTypeApiHelper = new ApiHelper('', 'fee-type', 'v1');
+var enrollmentApiHelper = new ApiHelper('', 'enrollment', 'v1');
 
 //var currentId = '';
 $(document).ready(function() {
+
+	loadEnrollmet();
 	
 	var currentId = '';
 	loadFeeTypes();
@@ -281,8 +353,27 @@ $(document).ready(function() {
 	    });
 	}
 	
-});	
 	
+	
+});	
 
+
+function loadEnrollmet(){		
+	enrollmentApiHelper.getDetail(enrollmentId, false).done(function(r){
+		
+		$('#st-first-name').html(r.student.firstname);
+		$('#st-last-name').html(r.student.lastname);
+		$('#st-sex').html(r.student.sexLabel);
+		$('#st-dob').html(r.student.dob);
+		$('#st-address').html(r.student.address);
+		$('#st-contact-person').html(r.student.contact_person_name);
+		$('#st-contact-person-relationship').html(r.student.contact_person_relationship_label);
+		$('#st-contact-person-phone-number').html(r.student.contact_person_phone);
+		
+		$('#st-enrollment-date').html(r.enrollmentDate);
+		$('#st-room').html(r.room.name);
+		$('#st-course').html(r.course.name);
+	})
+}
 	
 </script>
