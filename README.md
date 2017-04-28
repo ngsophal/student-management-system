@@ -31,6 +31,7 @@ KMS is a system developed to manage student enrollment in a kindergarten school.
 - Spring REST Api
 - Spring Security
 - MyBatis
+- Swagger
 
 ## Installation
 
