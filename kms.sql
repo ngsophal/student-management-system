@@ -343,7 +343,7 @@ DELETE FROM `users`;
 INSERT INTO `users` (`id`, `username`, `password`, `fullname`, `created_date`, `created_by`, `modified_date`, `modified_by`, `status`) VALUES
 	(1, 'test', '$2a$10$sYTIcOEMxGY0MCQ2f1VdxOlLWVHuRojuHQeT/ogWdSQrfRIiUq2i2', 'test user', '2017-01-01 11:21:17', 1, '2017-04-05 09:30:10', 0, 1),
 	(2, 'test2', '$2a$10$sYTIcOEMxGY0MCQ2f1VdxOlLWVHuRojuHQeT/ogWdSQrfRIiUq2i2', 'test2 user', '2017-03-21 05:30:32', 1, '2017-04-28 15:58:46', NULL, 0),
-	(3, 'admin', '$2a$10$nSSTny3u5K.Y/zmjoV0rN.m15cwHEo7dyO8irCidyaDG3W9tL3ysS', 'Admin', '2017-04-28 16:30:21', 1, NULL, NULL, 1);
+	(3, 'admin', '$2a$10$PM9HLWaNzcndcdn3wjHitOxgSsGWELHq7QrGmqD6s0IvJpeRjWLVK', 'Admin', '2017-04-28 16:30:21', 1, NULL, NULL, 1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
