@@ -2,13 +2,20 @@ package com.rupp.assignment.json;
 
 import java.sql.Date;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value="JPayment", description="JSON Model for showing detail payment")
 public class JPayment extends JCommon  {	
 	
+    @ApiModelProperty( value = "Enrollment ID", required = true ) 
     private int enrollmentId;
     private JEnrollment enrollment;
-    
+    @ApiModelProperty( value = "Payment amount", required = true ) 
     private double paymentAmount;
+    @ApiModelProperty( value = "Payment date", required = true ) 
     private Date paymentDate;
+    @ApiModelProperty( value = "Discount amount", required = false ) 
     private int discount;
     
 	private int feeTypeId;
@@ -57,11 +64,7 @@ public class JPayment extends JCommon  {
 		this.feeType = feeType;
 	}
 	public String getAction(){
-		return "<button type='button'  data-id='" + this.getId() + "' class='btn btn-primary m-r-5  waves-effect print'>Print</button>" +
-				"<button type='button'  data-id='" + this.getId() + "' class='btn btn-danger m-r-5  waves-effect delete'>Delete</button>";
+		return "<button type='button'  data-id='" + this.getId() + "' class='btn btn-danger m-r-5  waves-effect delete'>Delete</button>";
 	}
-	
-   
-	
    
 }

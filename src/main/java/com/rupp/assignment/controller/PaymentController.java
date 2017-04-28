@@ -1,11 +1,8 @@
 package com.rupp.assignment.controller;
 
 
-import java.util.Collection;
 import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +12,6 @@ import org.springframework.web.context.request.WebRequest;
 
 
 import com.rupp.assignment.json.JPayment;
-import com.rupp.assignment.json.JStudent;
 import com.rupp.assignment.json.BootstrapTableModel;
 import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JMessage.MessageType;
@@ -52,6 +48,7 @@ public class PaymentController {
 
     @RequestMapping(value = "v1/{id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get payment by id", notes = "Get payment by id", response = JPayment.class)
     public JPayment getDetails(HttpServletRequest request, @PathVariable int id) {
 
         return service.getDetails(id);
@@ -61,6 +58,7 @@ public class PaymentController {
     
     @RequestMapping(value = "v1", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Create payment", notes = "Create payment", response = JMessage.class)
     public JMessage create(HttpServletRequest request, @ModelAttribute JPayment domain) {    	
     	if(	domain.getEnrollmentId() <= 0 || domain.getPaymentAmount() <= 0  || domain.getFeeTypeId() <= 0 || domain.getPaymentDate() == null ){		
     		this.message.setMessage("Please fill all require fields!");
@@ -73,6 +71,7 @@ public class PaymentController {
     
     @RequestMapping(value = "v1/{id}", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Update payment", notes = "Update payment", response = JMessage.class)
     public JMessage update(HttpServletRequest request, @PathVariable int id, @ModelAttribute JPayment domain) {
     	if( domain.getEnrollmentId() <= 0 || domain.getPaymentAmount() <= 0  || domain.getFeeTypeId() <= 0 || domain.getPaymentDate() == null ){
         		this.message.setMessage("Please fill all require fields!");        	
@@ -84,12 +83,14 @@ public class PaymentController {
     
     @RequestMapping(value = "v1/remove", method = RequestMethod.POST)
     @ResponseBody
+    @ApiOperation(value="Remove payment", notes = "Remove payment", response = JMessage.class)
     public JMessage remove(HttpServletRequest request) {
         return service.remove(Integer.parseInt(request.getParameter("id")));
     }
     
     @RequestMapping(value = "v1/{erollmentid}/{feetypeid}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get fee by enrollment id and fee type id", notes = "Get fee by enrollment id and fee type id", response = Integer.class)
     public Integer getFee(HttpServletRequest request, @PathVariable int erollmentid, @PathVariable int feetypeid) {
         return service.getFee(erollmentid, feetypeid);
     }

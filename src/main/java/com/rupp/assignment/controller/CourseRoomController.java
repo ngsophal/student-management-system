@@ -1,7 +1,6 @@
 package com.rupp.assignment.controller;
 
 import com.rupp.assignment.json.JCourseRoom;
-import com.rupp.assignment.json.JEnrollment;
 import com.rupp.assignment.json.JMessage;
 
 import io.swagger.annotations.ApiOperation;

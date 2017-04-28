@@ -2,6 +2,9 @@ package com.rupp.assignment.controller;
 
 
 import com.rupp.assignment.json.JReportStudentEnrollment;
+
+import io.swagger.annotations.ApiOperation;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,7 @@ public class ReportStudentEnrollmentController {
 
     @RequestMapping(value = "v1/{fromDate}/{toDate}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value="Get student enrollment report", notes = "Get student enrollment report", responseContainer = "List")
     public Collection<JReportStudentEnrollment> getStudentEnrollmentReport(HttpServletRequest request, @PathVariable Date fromDate, @PathVariable Date toDate) {
         return service.getStudentEnrollmentReport(fromDate, toDate);
     }

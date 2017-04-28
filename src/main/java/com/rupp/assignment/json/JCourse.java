@@ -4,8 +4,6 @@ import java.sql.Date;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
-import springfox.documentation.annotations.ApiIgnore;
 
 @ApiModel(value="JCourse", description="JSON Model for showing course details")
 public class JCourse extends JCommon {

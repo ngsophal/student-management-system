@@ -4,12 +4,10 @@ import java.util.Date;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.rupp.assignment.dao.PaymentDao;
 import com.rupp.assignment.json.JPayment;
-import com.rupp.assignment.json.JEnrollment;
 import com.rupp.assignment.json.JMessage;
 import com.rupp.assignment.json.JUser;
 import com.rupp.assignment.json.JMessage.MessageType;
