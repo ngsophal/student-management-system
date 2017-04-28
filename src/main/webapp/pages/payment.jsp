@@ -89,26 +89,6 @@ if(enrollmentId != "" && enrollmentId != null) state = "edit";
 					<form id="payment-form" method="POST">
 						<div class="row">
 							<div class="col-sm-6">
-								<label for="enrollment-id">EnrollmentID</label>
-								<div class="form-group">
-									<div class="form-line">
-										<input type="text" class="form-control enrollment-id" name="enrollmentId" id="enrollment-id" value="<%= request.getParameter("enrollmentId") %>" required>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<label for="payment-date">Payment Date</label>
-								<div class="form-group">
-									<div class="form-line">
-										<input type="text" class="form-control payment-date datepicker" name="paymentDate" id="payment-date" required>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-sm-6">
 								<label for="feetype-id">Payment Type</label>
 								<div class="form-group">
 									<select class="form-control show-tick" name="feeTypeId" id="feetype-id" required>
@@ -127,8 +107,25 @@ if(enrollmentId != "" && enrollmentId != null) state = "edit";
 								</div>
 							</div>
 						</div>
-
 						<div class="row">
+							<!-- <div class="col-sm-6">
+								<label for="enrollment-id">EnrollmentID</label>
+								<div class="form-group">
+									<div class="form-line">
+										
+									</div>
+								</div>
+							</div> -->
+							<input type="hidden" class="form-control enrollment-id" name="enrollmentId" id="enrollment-id" value="<%= request.getParameter("enrollmentId") %>" required>
+
+							<div class="col-sm-6">
+								<label for="payment-date">Payment Date</label>
+								<div class="form-group">
+									<div class="form-line">
+										<input type="text" class="form-control payment-date datepicker" name="paymentDate" id="payment-date" required>
+									</div>
+								</div>
+							</div>
 							<div class="col-sm-6">
 								<label for="discount">Discount</label>
 								<div class="form-group  ">
@@ -137,10 +134,8 @@ if(enrollmentId != "" && enrollmentId != null) state = "edit";
 									</div>
 								</div>
 							</div>
-
-							<div class="col-sm-6">								
-							</div>
 						</div>
+						
 						<button class="btn btn-primary waves-effect" id="submit">Add</button>
 					</form>
 				</div>
