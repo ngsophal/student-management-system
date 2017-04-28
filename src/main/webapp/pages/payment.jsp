@@ -127,7 +127,7 @@ if(enrollmentId != "" && enrollmentId != null) state = "edit";
 								</div>
 							</div>
 							<div class="col-sm-6">
-								<label for="discount">Discount</label>
+								<label for="discount">Discount(%)</label>
 								<div class="form-group  ">
 									<div class="form-line">
 										<input type="text" class="form-control discount" name="discount" id="discount" value="0">

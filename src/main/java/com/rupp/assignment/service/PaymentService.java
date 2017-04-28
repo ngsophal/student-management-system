@@ -41,6 +41,7 @@ public class PaymentService {
     public JMessage create(JPayment jPayment) {
     	jPayment.setCreatedDate(new Date());
     	jPayment.setCreatedById(this.user.getId());
+    	System.out.println("user id = " + jPayment.getCreatedById());
     	try {
     		dao.add(jPayment);
             this.message.setMessage("Payment has been inserted successfully!");
