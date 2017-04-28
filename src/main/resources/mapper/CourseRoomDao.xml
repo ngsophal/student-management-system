@@ -88,4 +88,12 @@
         FROM courses_rooms
         WHERE status = 1
     </select>
+
+    <select id="getExistCourseRoom" parameterType="map" resultType="int">
+    	SELECT COUNT(id)
+		FROM courses_rooms
+		WHERE
+			course_id=${courseID} AND
+			room_id=${roomID} AND status = 1
+    </select>
 </mapper>

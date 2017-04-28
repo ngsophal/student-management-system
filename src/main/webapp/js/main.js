@@ -1,7 +1,8 @@
-﻿﻿function ApiHelper (formSelector, resource, version){
+﻿function ApiHelper (formSelector, resource, version){
 	this.formSelector = formSelector;
 	this.resource = resource;
 	this.version = version;
+
 
 	this.insert = function(){
 		var data = $(this.formSelector).serialize();
@@ -67,6 +68,18 @@
 			//headers : {'X-API-KEY' : 'sd3209Sdkl2DF3dfzsDGEsZ8476'},
 			async: isAsync
 		});
-	}
+	};
 
-};
+	this.getExistData = function(data, isAsync){
+		if(isAsync == null) isAsync = true;
+		return $.ajax({
+			url:'api/' + this.resource + '/' + this.version + '/getExistData',
+			type: 'GET',
+			dataType: 'JSON',
+			async: isAsync,
+			data : data
+		})
+
+	};
+
+}

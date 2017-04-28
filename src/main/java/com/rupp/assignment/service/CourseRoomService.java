@@ -80,4 +80,14 @@ public class CourseRoomService {
         }
     }
 
+    public Integer getExistCourseRoom(JCourseRoom courseRoom) {
+        Integer valid = 0;
+        valid = dao.getExistCourseRoom(courseRoom.getCourseId(), courseRoom.getRoomId());
+
+        if(valid > 0){
+            valid = 1;
+        }
+        return valid;
+    }
+
 }

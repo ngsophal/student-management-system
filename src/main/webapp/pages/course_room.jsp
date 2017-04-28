@@ -19,13 +19,13 @@
 							<div class="col-sm-12">
 								<div class="form-group">
 									<div class="form-line">
-										<select class="form-control course-id" id="course-id" name="courseId">
+										<select class="form-control course-id" id="course-id" name="courseId" required>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="form-line">
-										<select class="form-control room-id " id="room-id" name="roomId">
+										<select class="form-control room-id " id="room-id" name="roomId" required>
 										</select>
 									</div>
 								</div>
@@ -91,29 +91,42 @@ $(document).ready(function() {
 		apiHelper.version  = 'v1';
 
 		if($('#course-room-form').valid()){
-			if(isInsertMode()){
-	    		apiHelper.insert().done(function(r){
-					console.log(r)
-	    			if(r.status == 'SUCCESS'){
-		        		swal(r.message, "", "success");
-		        		resetForm();
-	    				$('#course-room-list').bootstrapTable('refresh');
-	    			}else{
-		        		swal(r.message, "", "error");
-	    			}
-	                
-	    		});
-	    	}else{
-	    		apiHelper.update(currentId).done(function(r){
-					console.log(r)
-	    			if(r.status == 'SUCCESS'){
-		        		swal(r.message, "", "success");
-	    				$('#course-room-list').bootstrapTable('refresh');
-	    			}else{
-		        		swal(r.message, "", "error");
-	    			}
-	    		});
-	    	}
+
+			var courseId = $('#course-id').val();
+			var roomId	 = $('#room-id').val();
+			var data = {
+				courseId	: courseId,
+				roomId		: roomId
+			}
+			apiHelper.getExistData(data).done(function(r){
+				if(r == 0) {
+					if (isInsertMode()) {
+						apiHelper.insert().done(function (r) {
+							console.log(r)
+							if (r.status == 'SUCCESS') {
+								swal(r.message, "", "success");
+								resetForm();
+								$('#course-room-list').bootstrapTable('refresh');
+							} else {
+								swal(r.message, "", "error");
+							}
+
+						});
+					} else {
+						apiHelper.update(currentId).done(function (r) {
+							console.log(r)
+							if (r.status == 'SUCCESS') {
+								swal(r.message, "", "success");
+								$('#course-room-list').bootstrapTable('refresh');
+							} else {
+								swal(r.message, "", "error");
+							}
+						});
+					}
+				}else{
+					swal("This Entry Already Existed! ", "", "error");
+				}
+			})
 		}
     });
 	

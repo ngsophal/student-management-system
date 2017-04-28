@@ -1,11 +1,8 @@
 package com.rupp.assignment.controller;
 
 import com.rupp.assignment.json.JCourseRoom;
-import com.rupp.assignment.json.JEnrollment;
 import com.rupp.assignment.json.JMessage;
-
 import io.swagger.annotations.ApiOperation;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +62,12 @@ public class CourseRoomController {
         return service.remove(Integer.parseInt(request.getParameter("id")));
     }
 
-    
+    @RequestMapping(value = "v1/getExistData", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "Check existing data in course room", notes = "Check existing data in course room", response = Integer.class)
+    public Integer getExistData(HttpServletRequest request, @ModelAttribute JCourseRoom courseRoom) {
+        return service.getExistCourseRoom(courseRoom);
+    }
+
+
 }
