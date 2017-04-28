@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +20,6 @@ import org.springframework.web.context.request.WebRequest;
 import com.rupp.assignment.json.BootstrapTableModel;
 import com.rupp.assignment.json.JEnrollment;
 import com.rupp.assignment.json.JMessage;
-import com.rupp.assignment.json.JUser;
 import com.rupp.assignment.json.JMessage.MessageType;
 
 import io.swagger.annotations.ApiOperation;

@@ -1,25 +1,25 @@
 package com.rupp.assignment.service;
 
-import com.rupp.assignment.dao.FeeDao;
-import com.rupp.assignment.dao.PaymentDao;
-import com.rupp.assignment.json.JMessage;
-import com.rupp.assignment.json.JMessage.MessageType;
-import com.rupp.assignment.json.JPayment;
-import com.rupp.assignment.json.JUser;
+import java.util.Date;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Date;
+import com.rupp.assignment.dao.PaymentDao;
+import com.rupp.assignment.json.JPayment;
+import com.rupp.assignment.json.JMessage;
+import com.rupp.assignment.json.JUser;
+import com.rupp.assignment.json.JMessage.MessageType;
 
 @Service
 public class PaymentService {
     @Autowired
     private PaymentDao dao;
     @Autowired
-    private FeeDao feeDao;
-    @Autowired
     private JUser user;
+	@Autowired
+    private FeeDao feeDao;
     @Autowired
     private JMessage message;
     
@@ -93,7 +93,7 @@ public class PaymentService {
     }
     
     public Integer getFee(int enrollmentid, int feetypeid){
-    	return feeDao.getFee(enrollmentid, feetypeid);
+    	return feeDao.getFee(enrollmentid, feetypeid);   
     }
     
     

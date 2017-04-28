@@ -3,7 +3,7 @@ package com.rupp.assignment.json;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value="Grade", description="JSON Model for showing grade details")
+@ApiModel(value="JGrade", description="JSON Model for showing grade details")
 public class JGrade extends JCommon {
 
     @ApiModelProperty( value = "Name", required = true ) 

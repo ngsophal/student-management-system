@@ -2,7 +2,6 @@ package com.rupp.assignment.controller;
 
 import com.rupp.assignment.json.JFee;
 import com.rupp.assignment.json.JMessage;
-import com.rupp.assignment.json.JUser;
 import com.rupp.assignment.json.JMessage.MessageType;
 
 import io.swagger.annotations.ApiOperation;

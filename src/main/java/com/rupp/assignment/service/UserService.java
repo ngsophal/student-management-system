@@ -8,10 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rupp.assignment.dao.UserDao;
-import com.rupp.assignment.dao.UserDao;
 import com.rupp.assignment.json.JUser;
 import com.rupp.assignment.json.JMessage;
-import com.rupp.assignment.json.JUser;
 import com.rupp.assignment.json.JMessage.MessageType;
 
 @Service

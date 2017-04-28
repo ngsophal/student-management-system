@@ -2,19 +2,36 @@ package com.rupp.assignment.json;
 
 import java.sql.Date;
 
-public class JReportStudentEnrollment {
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(value="JReportStudentEnrollment", description="JSON Model for showing student enrollment report")
+public class JReportStudentEnrollment {
+	
+    @ApiModelProperty( value = "First name", required = true ) 
     private String firstName;
+    @ApiModelProperty( value = "Last name", required = true ) 
     private String lastName;    
+    @ApiModelProperty( value = "Sex", required = true ) 
     private Integer sex;
+    @ApiModelProperty( value = "Date of birth", required = true ) 
     private Date dob;
+    @ApiModelProperty( value = "Address", required = true ) 
 	private String address;
+    @ApiModelProperty( value = "Contact person name", required = true ) 
     private String contactPersonName;
+    @ApiModelProperty( value = "Contact person relationship", required = true ) 
     private Integer contactPersonRelationship;
+    @ApiModelProperty( value = "Contact person phone number", required = true ) 
     private String contactPersonPhone;
+    @ApiModelProperty( value = "Student ID", required = true ) 
 	private Integer studentID;
+    @ApiModelProperty( value = "Course name", required = true ) 
 	private String courseName;
+    @ApiModelProperty( value = "Room Name", required = true ) 
 	private String roomName;
+    @ApiModelProperty( value = "Enrollment date", required = true ) 
+    
 	private Date entrollmentDate;
 
 

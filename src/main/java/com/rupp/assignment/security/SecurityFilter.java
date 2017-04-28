@@ -23,18 +23,12 @@ public class SecurityFilter implements Filter {
     private static final String HEADER_NAME_API_KEY = "X-API-Key";
 
     /**whilelistIps*/
-    private static final List<String>  WHITELISTED_IPS = new ArrayList<>();
 
     /**value*/
     private static final String API_KEY_VALUE = "sd3209Sdkl2DF3dfzsDGEsZ8476";
     @Override
     public void init(FilterConfig arg0) throws ServletException {
         LOG.info("init Security filter");
-
-        /**initialize ip address either here or you get from web.xml*/
-        WHITELISTED_IPS.add("127.0.0.1");
-        //WHITELISTED_IPS.add("192.168.0.1");
-        //WHITELISTED_IPS.add("10.1.2.29");
     }
     /* (non-Javadoc)
      * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
@@ -75,17 +69,6 @@ public class SecurityFilter implements Filter {
         return API_KEY_VALUE.equals(request.getHeader(HEADER_NAME_API_KEY))
                 || API_KEY_VALUE.equals(request.getParameter(API_KEY_PARAM));
     }
-
-
-    /**
-     * verify api key either request param or request Header
-     * @param request
-     * @return
-     */
-    private boolean verifyIpAddress(String ipAddress) {
-        return WHITELISTED_IPS.contains(ipAddress);
-    }
-
 
     @Override
     public void destroy() {
