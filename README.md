@@ -40,7 +40,7 @@ KMS is a system developed to manage student enrollment in a kindergarten school.
 git clone https://github.com/ngsophal/student-management-system.git
 ```
 
-2. Import database from kms.sql in the root of project
+2. Import database from ksm.sql in the root of project
 3. Update database connection configuration in pom.xml
 4. cd to project directory
 5. Install maven dependencies: ``` mvn install```
