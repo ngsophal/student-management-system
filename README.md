@@ -54,7 +54,7 @@ git clone https://github.com/ngsophal/student-management-system.git
 
 ## Documentation
 
-- [REST Documentation as html](https://github.com/ngsophal/student-management-system/raw/master/docs/index.html)
+- [REST Documentation as html](http://htmlpreview.github.io/?https://github.com/ngsophal/student-management-system/blob/master/docs/index.html)
 - [REST Documentation as pdf](https://github.com/ngsophal/student-management-system/raw/master/docs/index.pdf)
 - [Presentation Slide](https://github.com/ngsophal/student-management-system/raw/master/docs/slide.pdf)
 - [Demonstration Video](https://github.com/ngsophal/student-management-system/docs/slide.pdf)
