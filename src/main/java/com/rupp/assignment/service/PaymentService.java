@@ -1,16 +1,16 @@
 package com.rupp.assignment.service;
 
-import java.util.Date;
-import java.util.Collection;
-
+import com.rupp.assignment.dao.FeeDao;
+import com.rupp.assignment.dao.PaymentDao;
+import com.rupp.assignment.json.JMessage;
+import com.rupp.assignment.json.JMessage.MessageType;
+import com.rupp.assignment.json.JPayment;
+import com.rupp.assignment.json.JUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rupp.assignment.dao.PaymentDao;
-import com.rupp.assignment.json.JPayment;
-import com.rupp.assignment.json.JMessage;
-import com.rupp.assignment.json.JUser;
-import com.rupp.assignment.json.JMessage.MessageType;
+import java.util.Collection;
+import java.util.Date;
 
 @Service
 public class PaymentService {
